@@ -1,0 +1,41 @@
+{
+  "ndcg@5": 0.9832,
+  "baseline_ndcg@5": 0.6079,
+  "per_year": {
+    "2016": {
+      "ranker": 0.916,
+      "baseline": 0.415
+    },
+    "2019": {
+      "ranker": 1.0,
+      "baseline": 0.5332
+    },
+    "2020": {
+      "ranker": 1.0,
+      "baseline": 0.7023
+    },
+    "2022": {
+      "ranker": 1.0,
+      "baseline": 0.6838
+    },
+    "2024": {
+      "ranker": 1.0,
+      "baseline": 0.7054
+    }
+  },
+  "validation": "leave-one-year-out; gain = proxy grade (0-3), sklearn ndcg_score",
+  "label_method": "proxy_harm_quantiles",
+  "features": [
+    "z_income_median",
+    "z_income_mean",
+    "z_income_gap",
+    "z_poverty_rate",
+    "z_beds_per_1000",
+    "z_pct_65plus",
+    "z_pct_under5",
+    "z_density",
+    "z_pm25_mean",
+    "z_unhealthy_days_per_yr",
+    "z_log_population"
+  ]
+}
