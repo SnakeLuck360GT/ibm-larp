@@ -24,7 +24,8 @@ function useData(baseUrl) {
       opt(getJSON(`${baseUrl}data/forecast_metrics.json`)),
       opt(getJSON(`${baseUrl}data/states.json`)),
       opt(getJSON(`${baseUrl}data/forecast_live.json`)),
-    ]).then(([timeline, replay, metrics, states, hourly]) => live && setD({ status: 'ok', timeline, replay, metrics, states, hourly }))
+      opt(getJSON(`${baseUrl}data/waqi_now.json`)),
+    ]).then(([timeline, replay, metrics, states, hourly, waqi]) => live && setD({ status: 'ok', timeline, replay, metrics, states, hourly, waqi }))
       .catch(e => live && setD({ status: 'error', error: String(e.message || e) }))
     return () => { live = false }
   }, [baseUrl])
@@ -48,6 +49,29 @@ function arrivalLive(pm) {
   return null
 }
 
+// WAQI station reading for a state (null when the file or the state is missing).
+const num = v => (typeof v === 'number' && Number.isFinite(v) ? v : null)
+function waqiFor(waqi, key) {
+  const st = waqi && waqi.states
+  if (!st) return null
+  const name = Object.keys(st).find(n => NAME2KEY[n] === key)
+  const m = name && st[name]
+  if (!m || m.error || num(m.pm25_ugm3) == null) return null
+  return { ...m, pm: num(m.pm25_ugm3), aqi: num(m.aqi), pmAqi: num(m.pm25_aqi) }
+}
+function ago(iso) {
+  const t = Date.parse(iso)
+  if (!Number.isFinite(t)) return ''
+  const min = Math.round((Date.now() - t) / 60e3)
+  if (min < 1) return 'just now'
+  if (min < 60) return `${min} min ago`
+  if (min < 48 * 60) return `${Math.round(min / 60)} h ago`
+  return `${Math.round(min / 1440)} d ago`
+}
+const fmtTimeMYT = iso => {
+  try { return new Date(iso).toLocaleTimeString('en-GB', { timeZone: 'Asia/Kuala_Lumpur', hour: '2-digit', minute: '2-digit', hour12: false }) + ' MYT' } catch (e) { return '' }
+}
+
 export default function MapTab({ baseUrl = './', horizon = '24', setHorizon, stKey, select }) {
   const data = useData(baseUrl)
   const [mode, setMode] = useState('live')
@@ -55,6 +79,8 @@ export default function MapTab({ baseUrl = './', horizon = '24', setHorizon, stK
   const [dayIdx, setDayIdx] = useState(null)
   const [playing, setPlaying] = useState(false)
   const [sort, setSort] = useState('worst')
+  const [layer, setLayer] = useState('fc') // live map colour: 'fc' = CAMS window, 'now' = WAQI measured
+  useEffect(() => { setLayer('fc') }, [horizon])
   const sel = stKey || 'sl'
   const detailRef = useRef(null)
 
@@ -85,7 +111,8 @@ export default function MapTab({ baseUrl = './', horizon = '24', setHorizon, stK
     if (live) {
       return data.states.states.map(s => {
         const key = NAME2KEY[s.state]
-        return { key, name: NAMES[key] || s.state, today: null, v: s.pm25, arrival: arrivalLive(s.pm25) }
+        const m = waqiFor(data.waqi, key)
+        return { key, name: NAMES[key] || s.state, today: null, v: { ...s.pm25, now: m ? m.pm : null }, meas: m, arrival: arrivalLive(s.pm25) }
       }).filter(r => r.key)
     }
     return (data.timeline[day] || []).map(r => {
@@ -118,6 +145,10 @@ export default function MapTab({ baseUrl = './', horizon = '24', setHorizon, stK
       detailRef.current.scrollIntoView({ behavior: REDUCE ? 'auto' : 'smooth', block: 'start' })
     }
   }
+  const hasMeas = live && rows.some(r => r.meas)
+  const showNow = hasMeas && layer === 'now'
+  const mapH = showNow ? 'now' : horizon
+  const pickH = h => { setLayer('fc'); setHorizon && setHorizon(h) }
   const klangRow = byKey.sl // Klang, the demo's port town, is in Selangor
   const klangArr = klangRow ? klangRow.arrival : null
   const klangText = klangArr == null ? 'Clear for 72 h'
@@ -125,7 +156,7 @@ export default function MapTab({ baseUrl = './', horizon = '24', setHorizon, stK
       : klangArr === 0 ? 'Unhealthy now' : `Unhealthy ${arrivalFor(klangArr, scale)}`
 
   return (
-    <div className="map-root">
+    <div className={'map-root' + (live ? ' is-live' : '')}>
       <section className="card map-main" aria-label="Haze forecast map">
         <div className="map-bar">
           <div className="seg map-seg" role="group" aria-label="Data source">
@@ -143,10 +174,11 @@ export default function MapTab({ baseUrl = './', horizon = '24', setHorizon, stK
 
         <div className="map-read" aria-live="polite">
           <div className="map-when">
-            <b className="num">+{horizon} h</b>
+            <b className="num">{showNow ? 'Now' : `+${horizon} h`}</b>
             <span>
+              {showNow ? <><strong>Measured PM2.5 ≈ · station readings</strong><br />WAQI · fetched {fmtMYT(data.waqi.fetched_at)}</> : <>
               <strong>{live ? `${+horizon - 24}–${horizon} h ahead · to ${shortDate(+horizon)}` : targetLabel(horizon)}</strong><br />
-              {live ? `CAMS · fetched ${fmtMYT(t0)}` : `XGBoost · made ${fmtDay(day, { year: 'numeric' })}`}
+              {live ? `CAMS · fetched ${fmtMYT(t0)}` : `XGBoost · made ${fmtDay(day, { year: 'numeric' })}`}</>}
             </span>
           </div>
           {klangRow && (
@@ -157,9 +189,10 @@ export default function MapTab({ baseUrl = './', horizon = '24', setHorizon, stK
           )}
         </div>
 
-        <Trajectory rows={rows} scale={scale} horizon={horizon} setHorizon={setHorizon} live={live} dateOf={shortDate} />
+        <Trajectory rows={rows} scale={scale} horizon={mapH} setHorizon={pickH} live={live} dateOf={shortDate}
+          meas={hasMeas} onNow={() => setLayer('now')} />
 
-        <StateMap rows={rows} scale={scale} horizon={horizon} sel={sel} onSelect={choose} view={view} dateLabel={targetLabel(horizon)} />
+        <StateMap rows={rows} scale={scale} horizon={mapH} sel={sel} onSelect={choose} view={view} dateLabel={showNow ? 'measured now' : targetLabel(horizon)} />
 
         {!live && (
           <Scrubber days={days} timeline={data.timeline} di={di} horizon={horizon} defaultDay={defaultDay}
@@ -167,16 +200,16 @@ export default function MapTab({ baseUrl = './', horizon = '24', setHorizon, stK
             onDay={i => { setPlaying(false); setDayIdx(i) }} />
         )}
 
-        <Legend scale={scale} />
-        <About live={live} metrics={data.metrics} t0={t0} />
+        <Legend scale={scale} measured={showNow} credit={live && !!data.waqi} />
+        <About live={live} metrics={data.metrics} t0={t0} waqi={live ? data.waqi : null} />
       </section>
 
-      <Matrix rows={rows} scale={scale} horizon={horizon} setHorizon={setHorizon} sel={sel} onSelect={choose}
-        sort={sort} setSort={setSort} dateOf={shortDate} live={live} />
+      <Matrix rows={rows} scale={scale} horizon={mapH} setHorizon={pickH} sel={sel} onSelect={choose}
+        sort={sort} setSort={setSort} dateOf={shortDate} live={live} onNow={hasMeas ? () => setLayer('now') : null} />
 
       <div ref={detailRef} className="map-detailwrap">
         <Detail r={byKey[sel]} rkey={sel} scale={scale} horizon={horizon} setHorizon={setHorizon} live={live} day={day} days={days}
-          timeline={data.timeline} metrics={data.metrics} t0={t0} hourly={hourly && hourly[sel]}
+          timeline={data.timeline} metrics={data.metrics} t0={t0} hourly={hourly && hourly[sel]} waqiOk={!!data.waqi}
           dateOf={h => (live ? fmtLiveDay(t0, h) : fmtDay(addDays(day, h / 24)))} />
         {!live && <ModelStrip metrics={data.metrics} horizon={horizon} />}
       </div>
@@ -192,11 +225,13 @@ function fmtLiveDay(iso, h, short) {
 }
 
 /* Is the haze getting worse or better over the next 72 h? States over the line + the peak, per horizon. */
-function Trajectory({ rows, scale, horizon, setHorizon, live, dateOf }) {
-  const cols = HS.map(h => {
+function Trajectory({ rows, scale, horizon, setHorizon, live, dateOf, meas, onNow }) {
+  const colOf = h => {
     const vs = rows.map(r => ({ r, v: r.v[h] })).filter(o => o.v != null).sort((a, b) => b.v - a.v)
     return { h, n: vs.filter(o => scale.bad(o.v)).length, top: vs[0], vs }
-  })
+  }
+  const cols = HS.map(colOf)
+  const nowCol = meas ? colOf('now') : null
   const [a, , c] = cols
   const pk = o => (o.top ? o.top.v : 0)
   const trend = c.n !== a.n ? (c.n > a.n ? 'up' : 'dn') : Math.abs(pk(c) - pk(a)) > pk(a) * 0.1 ? (pk(c) > pk(a) ? 'up' : 'dn') : 'flat'
@@ -207,7 +242,21 @@ function Trajectory({ rows, scale, horizon, setHorizon, live, dateOf }) {
         <span className="label">{live ? <>States above the 35 µg/m³ standard</> : <>States unhealthy (API 101+)</>}</span>
         <span className={'map-traj-tr ' + trend}>{word} over 72 h</span>
       </div>
-      <div className="map-traj-cells">
+      <div className={'map-traj-cells' + (nowCol ? ' has-now' : '')}>
+        {nowCol && (
+          <button type="button" className={'map-traj-c meas' + (horizon === 'now' ? ' on' : '')} aria-pressed={horizon === 'now'} onClick={onNow}
+            title="Measured at stations (WAQI), converted from US AQI"
+            aria-label={`Measured now: ${nowCol.n} of ${nowCol.vs.length} states above 35 µg/m³; highest ${nowCol.top ? `${fmtV(nowCol.top.v, scale)} µg/m³ in ${nowCol.top.r.name}` : 'n/a'}. Show on map.`}>
+            <span className="map-traj-k"><span><b>Now</b> <small>measured</small></span></span>
+            <span className="map-traj-m">
+              <span className="map-traj-n num">{nowCol.n}<small>/{nowCol.vs.length}</small></span>
+              <span className="map-traj-pk"><span>Peak <b className="num">≈{nowCol.top ? fmtV(nowCol.top.v, scale) : '–'}</b></span><span>{nowCol.top && (SHORT[nowCol.top.r.key] || nowCol.top.r.name)}</span></span>
+            </span>
+            <span className="map-traj-strip" aria-hidden="true">
+              {nowCol.vs.map(({ r, v }) => <i key={r.key} style={{ background: (scale.bands[scale.band(v)] || {}).c }} />)}
+            </span>
+          </button>
+        )}
         {cols.map((o, i) => {
           const d = i ? o.n - cols[i - 1].n : null
           return (
@@ -233,7 +282,15 @@ function Trajectory({ rows, scale, horizon, setHorizon, live, dateOf }) {
 }
 
 /* Every method note and caveat lives here, collapsed by default. */
-function About({ live, metrics, t0 }) {
+function About({ live, metrics, t0, waqi }) {
+  const credits = []
+  if (waqi && waqi.states) {
+    const seen = new Set()
+    Object.values(waqi.states).forEach(m => (m.attributions || []).forEach(a => {
+      if (a && a.name && !seen.has(a.name)) { seen.add(a.name); credits.push(a) }
+    }))
+  }
+  const stations = waqi && waqi.states ? Object.entries(waqi.states).filter(([, m]) => m && m.station) : []
   const st = (metrics && metrics.mae_by_state_all_horizons) || {}
   const wins = Object.values(st).filter(s => s.xgb_with_fire < s.arima).length
   const total = Object.keys(st).length
@@ -247,6 +304,12 @@ function About({ live, metrics, t0 }) {
           <li>Unit is µg/m³ of PM2.5, not the Air Pollutant Index, so the colours use their own bands: WHO 2021 guideline 15, Malaysian standard (MAAQS 2020) 35, 2015 interim limit 75. The standard is a 24-h mean, so a single hour above 35 is not a breach.</li>
           <li>Arrives = the first 24-h window whose mean is above 35 µg/m³.</li>
           <li>Our own XGBoost haze model forecasts the API index and is scored in the Sep 2019 replay.</li>
+          <li>Measured = live station readings from the World Air Quality Index Project (aqicn.org), DOE Malaysia stations, one station nearest each state capital{waqi && waqi.fetched_at ? `, fetched ${fmtMYT(waqi.fetched_at)}` : ''}. These are observations, not a forecast; CAMS values are forecasts.</li>
+          <li>WAQI reports PM2.5 as a US AQI sub-index. The µg/m³ shown (≈) is converted back with US EPA breakpoints, so it is approximate. The raw US AQI is shown beside it in the state panel.</li>
+          <li>A station reading is one point at one hour; CAMS is a ~45 km grid cell, so the two can differ.</li>
+          {!waqi && <li>Measured readings are unavailable right now (waqi_now.json not loaded).</li>}
+          {credits.length > 0 && <li>Data sources: {credits.map((a, i) => <span key={a.name}>{i ? ' · ' : ''}{a.url ? <a href={a.url} target="_blank" rel="noopener noreferrer">{a.name}</a> : a.name}</span>)}</li>}
+          {stations.length > 0 && <li>Stations: {stations.map(([n, m], i) => <span key={n}>{i ? ' · ' : ''}{n}: {m.station_url ? <a href={m.station_url} target="_blank" rel="noopener noreferrer">{m.station}</a> : m.station}</span>)}</li>}
         </> : <>
           <li>XGBoost haze model, 17 inputs: past API, wind, rain, season and NASA FIRMS fire hotspots. Trained on 2013 to 28 Aug 2019, so the Sep 2019 haze was never in its training data.</li>
           <li>Baseline: ARIMA on each state's API history.{total > 0 && <> Average error over {metrics.rows_per_model?.toLocaleString('en-MY')} state-days, 1 Sep to 6 Oct 2019; XGBoost beat ARIMA in {wins} of {total} states.</>}</li>
@@ -295,13 +358,16 @@ function Scrubber({ days, timeline, di, horizon, defaultDay, playing, onPlay, on
   )
 }
 
-function Legend({ scale }) {
+function Legend({ scale, measured, credit }) {
   return (
     <div className="map-legend" role="note" aria-label={`Colour key: ${scale.unitLong}`}>
-      <span className="map-legend-t">{scale.id === 'api' ? 'Air Pollutant Index (API)' : 'PM2.5, µg/m³, 24-h mean'}</span>
+      <span className="map-legend-t">{scale.id === 'api' ? 'Air Pollutant Index (API)' : measured ? 'PM2.5, µg/m³, measured ≈' : 'PM2.5, µg/m³, 24-h mean'}</span>
       {scale.bands.map(b => (
         <span key={b.label} className="map-key"><i style={{ background: b.c }} /><b title={b.label}>{b.short || b.label}</b><span className="num">{b.range}</span></span>
       ))}
+      {credit && (
+        <span className="map-credit">Measured: <a href="https://aqicn.org/" target="_blank" rel="noopener noreferrer">World Air Quality Index Project (aqicn.org)</a> · DOE Malaysia stations</span>
+      )}
     </div>
   )
 }
@@ -336,7 +402,7 @@ function ModelStrip({ metrics, horizon }) {
 }
 
 /* Selected state: forecast, arrival, chart, and (replay) how the model did there. */
-function Detail({ r, rkey, scale, horizon, setHorizon, live, day, days, timeline, metrics, t0, hourly, dateOf }) {
+function Detail({ r, rkey, scale, horizon, setHorizon, live, day, days, timeline, metrics, t0, hourly, dateOf, waqiOk }) {
   if (!r) return <section className="card map-detail"><div className="map-d-sec hint">No forecast for {NAMES[rkey] || 'this state'}.</div></section>
   const v = r.v[horizon], bi = scale.band(v), b = scale.bands[bi]
   const arrH = r.arrival
@@ -386,6 +452,17 @@ function Detail({ r, rkey, scale, horizon, setHorizon, live, day, days, timeline
     }
   }
 
+  // Measured now (WAQI) and the CAMS hourly forecast for the same hour.
+  const m = live ? r.meas : null
+  let mH = null, camsAt = null
+  if (m && hourly) {
+    const h = (Date.parse(m.time) - Date.parse(t0)) / 3600e3
+    if (Number.isFinite(h) && h > -3 && h <= hourly.length - 1) {
+      mH = Math.max(0, h)
+      camsAt = num(hourly[Math.round(mH)])
+    }
+  }
+  const mb = m && scale.bands[scale.band(m.pm)]
   const ms = !live && metrics && metrics.mae_by_state_all_horizons && metrics.mae_by_state_all_horizons[r.zone]
   const peakV = Math.max(...HS.map(h => r.v[h] ?? 0))
   return (
@@ -408,6 +485,23 @@ function Detail({ r, rkey, scale, horizon, setHorizon, live, day, days, timeline
           ? `Peak window: ${fmtV(peakV, scale)} ${scale.unit}`
           : live ? `to ${dateOf(arrH)}` : arrH === 0 ? `Today's API ${r.today}` : dateOf(arrH)}</span>
       </div>
+      {live && (
+        <div className="map-meas" aria-label="Measured now">
+          <span className="label">Measured now</span>
+          {m ? <>
+            <b className="num" title="Converted from the US AQI PM2.5 sub-index; approximate">
+              <i style={{ background: mb && mb.c }} />≈{fmtV(m.pm, scale)}<small> µg/m³</small>
+            </b>
+            <span className="map-meas-aqi num" title="US AQI as reported by WAQI">US AQI {m.aqi ?? '–'}{m.pmAqi != null && m.pmAqi !== m.aqi ? ` · PM2.5 ${m.pmAqi}` : ''}</span>
+            <span className="map-meas-st">
+              {m.station_url ? <a href={m.station_url} target="_blank" rel="noopener noreferrer">{m.station}</a> : m.station}
+              <span className="hint"> · {fmtTimeMYT(m.time)} · {ago(m.time)}</span>
+            </span>
+            {camsAt != null && <span className="map-meas-gap hint">CAMS forecast <b className="num">{fmtV(camsAt, scale)}</b> · measured <b className="num">≈{fmtV(m.pm, scale)}</b></span>}
+          </> : <b className="num">–</b>}
+          {!m && <span className="hint">{waqiOk ? 'No station reading' : 'Unavailable'}</span>}
+        </div>
+      )}
       <div className="map-steps" role="list" aria-label="Forecast by window">
         {steps.map(s => {
           const sb = scale.bands[scale.band(s.v)]
@@ -421,9 +515,11 @@ function Detail({ r, rkey, scale, horizon, setHorizon, live, day, days, timeline
       </div>
       <div className="map-d-sec">
         {live && hourly ? <>
-          <LiveChart hourly={hourly} means={r.v} scale={scale} horizon={horizon} setHorizon={setHorizon} issuedAt={t0} name={r.name} height={176} />
+          <LiveChart hourly={hourly} means={r.v} scale={scale} horizon={horizon} setHorizon={setHorizon} issuedAt={t0} name={r.name} height={176}
+            measured={m && mH != null ? { h: mH, v: m.pm } : null} />
           <div className="map-ch-key">
             <span><i className="sw map-s-cams" />CAMS hourly PM2.5</span>
+            {m && mH != null && <span><i className="sw map-s-meas" />Measured ≈ (WAQI)</span>}
             <span><i className="sw map-s-mean" />24-h window mean (map colour)</span>
             <span><i className="sw map-s-std" />35 µg/m³ standard</span>
           </div>

@@ -62,14 +62,16 @@ export default function StateMap({ rows, scale, horizon, sel, onSelect, view, da
   }
   const tip = hover && tipFor(hover)
 
+  const now = horizon === 'now'
+  const when = now ? 'measured now' : `at +${horizon} h`
   const label = r => {
     const v = r.v[horizon], b = scale.bands[scale.band(v)]
-    return `${r.name}: ${fmtV(v, scale)} ${scale.unit} at +${horizon} h, ${b ? b.label.toLowerCase() : 'no data'}. Haze ${scale.id === 'api' ? 'unhealthy' : 'above standard'}: ${arrivalFor(r.arrival, scale, true).toLowerCase()}.`
+    return `${r.name}: ${now && v != null ? 'about ' : ''}${fmtV(v, scale)} ${scale.unit} ${when}, ${b ? b.label.toLowerCase() : 'no data'}. Haze ${scale.id === 'api' ? 'unhealthy' : 'above standard'}: ${arrivalFor(r.arrival, scale, true).toLowerCase()}.`
   }
 
   return (
     <div className="map-canvas" ref={wrap} onMouseLeave={() => setHover(null)}>
-      <svg viewBox={vb.join(' ')} preserveAspectRatio="xMidYMid meet" role="group" aria-label={`Map of Malaysia coloured by forecast ${scale.unitLong} at +${horizon} hours, ${dateLabel}. Select a state for its forecast.`}>
+      <svg viewBox={vb.join(' ')} preserveAspectRatio="xMidYMid meet" role="group" aria-label={`Map of Malaysia coloured by ${now ? 'measured PM2.5 now' : `forecast ${scale.unitLong} at +${horizon} hours, ${dateLabel}`}. Select a state for its forecast.`}>
         {DRAW_ORDER.map(key => {
           const g = MY_GEO[key], r = byKey[key]
           const v = r && r.v[horizon], b = scale.band(v)
@@ -116,7 +118,8 @@ export default function StateMap({ rows, scale, horizon, sel, onSelect, view, da
       {tip && w > 0 && (
         <div className="map-tip" style={{ left: Math.max(90, Math.min(w - 90, tip.x)), top: Math.max(56, tip.y) }} role="presentation">
           <b>{tip.r.name}</b>
-          <span><i style={{ background: (scale.bands[scale.band(tip.r.v[horizon])] || {}).c }} />{fmtV(tip.r.v[horizon], scale)} {scale.unit} at +{horizon} h · {(scale.bands[scale.band(tip.r.v[horizon])] || {}).label}</span>
+          <span><i style={{ background: (scale.bands[scale.band(tip.r.v[horizon])] || {}).c }} />{now && tip.r.v[horizon] != null ? '≈' : ''}{fmtV(tip.r.v[horizon], scale)} {scale.unit} {when} · {(scale.bands[scale.band(tip.r.v[horizon])] || {}).label || 'no reading'}</span>
+          {now && tip.r.meas && <span>US AQI {tip.r.meas.aqi ?? '–'} · {tip.r.meas.station}</span>}
           <span>{scale.id === 'api' ? 'Unhealthy' : 'Above standard'}: {arrivalFor(tip.r.arrival, scale, true).replace('Already unhealthy today', 'already, today')}</span>
         </div>
       )}

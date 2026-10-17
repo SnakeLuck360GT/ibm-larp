@@ -5,7 +5,7 @@ const HS = ['24', '48', '72']
 
 // The live 72-hour CAMS curve for one state: hourly PM2.5, the three 24-h windows the map is coloured by
 // (with each window's mean), the 35 µg/m³ standard and a "now" marker. Hover for the hourly value.
-export default function LiveChart({ hourly, means, scale, horizon, issuedAt, setHorizon, name, height = 150 }) {
+export default function LiveChart({ hourly, means, scale, horizon, issuedAt, setHorizon, name, height = 150, measured }) {
   const ref = useRef(null)
   const [w, setW] = useState(320)
   const [hi, setHi] = useState(null)
@@ -21,7 +21,7 @@ export default function LiveChart({ hourly, means, scale, horizon, issuedAt, set
   const n = hourly.length
   const t0 = Date.parse(issuedAt)
   const vals = hourly.filter(v => v != null)
-  const top = Math.max(scale.line * 1.3, ...vals) * 1.06
+  const top = Math.max(scale.line * 1.3, ...vals, measured ? measured.v : 0) * 1.06
   const step = top > 120 ? 50 : top > 60 ? 20 : 10
   const yMax = Math.ceil(top / step) * step
   const x = hr => L + (hr / 72) * (w - L - R)
@@ -44,7 +44,7 @@ export default function LiveChart({ hourly, means, scale, horizon, issuedAt, set
   const peak = vals.length ? Math.max(...vals) : null
   const peakI = hourly.indexOf(peak)
   const aria = `${name}: hourly PM2.5 forecast for the next 72 hours, from ${fmtV(hourly[0], scale)} now to ${fmtV(hourly[n - 1], scale)} µg/m³; peak ${fmtV(peak, scale)} at +${peakI} h. ` +
-    HS.map(h => `${+h - 24} to ${h} h mean ${fmtV(means[h], scale)}`).join(', ') + '.'
+    HS.map(h => `${+h - 24} to ${h} h mean ${fmtV(means[h], scale)}`).join(', ') + '.' + (measured ? ` Measured now about ${fmtV(measured.v, scale)} µg/m³.` : '')
 
   return (
     <div className="map-chart map-lc" ref={ref} onMouseMove={onMove} onMouseLeave={() => setHi(null)}>
@@ -80,6 +80,10 @@ export default function LiveChart({ hourly, means, scale, horizon, issuedAt, set
         {showNow && <g pointerEvents="none">
           <line x1={x(nowH)} x2={x(nowH)} y1={T} y2={H - B} className="map-lc-now" />
           <text x={x(nowH) + 3} y={H - B - 4} className="map-lc-nowlbl">Now</text>
+        </g>}
+        {measured && <g pointerEvents="none" className="map-lc-meas">
+          <circle cx={x(measured.h)} cy={y(measured.v)} r={5} />
+          <text x={x(measured.h) + 8} y={y(measured.v)} dominantBaseline="central" textAnchor="start">Measured ≈{fmtV(measured.v, scale)}</text>
         </g>}
         {hi != null && hourly[hi] != null && <g pointerEvents="none">
           <line x1={x(hi)} x2={x(hi)} y1={T} y2={H - B} className="map-ch-cross" />
