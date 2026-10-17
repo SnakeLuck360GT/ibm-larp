@@ -1,0 +1,26 @@
+# Secrets: never commit these
+*.pem
+*.key
+.env
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Data (large, can be re-downloaded)
+data/raw/
+*.nc
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Frontend (for later)
+node_modules/
+web/dist/data/processed/api_states.csv
+data/processed/api_states.csv
