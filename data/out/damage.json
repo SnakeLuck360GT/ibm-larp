@@ -1,0 +1,1185 @@
+{
+  "episode": {
+    "start": "2026-08-15",
+    "end": "2026-10-16",
+    "days": 63
+  },
+  "method": "Damage = Daily Economic Value x Loss Rate(API band) x Share of activity affected x Days, per sector",
+  "national": {
+    "total_damage_rm": 1397713521.0,
+    "by_category_rm": {
+      "tourism_loss": 837031573.0,
+      "agriculture_loss": 50201822.0,
+      "transport_loss": 24897509.0,
+      "construction_outdoor_loss": 230240262.0,
+      "productivity_loss": 231581416.0,
+      "health": 23760939.0
+    },
+    "memo_not_in_total_rm": {
+      "school_closure": 208563975.0,
+      "response": 450000.0,
+      "mortality": 0.0
+    },
+    "ci90_rm": [
+      859868664.0,
+      2003321406.0
+    ],
+    "damage_per_day_rm": 22185929.0,
+    "daily_economic_value_rm": {
+      "tourism_loss": 635342466.0,
+      "agriculture_loss": 302391781.0,
+      "transport_loss": 176429286.0,
+      "construction_outdoor_loss": 268668627.0,
+      "productivity_loss": 3893058251.0
+    }
+  },
+  "forecast_72h": {
+    "source": "persistence (mean of last 3 days) — forecast.json not found",
+    "scenarios": {
+      "best": {
+        "label": "Mild haze, clears after 2 days, low loss rates",
+        "total_72h_rm": 12107560.0,
+        "by_sector_rm": {
+          "tourism_loss": 8404226.0,
+          "agriculture_loss": 334297.0,
+          "transport_loss": 0.0,
+          "construction_outdoor_loss": 1287651.0,
+          "productivity_loss": 1944698.0,
+          "health": 136688.0
+        },
+        "by_state_rm": {
+          "Johor": 2799283.0,
+          "Kedah": 0.0,
+          "Kelantan": 1489.0,
+          "Melaka": 714006.0,
+          "Negeri Sembilan": 3776.0,
+          "Pahang": 0.0,
+          "Perak": 9212.0,
+          "Perlis": 0.0,
+          "Pulau Pinang": 1213.0,
+          "Sabah": 0.0,
+          "Sarawak": 1306.0,
+          "Selangor": 3907352.0,
+          "Terengganu": 756.0,
+          "W.P. Kuala Lumpur": 4416222.0,
+          "W.P. Labuan": 20.0,
+          "W.P. Putrajaya": 252926.0
+        },
+        "by_horizon_rm": {
+          "24": 6053780.0,
+          "48": 6053780.0
+        },
+        "if_prolonged_rm": 12107560.0,
+        "affected_days": 2
+      },
+      "expected": {
+        "label": "Forecast severity for 72 h, central loss rates",
+        "total_72h_rm": 97485676.0,
+        "by_sector_rm": {
+          "tourism_loss": 62417606.0,
+          "agriculture_loss": 2519683.0,
+          "transport_loss": 1690760.0,
+          "construction_outdoor_loss": 15963041.0,
+          "productivity_loss": 13592647.0,
+          "health": 1301940.0
+        },
+        "by_state_rm": {
+          "Johor": 19334950.0,
+          "Kedah": 11115.0,
+          "Kelantan": 234225.0,
+          "Melaka": 6372983.0,
+          "Negeri Sembilan": 339644.0,
+          "Pahang": 9159.0,
+          "Perak": 2553322.0,
+          "Perlis": 230.0,
+          "Pulau Pinang": 852189.0,
+          "Sabah": 17674.0,
+          "Sarawak": 580471.0,
+          "Selangor": 31231270.0,
+          "Terengganu": 247623.0,
+          "W.P. Kuala Lumpur": 33962929.0,
+          "W.P. Labuan": 56310.0,
+          "W.P. Putrajaya": 1681583.0
+        },
+        "by_horizon_rm": {
+          "24": 32495225.0,
+          "48": 32495225.0,
+          "72": 32495225.0
+        },
+        "if_prolonged_rm": 97485676.0,
+        "affected_days": 3
+      },
+      "worst": {
+        "label": "Severe haze for 72 h, high loss rates, persists 4 more days",
+        "total_72h_rm": 202654031.0,
+        "by_sector_rm": {
+          "tourism_loss": 121149412.0,
+          "agriculture_loss": 6896890.0,
+          "transport_loss": 4264038.0,
+          "construction_outdoor_loss": 34484675.0,
+          "productivity_loss": 29447874.0,
+          "health": 6411143.0
+        },
+        "by_state_rm": {
+          "Johor": 35172402.0,
+          "Kedah": 1017151.0,
+          "Kelantan": 553614.0,
+          "Melaka": 15782122.0,
+          "Negeri Sembilan": 6774769.0,
+          "Pahang": 1147218.0,
+          "Perak": 13726737.0,
+          "Perlis": 142190.0,
+          "Pulau Pinang": 1780833.0,
+          "Sabah": 1523093.0,
+          "Sarawak": 1261661.0,
+          "Selangor": 59018959.0,
+          "Terengganu": 547950.0,
+          "W.P. Kuala Lumpur": 61066683.0,
+          "W.P. Labuan": 115997.0,
+          "W.P. Putrajaya": 3022652.0
+        },
+        "by_horizon_rm": {
+          "24": 67551344.0,
+          "48": 67551344.0,
+          "72": 67551344.0
+        },
+        "if_prolonged_rm": 472859406.0,
+        "affected_days": 7
+      }
+    }
+  },
+  "states": [
+    {
+      "state": "W.P. Kuala Lumpur",
+      "lat": 3.14,
+      "lon": 101.69,
+      "population": 2020000,
+      "damage_to_date_rm": 428572989.0,
+      "by_category_rm": {
+        "tourism_loss": 300480000.0,
+        "agriculture_loss": 0.0,
+        "transport_loss": 8441783.0,
+        "construction_outdoor_loss": 65865874.0,
+        "productivity_loss": 51390594.0,
+        "health": 2394739.0
+      },
+      "memo_not_in_total_rm": {
+        "school_closure": 24997500.0,
+        "response": 0.0,
+        "mortality": 0.0
+      },
+      "damage_pct_gdp": 0.1617,
+      "forecast_damage_rm": {
+        "24": 11320976.0,
+        "48": 11320976.0,
+        "72": 11320976.0
+      },
+      "forecast_72h_scenarios_rm": {
+        "best": 4416222.0,
+        "expected": 33962929.0,
+        "worst": 61066683.0
+      },
+      "api_latest": 112.4
+    },
+    {
+      "state": "Selangor",
+      "lat": 3.07,
+      "lon": 101.52,
+      "population": 7400000,
+      "damage_to_date_rm": 401339968.0,
+      "by_category_rm": {
+        "tourism_loss": 193647830.0,
+        "agriculture_loss": 6782378.0,
+        "transport_loss": 9236028.0,
+        "construction_outdoor_loss": 91723317.0,
+        "productivity_loss": 91177609.0,
+        "health": 8772805.0
+      },
+      "memo_not_in_total_rm": {
+        "school_closure": 93906000.0,
+        "response": 150000.0,
+        "mortality": 0.0
+      },
+      "damage_pct_gdp": 0.0872,
+      "forecast_damage_rm": {
+        "24": 10410423.0,
+        "48": 10410423.0,
+        "72": 10410423.0
+      },
+      "forecast_72h_scenarios_rm": {
+        "best": 3907352.0,
+        "expected": 31231270.0,
+        "worst": 59018959.0
+      },
+      "api_latest": 112.4
+    },
+    {
+      "state": "Sarawak",
+      "lat": 1.55,
+      "lon": 110.36,
+      "population": 2550000,
+      "damage_to_date_rm": 229411429.0,
+      "by_category_rm": {
+        "tourism_loss": 102494384.0,
+        "agriculture_loss": 24980548.0,
+        "transport_loss": 3843388.0,
+        "construction_outdoor_loss": 38303507.0,
+        "productivity_loss": 56134572.0,
+        "health": 3655032.0
+      },
+      "memo_not_in_total_rm": {
+        "school_closure": 56801250.0,
+        "response": 300000.0,
+        "mortality": 0.0
+      },
+      "damage_pct_gdp": 0.1495,
+      "forecast_damage_rm": {
+        "24": 193490.0,
+        "48": 193490.0,
+        "72": 193490.0
+      },
+      "forecast_72h_scenarios_rm": {
+        "best": 1306.0,
+        "expected": 580471.0,
+        "worst": 1261661.0
+      },
+      "api_latest": 40.3
+    },
+    {
+      "state": "Johor",
+      "lat": 1.49,
+      "lon": 103.74,
+      "population": 4180000,
+      "damage_to_date_rm": 125604483.0,
+      "by_category_rm": {
+        "tourism_loss": 82830325.0,
+        "agriculture_loss": 8524867.0,
+        "transport_loss": 1266552.0,
+        "construction_outdoor_loss": 16903593.0,
+        "productivity_loss": 12899341.0,
+        "health": 3179805.0
+      },
+      "memo_not_in_total_rm": {
+        "school_closure": 23512500.0,
+        "response": 0.0,
+        "mortality": 0.0
+      },
+      "damage_pct_gdp": 0.0735,
+      "forecast_damage_rm": {
+        "24": 6444983.0,
+        "48": 6444983.0,
+        "72": 6444983.0
+      },
+      "forecast_72h_scenarios_rm": {
+        "best": 2799283.0,
+        "expected": 19334950.0,
+        "worst": 35172402.0
+      },
+      "api_latest": 145.4
+    },
+    {
+      "state": "Melaka",
+      "lat": 2.19,
+      "lon": 102.25,
+      "population": 1050000,
+      "damage_to_date_rm": 46905719.0,
+      "by_category_rm": {
+        "tourism_loss": 38510724.0,
+        "agriculture_loss": 1286853.0,
+        "transport_loss": 313073.0,
+        "construction_outdoor_loss": 3073005.0,
+        "productivity_loss": 3089256.0,
+        "health": 632807.0
+      },
+      "memo_not_in_total_rm": {
+        "school_closure": 1181250.0,
+        "response": 0.0,
+        "mortality": 0.0
+      },
+      "damage_pct_gdp": 0.0933,
+      "forecast_damage_rm": {
+        "24": 2124328.0,
+        "48": 2124328.0,
+        "72": 2124328.0
+      },
+      "forecast_72h_scenarios_rm": {
+        "best": 714006.0,
+        "expected": 6372983.0,
+        "worst": 15782122.0
+      },
+      "api_latest": 80.1
+    },
+    {
+      "state": "Negeri Sembilan",
+      "lat": 2.73,
+      "lon": 101.94,
+      "population": 1230000,
+      "damage_to_date_rm": 37406215.0,
+      "by_category_rm": {
+        "tourism_loss": 24298813.0,
+        "agriculture_loss": 2499993.0,
+        "transport_loss": 459332.0,
+        "construction_outdoor_loss": 3978373.0,
+        "productivity_loss": 5279348.0,
+        "health": 890355.0
+      },
+      "memo_not_in_total_rm": {
+        "school_closure": 4621725.0,
+        "response": 0.0,
+        "mortality": 0.0
+      },
+      "damage_pct_gdp": 0.067,
+      "forecast_damage_rm": {
+        "24": 113215.0,
+        "48": 113215.0,
+        "72": 113215.0
+      },
+      "forecast_72h_scenarios_rm": {
+        "best": 3776.0,
+        "expected": 339644.0,
+        "worst": 6774769.0
+      },
+      "api_latest": 50.6
+    },
+    {
+      "state": "Perak",
+      "lat": 4.6,
+      "lon": 101.09,
+      "population": 2550000,
+      "damage_to_date_rm": 32171126.0,
+      "by_category_rm": {
+        "tourism_loss": 20979321.0,
+        "agriculture_loss": 3017244.0,
+        "transport_loss": 403778.0,
+        "construction_outdoor_loss": 3114861.0,
+        "productivity_loss": 3464506.0,
+        "health": 1191417.0
+      },
+      "memo_not_in_total_rm": {
+        "school_closure": 2868750.0,
+        "response": 0.0,
+        "mortality": 0.0
+      },
+      "damage_pct_gdp": 0.0352,
+      "forecast_damage_rm": {
+        "24": 851107.0,
+        "48": 851107.0,
+        "72": 851107.0
+      },
+      "forecast_72h_scenarios_rm": {
+        "best": 9212.0,
+        "expected": 2553322.0,
+        "worst": 13726737.0
+      },
+      "api_latest": 99.9
+    },
+    {
+      "state": "Pulau Pinang",
+      "lat": 5.41,
+      "lon": 100.33,
+      "population": 1800000,
+      "damage_to_date_rm": 31252604.0,
+      "by_category_rm": {
+        "tourism_loss": 24145479.0,
+        "agriculture_loss": 374836.0,
+        "transport_loss": 292372.0,
+        "construction_outdoor_loss": 2496405.0,
+        "productivity_loss": 3390013.0,
+        "health": 553498.0
+      },
+      "memo_not_in_total_rm": {
+        "school_closure": 0.0,
+        "response": 0.0,
+        "mortality": 0.0
+      },
+      "damage_pct_gdp": 0.024,
+      "forecast_damage_rm": {
+        "24": 284063.0,
+        "48": 284063.0,
+        "72": 284063.0
+      },
+      "forecast_72h_scenarios_rm": {
+        "best": 1213.0,
+        "expected": 852189.0,
+        "worst": 1780833.0
+      },
+      "api_latest": 57.6
+    },
+    {
+      "state": "Sabah",
+      "lat": 5.98,
+      "lon": 116.07,
+      "population": 3550000,
+      "damage_to_date_rm": 17763989.0,
+      "by_category_rm": {
+        "tourism_loss": 13755353.0,
+        "agriculture_loss": 1158049.0,
+        "transport_loss": 110696.0,
+        "construction_outdoor_loss": 919627.0,
+        "productivity_loss": 1025214.0,
+        "health": 795049.0
+      },
+      "memo_not_in_total_rm": {
+        "school_closure": 0.0,
+        "response": 0.0,
+        "mortality": 0.0
+      },
+      "damage_pct_gdp": 0.02,
+      "forecast_damage_rm": {
+        "24": 5891.0,
+        "48": 5891.0,
+        "72": 5891.0
+      },
+      "forecast_72h_scenarios_rm": {
+        "best": 0.0,
+        "expected": 17674.0,
+        "worst": 1523093.0
+      },
+      "api_latest": 46.3
+    },
+    {
+      "state": "W.P. Putrajaya",
+      "lat": 2.93,
+      "lon": 101.7,
+      "population": 120000,
+      "damage_to_date_rm": 16100959.0,
+      "by_category_rm": {
+        "tourism_loss": 11304904.0,
+        "agriculture_loss": 0.0,
+        "transport_loss": 347153.0,
+        "construction_outdoor_loss": 2310608.0,
+        "productivity_loss": 2024492.0,
+        "health": 113801.0
+      },
+      "memo_not_in_total_rm": {
+        "school_closure": 675000.0,
+        "response": 0.0,
+        "mortality": 0.0
+      },
+      "damage_pct_gdp": 0.1118,
+      "forecast_damage_rm": {
+        "24": 560528.0,
+        "48": 560528.0,
+        "72": 560528.0
+      },
+      "forecast_72h_scenarios_rm": {
+        "best": 252926.0,
+        "expected": 1681583.0,
+        "worst": 3022652.0
+      },
+      "api_latest": 114.8
+    },
+    {
+      "state": "Pahang",
+      "lat": 3.81,
+      "lon": 103.33,
+      "population": 1690000,
+      "damage_to_date_rm": 14402288.0,
+      "by_category_rm": {
+        "tourism_loss": 10961616.0,
+        "agriculture_loss": 1167123.0,
+        "transport_loss": 85346.0,
+        "construction_outdoor_loss": 849082.0,
+        "productivity_loss": 842955.0,
+        "health": 496166.0
+      },
+      "memo_not_in_total_rm": {
+        "school_closure": 0.0,
+        "response": 0.0,
+        "mortality": 0.0
+      },
+      "damage_pct_gdp": 0.0203,
+      "forecast_damage_rm": {
+        "24": 3053.0,
+        "48": 3053.0,
+        "72": 3053.0
+      },
+      "forecast_72h_scenarios_rm": {
+        "best": 0.0,
+        "expected": 9159.0,
+        "worst": 1147218.0
+      },
+      "api_latest": 28.1
+    },
+    {
+      "state": "Kedah",
+      "lat": 6.12,
+      "lon": 100.37,
+      "population": 2200000,
+      "damage_to_date_rm": 7235056.0,
+      "by_category_rm": {
+        "tourism_loss": 5894685.0,
+        "agriculture_loss": 185096.0,
+        "transport_loss": 42109.0,
+        "construction_outdoor_loss": 290138.0,
+        "productivity_loss": 389534.0,
+        "health": 433494.0
+      },
+      "memo_not_in_total_rm": {
+        "school_closure": 0.0,
+        "response": 0.0,
+        "mortality": 0.0
+      },
+      "damage_pct_gdp": 0.0129,
+      "forecast_damage_rm": {
+        "24": 3705.0,
+        "48": 3705.0,
+        "72": 3705.0
+      },
+      "forecast_72h_scenarios_rm": {
+        "best": 0.0,
+        "expected": 11115.0,
+        "worst": 1017151.0
+      },
+      "api_latest": 47.5
+    },
+    {
+      "state": "Terengganu",
+      "lat": 5.33,
+      "lon": 103.14,
+      "population": 1290000,
+      "damage_to_date_rm": 4630032.0,
+      "by_category_rm": {
+        "tourism_loss": 3751890.0,
+        "agriculture_loss": 111233.0,
+        "transport_loss": 22594.0,
+        "construction_outdoor_loss": 208562.0,
+        "productivity_loss": 232894.0,
+        "health": 302859.0
+      },
+      "memo_not_in_total_rm": {
+        "school_closure": 0.0,
+        "response": 0.0,
+        "mortality": 0.0
+      },
+      "damage_pct_gdp": 0.0114,
+      "forecast_damage_rm": {
+        "24": 82541.0,
+        "48": 82541.0,
+        "72": 82541.0
+      },
+      "forecast_72h_scenarios_rm": {
+        "best": 756.0,
+        "expected": 247623.0,
+        "worst": 547950.0
+      },
+      "api_latest": 38.4
+    },
+    {
+      "state": "Kelantan",
+      "lat": 6.13,
+      "lon": 102.24,
+      "population": 1920000,
+      "damage_to_date_rm": 2767107.0,
+      "by_category_rm": {
+        "tourism_loss": 2258849.0,
+        "agriculture_loss": 69397.0,
+        "transport_loss": 9526.0,
+        "construction_outdoor_loss": 69242.0,
+        "productivity_loss": 59338.0,
+        "health": 300755.0
+      },
+      "memo_not_in_total_rm": {
+        "school_closure": 0.0,
+        "response": 0.0,
+        "mortality": 0.0
+      },
+      "damage_pct_gdp": 0.0093,
+      "forecast_damage_rm": {
+        "24": 78075.0,
+        "48": 78075.0,
+        "72": 78075.0
+      },
+      "forecast_72h_scenarios_rm": {
+        "best": 1489.0,
+        "expected": 234225.0,
+        "worst": 553614.0
+      },
+      "api_latest": 44.4
+    },
+    {
+      "state": "W.P. Labuan",
+      "lat": 5.28,
+      "lon": 115.23,
+      "population": 100000,
+      "damage_to_date_rm": 1810620.0,
+      "by_category_rm": {
+        "tourism_loss": 1445671.0,
+        "agriculture_loss": 28603.0,
+        "transport_loss": 21690.0,
+        "construction_outdoor_loss": 117271.0,
+        "productivity_loss": 168470.0,
+        "health": 28914.0
+      },
+      "memo_not_in_total_rm": {
+        "school_closure": 0.0,
+        "response": 0.0,
+        "mortality": 0.0
+      },
+      "damage_pct_gdp": 0.0208,
+      "forecast_damage_rm": {
+        "24": 18770.0,
+        "48": 18770.0,
+        "72": 18770.0
+      },
+      "forecast_72h_scenarios_rm": {
+        "best": 20.0,
+        "expected": 56310.0,
+        "worst": 115997.0
+      },
+      "api_latest": 43.4
+    },
+    {
+      "state": "Perlis",
+      "lat": 6.44,
+      "lon": 100.2,
+      "population": 300000,
+      "damage_to_date_rm": 338939.0,
+      "by_category_rm": {
+        "tourism_loss": 271726.0,
+        "agriculture_loss": 15603.0,
+        "transport_loss": 2088.0,
+        "construction_outdoor_loss": 16796.0,
+        "productivity_loss": 13281.0,
+        "health": 19445.0
+      },
+      "memo_not_in_total_rm": {
+        "school_closure": 0.0,
+        "response": 0.0,
+        "mortality": 0.0
+      },
+      "damage_pct_gdp": 0.0051,
+      "forecast_damage_rm": {
+        "24": 77.0,
+        "48": 77.0,
+        "72": 77.0
+      },
+      "forecast_72h_scenarios_rm": {
+        "best": 0.0,
+        "expected": 230.0,
+        "worst": 142190.0
+      },
+      "api_latest": 38.6
+    }
+  ],
+  "model": {
+    "type": "sector_damage_function",
+    "n_sims": 1000,
+    "backtest_mape": 0.0196,
+    "baseline_mape": 4.3804,
+    "baseline": "pm25_only_linear",
+    "mortality_included": false,
+    "benchmark_rm_per_day": [
+      20000000.0,
+      50000000.0
+    ],
+    "sensitivity_top5": [
+      {
+        "coefficient": "loss rate: Tourism & hospitality",
+        "low_rm": 940509208.0,
+        "high_rm": 1980044182.0,
+        "swing_rm": 1039534974.0
+      },
+      {
+        "coefficient": "loss rate: Other sectors (sick days)",
+        "low_rm": 1280211393.0,
+        "high_rm": 1622449258.0,
+        "swing_rm": 342237865.0
+      },
+      {
+        "coefficient": "loss rate: Construction & outdoor business",
+        "low_rm": 1251134062.0,
+        "high_rm": 1548305249.0,
+        "swing_rm": 297171187.0
+      },
+      {
+        "coefficient": "loss rate: Agriculture",
+        "low_rm": 1372105179.0,
+        "high_rm": 1447915344.0,
+        "swing_rm": 75810165.0
+      },
+      {
+        "coefficient": "outdoor_share_of_services",
+        "low_rm": 1365711684.0,
+        "high_rm": 1440382638.0,
+        "swing_rm": 74670954.0
+      }
+    ]
+  },
+  "loss_rates": {
+    "tourism_loss": {
+      "label": "Tourism & hospitality",
+      "moderate": [
+        0.0,
+        0.005,
+        0.01
+      ],
+      "unhealthy": [
+        0.03,
+        0.06,
+        0.1
+      ],
+      "very_unhealthy": [
+        0.06,
+        0.12,
+        0.2
+      ],
+      "hazardous": [
+        0.12,
+        0.25,
+        0.4
+      ],
+      "source": "Arrivals down up to 8% in the 2026 haze (Yeah Kim Leng, The Star, 14 Oct 2026); cancellations and event postponements at API > 150 (Borneo Post, 31 Aug 2026)"
+    },
+    "agriculture_loss": {
+      "label": "Agriculture",
+      "moderate": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "unhealthy": [
+        0.005,
+        0.01,
+        0.02
+      ],
+      "very_unhealthy": [
+        0.01,
+        0.025,
+        0.05
+      ],
+      "hazardous": [
+        0.03,
+        0.05,
+        0.1
+      ],
+      "source": "Reduced sunlight cuts photosynthesis; analysts warned of a 10–20% oil-palm output fall after the prolonged 2015 haze (The Star, 18 Sep 2015). Daily rates kept well below that"
+    },
+    "transport_loss": {
+      "label": "Transport & logistics",
+      "moderate": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "unhealthy": [
+        0.0,
+        0.005,
+        0.01
+      ],
+      "very_unhealthy": [
+        0.01,
+        0.02,
+        0.04
+      ],
+      "hazardous": [
+        0.03,
+        0.06,
+        0.1
+      ],
+      "source": "APPROX — check: flight delays and port/road visibility limits mostly above API 200"
+    },
+    "construction_outdoor_loss": {
+      "label": "Construction & outdoor business",
+      "moderate": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "unhealthy": [
+        0.01,
+        0.03,
+        0.05
+      ],
+      "very_unhealthy": [
+        0.05,
+        0.12,
+        0.2
+      ],
+      "hazardous": [
+        0.2,
+        0.35,
+        0.5
+      ],
+      "source": "MOH advice: minimise strenuous outdoor work at API 101–200, avoid it at 201–300 (Borneo Post, 31 Aug 2026)"
+    },
+    "productivity_loss": {
+      "label": "Other sectors (sick days)",
+      "moderate": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "unhealthy": [
+        0.001,
+        0.002,
+        0.004
+      ],
+      "very_unhealthy": [
+        0.005,
+        0.01,
+        0.02
+      ],
+      "hazardous": [
+        0.01,
+        0.025,
+        0.04
+      ],
+      "source": "Medical leave ~RM 203 m in the 2013 haze (MJPHM review); applied only to sectors not listed above"
+    }
+  },
+  "assumptions": [
+    {
+      "name": "crf_resp_admission",
+      "value": 0.015,
+      "unit": "log-RR per 10 µg/m3",
+      "source": "APPROX — check (short-term PM2.5 meta-analyses, ~1–2%)",
+      "range": [
+        0.008,
+        0.025
+      ]
+    },
+    {
+      "name": "crf_cardio_admission",
+      "value": 0.008,
+      "unit": "log-RR per 10 µg/m3",
+      "source": "APPROX — check (short-term PM2.5 meta-analyses, ~0.5–1%)",
+      "range": [
+        0.004,
+        0.013
+      ]
+    },
+    {
+      "name": "crf_outpatient",
+      "value": 0.025,
+      "unit": "log-RR per 10 µg/m3",
+      "source": "APPROX — check (clinic visits respond more than admissions)",
+      "range": [
+        0.012,
+        0.04
+      ]
+    },
+    {
+      "name": "base_resp_adm",
+      "value": 2.1,
+      "unit": "admissions /100k /day",
+      "source": "DUMMY — replace (MOH Health Facts: respiratory admissions)",
+      "range": [
+        1.6,
+        2.7
+      ]
+    },
+    {
+      "name": "base_cardio_adm",
+      "value": 1.6,
+      "unit": "admissions /100k /day",
+      "source": "DUMMY — replace (MOH Health Facts: circulatory admissions)",
+      "range": [
+        1.2,
+        2.1
+      ]
+    },
+    {
+      "name": "base_outpatient",
+      "value": 38.0,
+      "unit": "resp. clinic visits /100k /day",
+      "source": "DUMMY — replace (MOH Health Facts: outpatient attendances)",
+      "range": [
+        28.0,
+        50.0
+      ]
+    },
+    {
+      "name": "pm25_threshold",
+      "value": 15.0,
+      "unit": "µg/m3",
+      "source": "WHO 2021 24-hour AQG",
+      "range": [
+        15.0,
+        15.0
+      ]
+    },
+    {
+      "name": "cost_resp_admission",
+      "value": 4200,
+      "unit": "RM / admission",
+      "source": "DUMMY — replace (MOH cost per admission)",
+      "range": [
+        2800,
+        6000
+      ]
+    },
+    {
+      "name": "cost_cardio_admission",
+      "value": 9800,
+      "unit": "RM / admission",
+      "source": "DUMMY — replace",
+      "range": [
+        6500,
+        14000
+      ]
+    },
+    {
+      "name": "cost_outpatient",
+      "value": 120,
+      "unit": "RM / visit",
+      "source": "DUMMY — replace",
+      "range": [
+        80,
+        180
+      ]
+    },
+    {
+      "name": "transport_share_of_services",
+      "value": 0.065,
+      "unit": "share of services GDP",
+      "source": "APPROX — check (transport & storage ≈ 3.5–4% of national GDP)",
+      "range": [
+        0.055,
+        0.075
+      ]
+    },
+    {
+      "name": "outdoor_share_of_services",
+      "value": 0.03,
+      "unit": "share of services GDP",
+      "source": "DUMMY — replace (markets, hawkers, recreation, outdoor retail)",
+      "range": [
+        0.015,
+        0.05
+      ]
+    },
+    {
+      "name": "school_cost_per_student_day",
+      "value": 15,
+      "unit": "RM / student / closed day",
+      "source": "DUMMY — replace (childcare + learning loss; memo only)",
+      "range": [
+        8,
+        25
+      ]
+    },
+    {
+      "name": "cloud_seeding_cost",
+      "value": 150000,
+      "unit": "RM / operation",
+      "source": "DUMMY — replace (memo only)",
+      "range": [
+        100000,
+        250000
+      ]
+    },
+    {
+      "name": "loss_rate_tourism_loss",
+      "value": {
+        "moderate": 0.005,
+        "unhealthy": 0.06,
+        "very_unhealthy": 0.12,
+        "hazardous": 0.25
+      },
+      "unit": "share of daily activity",
+      "source": "Arrivals down up to 8% in the 2026 haze (Yeah Kim Leng, The Star, 14 Oct 2026); cancellations and event postponements at API > 150 (Borneo Post, 31 Aug 2026)",
+      "range": {
+        "moderate": [
+          0.0,
+          0.01
+        ],
+        "unhealthy": [
+          0.03,
+          0.1
+        ],
+        "very_unhealthy": [
+          0.06,
+          0.2
+        ],
+        "hazardous": [
+          0.12,
+          0.4
+        ]
+      }
+    },
+    {
+      "name": "loss_rate_agriculture_loss",
+      "value": {
+        "moderate": 0.0,
+        "unhealthy": 0.01,
+        "very_unhealthy": 0.025,
+        "hazardous": 0.05
+      },
+      "unit": "share of daily activity",
+      "source": "Reduced sunlight cuts photosynthesis; analysts warned of a 10–20% oil-palm output fall after the prolonged 2015 haze (The Star, 18 Sep 2015). Daily rates kept well below that",
+      "range": {
+        "moderate": [
+          0.0,
+          0.0
+        ],
+        "unhealthy": [
+          0.005,
+          0.02
+        ],
+        "very_unhealthy": [
+          0.01,
+          0.05
+        ],
+        "hazardous": [
+          0.03,
+          0.1
+        ]
+      }
+    },
+    {
+      "name": "loss_rate_transport_loss",
+      "value": {
+        "moderate": 0.0,
+        "unhealthy": 0.005,
+        "very_unhealthy": 0.02,
+        "hazardous": 0.06
+      },
+      "unit": "share of daily activity",
+      "source": "APPROX — check: flight delays and port/road visibility limits mostly above API 200",
+      "range": {
+        "moderate": [
+          0.0,
+          0.0
+        ],
+        "unhealthy": [
+          0.0,
+          0.01
+        ],
+        "very_unhealthy": [
+          0.01,
+          0.04
+        ],
+        "hazardous": [
+          0.03,
+          0.1
+        ]
+      }
+    },
+    {
+      "name": "loss_rate_construction_outdoor_loss",
+      "value": {
+        "moderate": 0.0,
+        "unhealthy": 0.03,
+        "very_unhealthy": 0.12,
+        "hazardous": 0.35
+      },
+      "unit": "share of daily activity",
+      "source": "MOH advice: minimise strenuous outdoor work at API 101–200, avoid it at 201–300 (Borneo Post, 31 Aug 2026)",
+      "range": {
+        "moderate": [
+          0.0,
+          0.0
+        ],
+        "unhealthy": [
+          0.01,
+          0.05
+        ],
+        "very_unhealthy": [
+          0.05,
+          0.2
+        ],
+        "hazardous": [
+          0.2,
+          0.5
+        ]
+      }
+    },
+    {
+      "name": "loss_rate_productivity_loss",
+      "value": {
+        "moderate": 0.0,
+        "unhealthy": 0.002,
+        "very_unhealthy": 0.01,
+        "hazardous": 0.025
+      },
+      "unit": "share of daily activity",
+      "source": "Medical leave ~RM 203 m in the 2013 haze (MJPHM review); applied only to sectors not listed above",
+      "range": {
+        "moderate": [
+          0.0,
+          0.0
+        ],
+        "unhealthy": [
+          0.001,
+          0.004
+        ],
+        "very_unhealthy": [
+          0.005,
+          0.02
+        ],
+        "hazardous": [
+          0.01,
+          0.04
+        ]
+      }
+    },
+    {
+      "name": "baseline_gdp_rm_bn",
+      "value": "",
+      "unit": "",
+      "source": "DOSM, GDP by State 2025 (real, 2015 prices), released 1 Jul 2026"
+    },
+    {
+      "name": "baseline_sector_shares",
+      "value": "",
+      "unit": "",
+      "source": "APPROX — check (DOSM state GDP tables); auto-replaced by OpenDOSM gdp_state_real_supply"
+    },
+    {
+      "name": "baseline_tourism",
+      "value": "",
+      "unit": "",
+      "source": "Inbound RM 110.6 bn (MOF Economic Outlook 2027); domestic RM 121.3 bn (DOSM 2025). State split APPROX — check except KL/Selangor/Pahang domestic (published)"
+    },
+    {
+      "name": "baseline_population",
+      "value": "",
+      "unit": "",
+      "source": "APPROX — check — replace with OpenDOSM population_state (Resource Allocation branch has it)"
+    },
+    {
+      "name": "haze_history",
+      "value": "mock CSVs in data/mock/damage + real PM2.5 for 1008 state-days (data/resource_allocation/raw/pm25_daily_openmeteo.csv)",
+      "unit": "",
+      "source": "Open-Meteo (real) + DUMMY for uncovered days"
+    },
+    {
+      "name": "forecast_input",
+      "value": "persistence (mean of last 3 days) — forecast.json not found",
+      "unit": "",
+      "source": "persistence"
+    },
+    {
+      "name": "pm25_to_api",
+      "value": "piecewise: PM2.5 55→API 100, 100→160, 150→200",
+      "unit": "",
+      "source": "approximation calibrated to 2026 APIMS news readings — replace with DOE breakpoints"
+    },
+    {
+      "name": "affected_share",
+      "value": "share of state's stations above API 100 (min 25%)",
+      "unit": "",
+      "source": "method choice"
+    },
+    {
+      "name": "double_counting",
+      "value": "school closures, cloud seeding and mortality reported as memo items",
+      "unit": "",
+      "source": "method choice (brief step 6)"
+    },
+    {
+      "name": "benchmark_2026",
+      "value": "RM 20–50 m per day",
+      "unit": "RM/day",
+      "source": "The Star, 14 Oct 2026 — Dr Yeah Kim Leng (Sunway University)"
+    },
+    {
+      "name": "benchmark_2013",
+      "value": "~RM 1.7 bn total; RM 410.6 m illness",
+      "unit": "RM",
+      "source": "MJPHM, 'The Malaysia Haze and Its Health Economic Impact: A Literature Review'"
+    }
+  ],
+  "_note": "Contains DUMMY/APPROX inputs — see assumptions. Mortality excluded (haze treated as non-fatal)."
+}

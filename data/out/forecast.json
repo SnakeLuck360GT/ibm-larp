@@ -1,0 +1,194 @@
+[
+  {
+    "zone": "Johor",
+    "lat": 1.492,
+    "lon": 103.741,
+    "api_today": 78,
+    "api": {
+      "24": 76,
+      "48": 87,
+      "72": 92
+    },
+    "arrival_hours": null
+  },
+  {
+    "zone": "Kedah",
+    "lat": 6.121,
+    "lon": 100.367,
+    "api_today": 69,
+    "api": {
+      "24": 63,
+      "48": 78,
+      "72": 85
+    },
+    "arrival_hours": null
+  },
+  {
+    "zone": "Kelantan",
+    "lat": 6.125,
+    "lon": 102.238,
+    "api_today": 57,
+    "api": {
+      "24": 54,
+      "48": 62,
+      "72": 64
+    },
+    "arrival_hours": null
+  },
+  {
+    "zone": "Kuala Lumpur",
+    "lat": 3.139,
+    "lon": 101.687,
+    "api_today": 106,
+    "api": {
+      "24": 100,
+      "48": 103,
+      "72": 103
+    },
+    "arrival_hours": 0
+  },
+  {
+    "zone": "Labuan",
+    "lat": 5.277,
+    "lon": 115.242,
+    "api_today": 66,
+    "api": {
+      "24": 59,
+      "48": 69,
+      "72": 73
+    },
+    "arrival_hours": null
+  },
+  {
+    "zone": "Melaka",
+    "lat": 2.189,
+    "lon": 102.25,
+    "api_today": 86,
+    "api": {
+      "24": 88,
+      "48": 104,
+      "72": 96
+    },
+    "arrival_hours": 48
+  },
+  {
+    "zone": "Negeri Sembilan",
+    "lat": 2.725,
+    "lon": 101.938,
+    "api_today": 96,
+    "api": {
+      "24": 89,
+      "48": 102,
+      "72": 105
+    },
+    "arrival_hours": 48
+  },
+  {
+    "zone": "Pahang",
+    "lat": 3.817,
+    "lon": 103.326,
+    "api_today": 73,
+    "api": {
+      "24": 69,
+      "48": 78,
+      "72": 80
+    },
+    "arrival_hours": null
+  },
+  {
+    "zone": "Perak",
+    "lat": 4.597,
+    "lon": 101.09,
+    "api_today": 73,
+    "api": {
+      "24": 67,
+      "48": 83,
+      "72": 97
+    },
+    "arrival_hours": null
+  },
+  {
+    "zone": "Perlis",
+    "lat": 6.441,
+    "lon": 100.199,
+    "api_today": 82,
+    "api": {
+      "24": 75,
+      "48": 102,
+      "72": 108
+    },
+    "arrival_hours": 48
+  },
+  {
+    "zone": "Pulau Pinang",
+    "lat": 5.414,
+    "lon": 100.329,
+    "api_today": 69,
+    "api": {
+      "24": 65,
+      "48": 80,
+      "72": 89
+    },
+    "arrival_hours": null
+  },
+  {
+    "zone": "Putrajaya",
+    "lat": 2.926,
+    "lon": 101.696,
+    "api_today": 103,
+    "api": {
+      "24": 95,
+      "48": 108,
+      "72": 114
+    },
+    "arrival_hours": 0
+  },
+  {
+    "zone": "Sabah",
+    "lat": 5.98,
+    "lon": 116.074,
+    "api_today": 58,
+    "api": {
+      "24": 58,
+      "48": 59,
+      "72": 60
+    },
+    "arrival_hours": null
+  },
+  {
+    "zone": "Sarawak",
+    "lat": 1.553,
+    "lon": 110.359,
+    "api_today": 139,
+    "api": {
+      "24": 90,
+      "48": 67,
+      "72": 54
+    },
+    "arrival_hours": 0
+  },
+  {
+    "zone": "Selangor",
+    "lat": 3.073,
+    "lon": 101.518,
+    "api_today": 96,
+    "api": {
+      "24": 88,
+      "48": 95,
+      "72": 103
+    },
+    "arrival_hours": 72
+  },
+  {
+    "zone": "Terengganu",
+    "lat": 5.33,
+    "lon": 103.137,
+    "api_today": 60,
+    "api": {
+      "24": 59,
+      "48": 63,
+      "72": 68
+    },
+    "arrival_hours": null
+  }
+]
