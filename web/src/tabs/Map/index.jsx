@@ -365,9 +365,6 @@ function Legend({ scale, live, credit }) {
       {scale.bands.map(b => (
         <span key={b.label} className="map-key"><i style={{ background: b.c }} /><b title={b.label}>{b.short || b.label}</b><span className="num">{b.range}</span></span>
       ))}
-      {credit && (
-        <span className="map-credit">Measured: <a href="https://eqms.doe.gov.my/APIMS/main" target="_blank" rel="noopener noreferrer">DOE Malaysia (APIMS)</a> · Forecast: Copernicus CAMS PM2.5, converted to API</span>
-      )}
     </div>
   )
 }

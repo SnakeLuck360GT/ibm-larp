@@ -108,24 +108,13 @@ export default function LedgerTab({ baseUrl = '/', horizon = '24', setHorizon, s
           </dl>
           <span className={`ledger-flag ${v.inBench ? 'ok' : 'warn'}`}><i aria-hidden="true" />{v.inBench ? 'Within' : 'Outside'} published RM 20–50 m/day</span>
         </div>
-        <div className="ledger-hero-foot">
-          <span className={`ledger-flag ${v.persist ? 'warn' : 'ok'}`}>
-            <i aria-hidden="true" />{v.persist ? 'PM2.5 next 72 h: last 3 days held flat' : 'PM2.5 next 72 h: forecast model'}
-          </span>
-          <span className="ledger-flag"><i aria-hidden="true" />Estimate</span>
-          <span className="ledger-flag"><i aria-hidden="true" />Placeholder inputs: {v.nPlace} of {v.nAssume}</span>
-        </div>
       </section>
 
       {brief && brief.headline && <Brief b={brief} />}
 
       {/* ======== 2. Where it came from ======== */}
       <section className="card ledger-src" aria-labelledby="ledger-src-h">
-        <div className="card-h"><h3 id="ledger-src-h">Where the smoke came from</h3>
-          <span className="ledger-src-tags">
-            <span className="ledger-flag ok"><i aria-hidden="true" />Sep 2019 haze</span>
-            <span className="ledger-flag"><i aria-hidden="true" />Provinces only, no companies</span>
-          </span></div>
+        <div className="card-h"><h3 id="ledger-src-h">Where the smoke came from</h3></div>
         {att ? <AttributionSection att={att} sel={sel} pick={pick} /> : (
           <p className="hint ledger-src-none">Source shares not loaded (data/attribution.json).</p>
         )}
