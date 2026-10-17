@@ -40,7 +40,6 @@ function ago(iso, now) {
   const h = Math.floor(m / 60)
   return h < 48 ? `${h} h ago` : `${Math.floor(h / 24)} days ago`
 }
-const fmtMs = ms => ms == null || !isFinite(ms) ? '–' : ms < 0.1 ? '<0.1' : ms < 10 ? ms.toFixed(1) : nf(ms)
 const meanPm = p => (p['24'] + p['48'] + p['72']) / 3
 const basePm = (s, w) => w === 'all' ? meanPm(s.pm25) : s.pm25[w]
 
@@ -252,14 +251,15 @@ function Scenario({ sc, set, D, states, result, ms, changes, onReset, isPlan }) 
           </button>
         ))}
       </div>
-      <p className="briefing-ran" aria-live="polite">
-        <span className="briefing-ranmark" aria-hidden="true" />
-        <span>
-          <b>XGBoost re-ranked {result.ranked.length} states in {fmtMs(ms)} ms</b>
-          {!isPlan && <>{' · '}{changes.moved ? `${changes.moved} ${changes.moved === 1 ? 'state' : 'states'} changed place` : 'no state changed place'}</>}
-          {!isPlan && changes.clinic && <>{' · '}{changes.clinic}</>}
-        </span>
-      </p>
+      {!isPlan && (
+        <p className="briefing-ran" aria-live="polite">
+          <span className="briefing-ranmark" aria-hidden="true" />
+          <span>
+            {changes.moved ? `${changes.moved} ${changes.moved === 1 ? 'state' : 'states'} changed place` : 'No state changed place'}
+            {changes.clinic && <>{' · '}{changes.clinic}</>}
+          </span>
+        </p>
+      )}
     </section>
   )
 }

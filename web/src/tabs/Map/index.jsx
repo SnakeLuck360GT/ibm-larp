@@ -298,7 +298,7 @@ function About({ live, metrics, t0, apims, waqi }) {
   const total = Object.keys(st).length
   return (
     <details className="map-about">
-      <summary><span>About this forecast</span><span className="map-tag">{live ? <><i className="map-live" aria-hidden="true" />DOE API + Copernicus CAMS · not our model</> : 'Our XGBoost model · 2019 replay'}</span></summary>
+      <summary><span>About this forecast</span>{!live && <span className="map-tag">Our XGBoost model · 2019 replay</span>}</summary>
       <ul>
         {live ? <>
           <li>All live values are the Malaysian Air Pollutant Index (API), on DOE's bands: Good 0–50, Moderate 51–100, Unhealthy 101–200, Very unhealthy 201–300, Hazardous 300+.</li>
