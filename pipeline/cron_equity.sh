@@ -30,7 +30,7 @@ trap 'rmdir "$LOCK"' EXIT
 
 echo "=== $(date '+%F %T') $MODE"
 case "$MODE" in
-  refresh) "$PY" pipeline/03_equity.py --refresh | tail -n 18 ;;
+  refresh) "$PY" pipeline/03_equity.py --refresh | tail -n 18; "$PY" pipeline/waqi_now.py || true ;;
   full)
     "$PY" data/resource_allocation/fetch_raw.py
     "$PY" data/resource_allocation/build_features.py

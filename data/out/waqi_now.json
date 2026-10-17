@@ -1,0 +1,1335 @@
+{
+ "fetched_at": "2026-10-18T00:22:57+08:00",
+ "source": "World Air Quality Index Project (aqicn.org), nearest station to each state capital",
+ "units": {
+  "aqi": "US AQI",
+  "pm25_ugm3": "µg/m³, converted from the US AQI PM2.5 sub-index (US EPA breakpoints)"
+ },
+ "states": {
+  "Johor": {
+   "station": "Larkin Lama, Johor, Malaysia",
+   "station_url": "https://aqicn.org/city/malaysia/johor/larkin-lama",
+   "station_geo": [
+    1.494625,
+    103.735975
+   ],
+   "time": "2026-10-18T00:00:00+08:00",
+   "aqi": 179,
+   "dominant": "",
+   "pm25_aqi": 161,
+   "pm25_ugm3": 74.9,
+   "forecast_pm25": [
+    {
+     "day": "2026-10-16",
+     "avg_aqi": 246,
+     "min_aqi": 190,
+     "max_aqi": 252,
+     "avg_ugm3": 195.9
+    },
+    {
+     "day": "2026-10-17",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-18",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-19",
+     "avg_aqi": 215,
+     "min_aqi": 162,
+     "max_aqi": 252,
+     "avg_ugm3": 164.6
+    },
+    {
+     "day": "2026-10-20",
+     "avg_aqi": 164,
+     "min_aqi": 159,
+     "max_aqi": 174,
+     "avg_ugm3": 80.7
+    },
+    {
+     "day": "2026-10-21",
+     "avg_aqi": 163,
+     "min_aqi": 159,
+     "max_aqi": 173,
+     "avg_ugm3": 78.7
+    },
+    {
+     "day": "2026-10-22",
+     "avg_aqi": 209,
+     "min_aqi": 174,
+     "max_aqi": 252,
+     "avg_ugm3": 158.6
+    },
+    {
+     "day": "2026-10-23",
+     "avg_aqi": 174,
+     "min_aqi": 174,
+     "max_aqi": 174,
+     "avg_ugm3": 100.0
+    }
+   ],
+   "attributions": [
+    {
+     "name": "Malaysia Department of Environment (DOE); Air Polluant Index Management System",
+     "url": "https://eqms.doe.gov.my/"
+    },
+    {
+     "name": "World Air Quality Index Project",
+     "url": "https://waqi.info/"
+    }
+   ]
+  },
+  "Kedah": {
+   "station": "Alor Setar, Kedah, Malaysia",
+   "station_url": "https://aqicn.org/city/malaysia/kedah/alor-setar",
+   "station_geo": [
+    6.137244,
+    100.346815
+   ],
+   "time": "2026-10-18T00:00:00+08:00",
+   "aqi": 60,
+   "dominant": "",
+   "pm25_aqi": 60,
+   "pm25_ugm3": 16.4,
+   "forecast_pm25": [
+    {
+     "day": "2026-10-16",
+     "avg_aqi": 159,
+     "min_aqi": 159,
+     "max_aqi": 161,
+     "avg_ugm3": 71.0
+    },
+    {
+     "day": "2026-10-17",
+     "avg_aqi": 161,
+     "min_aqi": 157,
+     "max_aqi": 172,
+     "avg_ugm3": 74.9
+    },
+    {
+     "day": "2026-10-18",
+     "avg_aqi": 162,
+     "min_aqi": 157,
+     "max_aqi": 172,
+     "avg_ugm3": 76.8
+    },
+    {
+     "day": "2026-10-19",
+     "avg_aqi": 153,
+     "min_aqi": 138,
+     "max_aqi": 159,
+     "avg_ugm3": 59.4
+    },
+    {
+     "day": "2026-10-20",
+     "avg_aqi": 152,
+     "min_aqi": 138,
+     "max_aqi": 157,
+     "avg_ugm3": 57.4
+    },
+    {
+     "day": "2026-10-21",
+     "avg_aqi": 167,
+     "min_aqi": 139,
+     "max_aqi": 252,
+     "avg_ugm3": 86.5
+    },
+    {
+     "day": "2026-10-22",
+     "avg_aqi": 175,
+     "min_aqi": 161,
+     "max_aqi": 252,
+     "avg_ugm3": 102.0
+    },
+    {
+     "day": "2026-10-23",
+     "avg_aqi": 154,
+     "min_aqi": 138,
+     "max_aqi": 170,
+     "avg_ugm3": 61.3
+    }
+   ],
+   "attributions": [
+    {
+     "name": "Malaysia Department of Environment (DOE); Air Polluant Index Management System",
+     "url": "https://eqms.doe.gov.my/"
+    },
+    {
+     "name": "World Air Quality Index Project",
+     "url": "https://waqi.info/"
+    }
+   ]
+  },
+  "Kelantan": {
+   "station": "Kota Bharu, Kelantan, Malaysia",
+   "station_url": "https://aqicn.org/city/malaysia/kelantan/kota-bharu",
+   "station_geo": [
+    6.147431,
+    102.249236
+   ],
+   "time": "2026-10-18T00:00:00+08:00",
+   "aqi": 72,
+   "dominant": "",
+   "pm25_aqi": 73,
+   "pm25_ugm3": 22.6,
+   "forecast_pm25": [
+    {
+     "day": "2026-10-16",
+     "avg_aqi": 160,
+     "min_aqi": 147,
+     "max_aqi": 173,
+     "avg_ugm3": 72.9
+    },
+    {
+     "day": "2026-10-17",
+     "avg_aqi": 137,
+     "min_aqi": 134,
+     "max_aqi": 138,
+     "avg_ugm3": 50.1
+    },
+    {
+     "day": "2026-10-18",
+     "avg_aqi": 128,
+     "min_aqi": 97,
+     "max_aqi": 138,
+     "avg_ugm3": 46.5
+    },
+    {
+     "day": "2026-10-19",
+     "avg_aqi": 153,
+     "min_aqi": 89,
+     "max_aqi": 166,
+     "avg_ugm3": 59.4
+    },
+    {
+     "day": "2026-10-20",
+     "avg_aqi": 238,
+     "min_aqi": 166,
+     "max_aqi": 252,
+     "avg_ugm3": 187.8
+    },
+    {
+     "day": "2026-10-21",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-22",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-23",
+     "avg_aqi": 232,
+     "min_aqi": 174,
+     "max_aqi": 252,
+     "avg_ugm3": 181.8
+    }
+   ],
+   "attributions": [
+    {
+     "name": "Malaysia Department of Environment (DOE); Air Polluant Index Management System",
+     "url": "https://eqms.doe.gov.my/"
+    },
+    {
+     "name": "World Air Quality Index Project",
+     "url": "https://waqi.info/"
+    }
+   ]
+  },
+  "Melaka": {
+   "station": "Bandaraya Melaka, Melaka, Malaysia",
+   "station_url": "https://aqicn.org/city/malaysia/melaka/bandaraya-melaka",
+   "station_geo": [
+    2.190936,
+    102.257058
+   ],
+   "time": "2026-10-18T00:00:00+08:00",
+   "aqi": 155,
+   "dominant": "",
+   "pm25_aqi": 166,
+   "pm25_ugm3": 84.6,
+   "forecast_pm25": [
+    {
+     "day": "2026-10-16",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-17",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-18",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-19",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-20",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-21",
+     "avg_aqi": 240,
+     "min_aqi": 192,
+     "max_aqi": 252,
+     "avg_ugm3": 189.9
+    },
+    {
+     "day": "2026-10-22",
+     "avg_aqi": 174,
+     "min_aqi": 174,
+     "max_aqi": 174,
+     "avg_ugm3": 100.0
+    },
+    {
+     "day": "2026-10-23",
+     "avg_aqi": 179,
+     "min_aqi": 174,
+     "max_aqi": 199,
+     "avg_ugm3": 109.7
+    }
+   ],
+   "attributions": [
+    {
+     "name": "Malaysia Department of Environment (DOE); Air Polluant Index Management System",
+     "url": "https://eqms.doe.gov.my/"
+    },
+    {
+     "name": "World Air Quality Index Project",
+     "url": "https://waqi.info/"
+    }
+   ]
+  },
+  "Negeri Sembilan": {
+   "station": "Seremban, Negeri Sembilan, Malaysia",
+   "station_url": "https://aqicn.org/city/malaysia/negeri-sembilan/seremban",
+   "station_geo": [
+    2.723381,
+    101.968497
+   ],
+   "time": "2026-10-18T00:00:00+08:00",
+   "aqi": 174,
+   "dominant": "",
+   "pm25_aqi": 168,
+   "pm25_ugm3": 88.4,
+   "forecast_pm25": [
+    {
+     "day": "2026-10-16",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-17",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-18",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-19",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-20",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-21",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-22",
+     "avg_aqi": 213,
+     "min_aqi": 174,
+     "max_aqi": 252,
+     "avg_ugm3": 162.6
+    },
+    {
+     "day": "2026-10-23",
+     "avg_aqi": 226,
+     "min_aqi": 174,
+     "max_aqi": 252,
+     "avg_ugm3": 175.7
+    }
+   ],
+   "attributions": [
+    {
+     "name": "Malaysia Department of Environment (DOE); Air Polluant Index Management System",
+     "url": "https://eqms.doe.gov.my/"
+    },
+    {
+     "name": "World Air Quality Index Project",
+     "url": "https://waqi.info/"
+    }
+   ]
+  },
+  "Pahang": {
+   "station": "Indera Mahkota, Kuantan, Pahang, Malaysia",
+   "station_url": "https://aqicn.org/city/malaysia/pahang/indera-mahkota--kuantan",
+   "station_geo": [
+    3.819217,
+    103.29655
+   ],
+   "time": "2026-10-18T00:00:00+08:00",
+   "aqi": 71,
+   "dominant": "",
+   "pm25_aqi": 82,
+   "pm25_ugm3": 26.8,
+   "forecast_pm25": [
+    {
+     "day": "2026-10-16",
+     "avg_aqi": 249,
+     "min_aqi": 230,
+     "max_aqi": 252,
+     "avg_ugm3": 198.9
+    },
+    {
+     "day": "2026-10-17",
+     "avg_aqi": 222,
+     "min_aqi": 186,
+     "max_aqi": 252,
+     "avg_ugm3": 171.7
+    },
+    {
+     "day": "2026-10-18",
+     "avg_aqi": 243,
+     "min_aqi": 174,
+     "max_aqi": 252,
+     "avg_ugm3": 192.9
+    },
+    {
+     "day": "2026-10-19",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-20",
+     "avg_aqi": 252,
+     "min_aqi": 249,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-21",
+     "avg_aqi": 203,
+     "min_aqi": 174,
+     "max_aqi": 247,
+     "avg_ugm3": 152.5
+    },
+    {
+     "day": "2026-10-22",
+     "avg_aqi": 166,
+     "min_aqi": 159,
+     "max_aqi": 174,
+     "avg_ugm3": 84.6
+    },
+    {
+     "day": "2026-10-23",
+     "avg_aqi": 174,
+     "min_aqi": 173,
+     "max_aqi": 174,
+     "avg_ugm3": 100.0
+    }
+   ],
+   "attributions": [
+    {
+     "name": "Malaysia Department of Environment (DOE); Air Polluant Index Management System",
+     "url": "https://eqms.doe.gov.my/"
+    },
+    {
+     "name": "World Air Quality Index Project",
+     "url": "https://waqi.info/"
+    }
+   ]
+  },
+  "Perak": {
+   "station": "Ipoh",
+   "station_url": "https://aqicn.org/city/ipoh",
+   "station_geo": [
+    4.61175,
+    101.113506
+   ],
+   "time": "2026-10-17T23:00:00+08:00",
+   "aqi": 115,
+   "dominant": "pm25",
+   "pm25_aqi": 115,
+   "pm25_ugm3": 41.2,
+   "forecast_pm25": [
+    {
+     "day": "2026-10-15",
+     "avg_aqi": 245,
+     "min_aqi": 174,
+     "max_aqi": 252,
+     "avg_ugm3": 194.9
+    },
+    {
+     "day": "2026-10-16",
+     "avg_aqi": 220,
+     "min_aqi": 174,
+     "max_aqi": 252,
+     "avg_ugm3": 169.7
+    },
+    {
+     "day": "2026-10-17",
+     "avg_aqi": 171,
+     "min_aqi": 168,
+     "max_aqi": 174,
+     "avg_ugm3": 94.2
+    },
+    {
+     "day": "2026-10-18",
+     "avg_aqi": 173,
+     "min_aqi": 172,
+     "max_aqi": 174,
+     "avg_ugm3": 98.1
+    },
+    {
+     "day": "2026-10-19",
+     "avg_aqi": 177,
+     "min_aqi": 172,
+     "max_aqi": 200,
+     "avg_ugm3": 105.9
+    },
+    {
+     "day": "2026-10-20",
+     "avg_aqi": 250,
+     "min_aqi": 223,
+     "max_aqi": 252,
+     "avg_ugm3": 199.9
+    },
+    {
+     "day": "2026-10-21",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-22",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-23",
+     "avg_aqi": 182,
+     "min_aqi": 174,
+     "max_aqi": 252,
+     "avg_ugm3": 115.5
+    }
+   ],
+   "attributions": [
+    {
+     "name": "Malaysia Department of Environment (DOE); Air Polluant Index Management System",
+     "url": "https://eqms.doe.gov.my/"
+    },
+    {
+     "name": "World Air Quality Index Project",
+     "url": "https://waqi.info/"
+    }
+   ]
+  },
+  "Perlis": {
+   "station": "Kangar, Perlis, Malaysia",
+   "station_url": "https://aqicn.org/city/malaysia/perlis/kangar",
+   "station_geo": [
+    6.429922,
+    100.211069
+   ],
+   "time": "2026-10-18T00:00:00+08:00",
+   "aqi": 62,
+   "dominant": "",
+   "pm25_aqi": 69,
+   "pm25_ugm3": 20.7,
+   "forecast_pm25": [
+    {
+     "day": "2026-10-16",
+     "avg_aqi": 163,
+     "min_aqi": 159,
+     "max_aqi": 174,
+     "avg_ugm3": 78.7
+    },
+    {
+     "day": "2026-10-17",
+     "avg_aqi": 153,
+     "min_aqi": 138,
+     "max_aqi": 159,
+     "avg_ugm3": 59.4
+    },
+    {
+     "day": "2026-10-18",
+     "avg_aqi": 152,
+     "min_aqi": 138,
+     "max_aqi": 159,
+     "avg_ugm3": 57.4
+    },
+    {
+     "day": "2026-10-19",
+     "avg_aqi": 149,
+     "min_aqi": 138,
+     "max_aqi": 159,
+     "avg_ugm3": 55.0
+    },
+    {
+     "day": "2026-10-20",
+     "avg_aqi": 138,
+     "min_aqi": 138,
+     "max_aqi": 138,
+     "avg_ugm3": 50.5
+    },
+    {
+     "day": "2026-10-21",
+     "avg_aqi": 169,
+     "min_aqi": 138,
+     "max_aqi": 252,
+     "avg_ugm3": 90.4
+    },
+    {
+     "day": "2026-10-22",
+     "avg_aqi": 168,
+     "min_aqi": 159,
+     "max_aqi": 184,
+     "avg_ugm3": 88.4
+    },
+    {
+     "day": "2026-10-23",
+     "avg_aqi": 135,
+     "min_aqi": 119,
+     "max_aqi": 159,
+     "avg_ugm3": 49.3
+    }
+   ],
+   "attributions": [
+    {
+     "name": "Malaysia Department of Environment (DOE); Air Polluant Index Management System",
+     "url": "https://eqms.doe.gov.my/"
+    },
+    {
+     "name": "World Air Quality Index Project",
+     "url": "https://waqi.info/"
+    }
+   ]
+  },
+  "Pulau Pinang": {
+   "station": "Minden, Pulau Pinang, Malaysia",
+   "station_url": "https://aqicn.org/city/malaysia/pulau-pinang/minden",
+   "station_geo": [
+    5.356211,
+    100.30792
+   ],
+   "time": "2026-10-17T23:00:00+08:00",
+   "aqi": 64,
+   "dominant": "",
+   "pm25_aqi": 99,
+   "pm25_ugm3": 34.9,
+   "forecast_pm25": [
+    {
+     "day": "2026-10-16",
+     "avg_aqi": 174,
+     "min_aqi": 172,
+     "max_aqi": 174,
+     "avg_ugm3": 100.0
+    },
+    {
+     "day": "2026-10-17",
+     "avg_aqi": 179,
+     "min_aqi": 173,
+     "max_aqi": 194,
+     "avg_ugm3": 109.7
+    },
+    {
+     "day": "2026-10-18",
+     "avg_aqi": 169,
+     "min_aqi": 159,
+     "max_aqi": 174,
+     "avg_ugm3": 90.4
+    },
+    {
+     "day": "2026-10-19",
+     "avg_aqi": 162,
+     "min_aqi": 159,
+     "max_aqi": 165,
+     "avg_ugm3": 76.8
+    },
+    {
+     "day": "2026-10-20",
+     "avg_aqi": 158,
+     "min_aqi": 144,
+     "max_aqi": 174,
+     "avg_ugm3": 69.1
+    },
+    {
+     "day": "2026-10-21",
+     "avg_aqi": 202,
+     "min_aqi": 138,
+     "max_aqi": 252,
+     "avg_ugm3": 151.5
+    },
+    {
+     "day": "2026-10-22",
+     "avg_aqi": 204,
+     "min_aqi": 174,
+     "max_aqi": 252,
+     "avg_ugm3": 153.5
+    },
+    {
+     "day": "2026-10-23",
+     "avg_aqi": 166,
+     "min_aqi": 138,
+     "max_aqi": 174,
+     "avg_ugm3": 84.6
+    }
+   ],
+   "attributions": [
+    {
+     "name": "Malaysia Department of Environment (DOE); Air Polluant Index Management System",
+     "url": "https://eqms.doe.gov.my/"
+    },
+    {
+     "name": "World Air Quality Index Project",
+     "url": "https://waqi.info/"
+    }
+   ]
+  },
+  "Sabah": {
+   "station": "Kota Kinabalu, Sabah, Malaysia",
+   "station_url": "https://aqicn.org/city/malaysia/sabah/kota-kinabalu",
+   "station_geo": [
+    5.89372,
+    116.04327
+   ],
+   "time": "2026-10-18T00:00:00+08:00",
+   "aqi": 52,
+   "dominant": "",
+   "pm25_aqi": 33,
+   "pm25_ugm3": 7.9,
+   "forecast_pm25": [
+    {
+     "day": "2026-10-16",
+     "avg_aqi": 92,
+     "min_aqi": 89,
+     "max_aqi": 95,
+     "avg_ugm3": 31.6
+    },
+    {
+     "day": "2026-10-17",
+     "avg_aqi": 132,
+     "min_aqi": 89,
+     "max_aqi": 138,
+     "avg_ugm3": 48.1
+    },
+    {
+     "day": "2026-10-18",
+     "avg_aqi": 96,
+     "min_aqi": 89,
+     "max_aqi": 138,
+     "avg_ugm3": 33.5
+    },
+    {
+     "day": "2026-10-19",
+     "avg_aqi": 89,
+     "min_aqi": 89,
+     "max_aqi": 89,
+     "avg_ugm3": 30.2
+    },
+    {
+     "day": "2026-10-20",
+     "avg_aqi": 72,
+     "min_aqi": 68,
+     "max_aqi": 89,
+     "avg_ugm3": 22.1
+    },
+    {
+     "day": "2026-10-21",
+     "avg_aqi": 68,
+     "min_aqi": 68,
+     "max_aqi": 68,
+     "avg_ugm3": 20.2
+    },
+    {
+     "day": "2026-10-22",
+     "avg_aqi": 70,
+     "min_aqi": 68,
+     "max_aqi": 86,
+     "avg_ugm3": 21.1
+    },
+    {
+     "day": "2026-10-23",
+     "avg_aqi": 70,
+     "min_aqi": 68,
+     "max_aqi": 71,
+     "avg_ugm3": 21.1
+    }
+   ],
+   "attributions": [
+    {
+     "name": "Malaysia Department of Environment (DOE); Air Polluant Index Management System",
+     "url": "https://eqms.doe.gov.my/"
+    },
+    {
+     "name": "World Air Quality Index Project",
+     "url": "https://waqi.info/"
+    }
+   ]
+  },
+  "Sarawak": {
+   "station": "Kuching, Sarawak, Malaysia",
+   "station_url": "https://aqicn.org/city/malaysia/sarawak/kuching",
+   "station_geo": [
+    1.562229,
+    110.388958
+   ],
+   "time": "2026-10-17T23:00:00+08:00",
+   "aqi": 77,
+   "dominant": "",
+   "pm25_aqi": 108,
+   "pm25_ugm3": 38.3,
+   "forecast_pm25": [
+    {
+     "day": "2026-10-15",
+     "avg_aqi": 179,
+     "min_aqi": 162,
+     "max_aqi": 215,
+     "avg_ugm3": 109.7
+    },
+    {
+     "day": "2026-10-16",
+     "avg_aqi": 168,
+     "min_aqi": 160,
+     "max_aqi": 181,
+     "avg_ugm3": 88.4
+    },
+    {
+     "day": "2026-10-17",
+     "avg_aqi": 219,
+     "min_aqi": 151,
+     "max_aqi": 252,
+     "avg_ugm3": 168.7
+    },
+    {
+     "day": "2026-10-18",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-19",
+     "avg_aqi": 197,
+     "min_aqi": 174,
+     "max_aqi": 252,
+     "avg_ugm3": 144.6
+    },
+    {
+     "day": "2026-10-20",
+     "avg_aqi": 172,
+     "min_aqi": 169,
+     "max_aqi": 174,
+     "avg_ugm3": 96.2
+    },
+    {
+     "day": "2026-10-21",
+     "avg_aqi": 161,
+     "min_aqi": 159,
+     "max_aqi": 174,
+     "avg_ugm3": 74.9
+    },
+    {
+     "day": "2026-10-22",
+     "avg_aqi": 144,
+     "min_aqi": 139,
+     "max_aqi": 159,
+     "avg_ugm3": 53.0
+    },
+    {
+     "day": "2026-10-23",
+     "avg_aqi": 138,
+     "min_aqi": 138,
+     "max_aqi": 138,
+     "avg_ugm3": 50.5
+    }
+   ],
+   "attributions": [
+    {
+     "name": "Malaysia Department of Environment (DOE); Air Polluant Index Management System",
+     "url": "https://eqms.doe.gov.my/"
+    },
+    {
+     "name": "World Air Quality Index Project",
+     "url": "https://waqi.info/"
+    }
+   ]
+  },
+  "Selangor": {
+   "station": "Shah Alam, Selangor, Malaysia",
+   "station_url": "https://aqicn.org/city/malaysia/selangor/shah-alam",
+   "station_geo": [
+    3.104717,
+    101.556222
+   ],
+   "time": "2026-10-18T00:00:00+08:00",
+   "aqi": 166,
+   "dominant": "",
+   "pm25_aqi": 155,
+   "pm25_ugm3": 63.2,
+   "forecast_pm25": [
+    {
+     "day": "2026-10-16",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-17",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-18",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-19",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-20",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-21",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-22",
+     "avg_aqi": 249,
+     "min_aqi": 238,
+     "max_aqi": 252,
+     "avg_ugm3": 198.9
+    },
+    {
+     "day": "2026-10-23",
+     "avg_aqi": 242,
+     "min_aqi": 203,
+     "max_aqi": 252,
+     "avg_ugm3": 191.9
+    }
+   ],
+   "attributions": [
+    {
+     "name": "Malaysia Department of Environment (DOE); Air Polluant Index Management System",
+     "url": "https://eqms.doe.gov.my/"
+    },
+    {
+     "name": "World Air Quality Index Project",
+     "url": "https://waqi.info/"
+    }
+   ]
+  },
+  "Terengganu": {
+   "station": "Kuala Terengganu, Terengganu, Malaysia",
+   "station_url": "https://aqicn.org/city/malaysia/terengganu/kuala-terengganu",
+   "station_geo": [
+    5.308094,
+    103.120392
+   ],
+   "time": "2026-10-17T23:00:00+08:00",
+   "aqi": 68,
+   "dominant": "",
+   "pm25_aqi": 59,
+   "pm25_ugm3": 15.9,
+   "forecast_pm25": [
+    {
+     "day": "2026-10-15",
+     "avg_aqi": 174,
+     "min_aqi": 174,
+     "max_aqi": 186,
+     "avg_ugm3": 100.0
+    },
+    {
+     "day": "2026-10-16",
+     "avg_aqi": 168,
+     "min_aqi": 159,
+     "max_aqi": 174,
+     "avg_ugm3": 88.4
+    },
+    {
+     "day": "2026-10-17",
+     "avg_aqi": 159,
+     "min_aqi": 153,
+     "max_aqi": 166,
+     "avg_ugm3": 71.0
+    },
+    {
+     "day": "2026-10-18",
+     "avg_aqi": 161,
+     "min_aqi": 153,
+     "max_aqi": 170,
+     "avg_ugm3": 74.9
+    },
+    {
+     "day": "2026-10-19",
+     "avg_aqi": 236,
+     "min_aqi": 156,
+     "max_aqi": 252,
+     "avg_ugm3": 185.8
+    },
+    {
+     "day": "2026-10-20",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-21",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-22",
+     "avg_aqi": 241,
+     "min_aqi": 198,
+     "max_aqi": 252,
+     "avg_ugm3": 190.9
+    },
+    {
+     "day": "2026-10-23",
+     "avg_aqi": 190,
+     "min_aqi": 174,
+     "max_aqi": 230,
+     "avg_ugm3": 131.0
+    }
+   ],
+   "attributions": [
+    {
+     "name": "Malaysia Department of Environment (DOE); Air Polluant Index Management System",
+     "url": "https://eqms.doe.gov.my/"
+    },
+    {
+     "name": "World Air Quality Index Project",
+     "url": "https://waqi.info/"
+    }
+   ]
+  },
+  "W.P. Kuala Lumpur": {
+   "station": "Kuala Lumpur",
+   "station_url": "https://aqicn.org/city/kuala-lumpur",
+   "station_geo": [
+    3.139003,
+    101.686855
+   ],
+   "time": "2026-10-17T22:00:00+08:00",
+   "aqi": 155,
+   "dominant": "pm25",
+   "pm25_aqi": 155,
+   "pm25_ugm3": 63.2,
+   "forecast_pm25": [
+    {
+     "day": "2026-10-15",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-16",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-17",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-18",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-19",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-20",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-21",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-22",
+     "avg_aqi": 229,
+     "min_aqi": 174,
+     "max_aqi": 252,
+     "avg_ugm3": 178.8
+    },
+    {
+     "day": "2026-10-23",
+     "avg_aqi": 234,
+     "min_aqi": 174,
+     "max_aqi": 252,
+     "avg_ugm3": 183.8
+    }
+   ],
+   "attributions": [
+    {
+     "name": "Malaysia Department of Environment (DOE); Air Polluant Index Management System",
+     "url": "https://eqms.doe.gov.my/"
+    },
+    {
+     "name": "World Air Quality Index Project",
+     "url": "https://waqi.info/"
+    }
+   ]
+  },
+  "W.P. Labuan": {
+   "station": "Labuan, Wilayah Persekutuan, Malaysia",
+   "station_url": "https://aqicn.org/city/malaysia/wilayah-persekutuan/labuan",
+   "station_geo": [
+    5.298107,
+    115.232106
+   ],
+   "time": "2026-10-18T00:00:00+08:00",
+   "aqi": 61,
+   "dominant": "",
+   "pm25_aqi": 62,
+   "pm25_ugm3": 17.3,
+   "forecast_pm25": [
+    {
+     "day": "2026-10-16",
+     "avg_aqi": 89,
+     "min_aqi": 89,
+     "max_aqi": 89,
+     "avg_ugm3": 30.2
+    },
+    {
+     "day": "2026-10-17",
+     "avg_aqi": 98,
+     "min_aqi": 89,
+     "max_aqi": 126,
+     "avg_ugm3": 34.4
+    },
+    {
+     "day": "2026-10-18",
+     "avg_aqi": 89,
+     "min_aqi": 89,
+     "max_aqi": 100,
+     "avg_ugm3": 30.2
+    },
+    {
+     "day": "2026-10-19",
+     "avg_aqi": 89,
+     "min_aqi": 86,
+     "max_aqi": 89,
+     "avg_ugm3": 30.2
+    },
+    {
+     "day": "2026-10-20",
+     "avg_aqi": 80,
+     "min_aqi": 68,
+     "max_aqi": 89,
+     "avg_ugm3": 25.9
+    },
+    {
+     "day": "2026-10-21",
+     "avg_aqi": 68,
+     "min_aqi": 68,
+     "max_aqi": 68,
+     "avg_ugm3": 20.2
+    },
+    {
+     "day": "2026-10-22",
+     "avg_aqi": 84,
+     "min_aqi": 68,
+     "max_aqi": 89,
+     "avg_ugm3": 27.8
+    },
+    {
+     "day": "2026-10-23",
+     "avg_aqi": 93,
+     "min_aqi": 72,
+     "max_aqi": 125,
+     "avg_ugm3": 32.1
+    }
+   ],
+   "attributions": [
+    {
+     "name": "Malaysia Department of Environment (DOE); Air Polluant Index Management System",
+     "url": "https://eqms.doe.gov.my/"
+    },
+    {
+     "name": "World Air Quality Index Project",
+     "url": "https://waqi.info/"
+    }
+   ]
+  },
+  "W.P. Putrajaya": {
+   "station": "Putrajaya, W.p. Putrajaya, Malaysia",
+   "station_url": "https://aqicn.org/city/malaysia/w.p.-putrajaya/putrajaya",
+   "station_geo": [
+    2.914816,
+    101.69005
+   ],
+   "time": "2026-10-18T00:00:00+08:00",
+   "aqi": 165,
+   "dominant": "",
+   "pm25_aqi": 158,
+   "pm25_ugm3": 69.1,
+   "forecast_pm25": [
+    {
+     "day": "2026-10-16",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-17",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-18",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-19",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-20",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-21",
+     "avg_aqi": 252,
+     "min_aqi": 252,
+     "max_aqi": 252,
+     "avg_ugm3": 202.0
+    },
+    {
+     "day": "2026-10-22",
+     "avg_aqi": 230,
+     "min_aqi": 174,
+     "max_aqi": 252,
+     "avg_ugm3": 179.8
+    },
+    {
+     "day": "2026-10-23",
+     "avg_aqi": 245,
+     "min_aqi": 218,
+     "max_aqi": 252,
+     "avg_ugm3": 194.9
+    }
+   ],
+   "attributions": [
+    {
+     "name": "Malaysia Department of Environment (DOE); Air Polluant Index Management System",
+     "url": "https://eqms.doe.gov.my/"
+    },
+    {
+     "name": "World Air Quality Index Project",
+     "url": "https://waqi.info/"
+    }
+   ]
+  }
+ },
+ "failed": {}
+}
