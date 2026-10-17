@@ -1,0 +1,9 @@
+# Tests and notebooks, on top of the pipeline requirements:
+#   .venv/bin/pip install -r requirements-dev.txt
+-r requirements.txt
+pytest>=7.0
+matplotlib>=3.7
+seaborn>=0.13
+ipykernel
+nbformat
+nbconvert

@@ -1,4 +1,4 @@
-// Smoke source attribution (Sep 2019 haze), from data/attribution.json (build_attribution.py).
+// Smoke source attribution (Sep 2019 haze), from data/attribution.json (pipeline/build_attribution.py).
 import { useMemo } from 'react'
 import { KEY, NAME, dshort, nf, pct, short } from './format.js'
 

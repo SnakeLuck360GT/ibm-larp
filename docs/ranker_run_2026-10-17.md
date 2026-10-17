@@ -6,8 +6,8 @@ The XGBoost ranker now ranks **2026**, re-ranks hourly on the live PM2.5 forecas
 
 | Step | Command | When |
 |---|---|---|
-| Download OpenDOSM + PM2.5 history | `data/resource_allocation/fetch_raw.py` | daily 03:20 (cron `full`) |
-| Build state × year features, 2017–2026 | `data/resource_allocation/build_features.py` | daily 03:20 |
+| Download OpenDOSM + PM2.5 history | `pipeline/fetch_raw.py` | daily 03:20 (cron `full`) |
+| Build state × year features, 2017–2026 | `pipeline/build_features.py` | daily 03:20 |
 | Retrain on 2017–2025, rank 2026 | `pipeline/03_equity.py` | daily 03:20 |
 | Re-rank 2026 on the latest forecast (saved model) | `pipeline/03_equity.py --refresh` | hourly at :05 (cron `refresh`) |
 

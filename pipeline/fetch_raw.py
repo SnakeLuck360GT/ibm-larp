@@ -1,6 +1,6 @@
 """Step 1: download raw OpenDOSM / data.gov.my datasets (CC BY 4.0) for the equity layer.
 
-Run from the repo root:  .venv/bin/python data/resource_allocation/fetch_raw.py
+Run from the repo root:  .venv/bin/python pipeline/fetch_raw.py
 
 Writes raw copies to data/resource_allocation/raw/, a tidy household_income.csv,
 and manifest.json recording dataset IDs, URLs and years (feeds `assumptions`).
@@ -14,7 +14,8 @@ from zoneinfo import ZoneInfo
 import pandas as pd
 import requests
 
-RAW = Path(__file__).resolve().parent / "raw"
+RA = Path(__file__).resolve().parents[1] / "data" / "resource_allocation"  # data, raw downloads and state_ref.csv
+RAW = RA / "raw"
 
 # file name -> (data.gov.my catalogue id, url, description)
 DATASETS = {
@@ -128,7 +129,7 @@ PM25_END = (datetime.now(ZoneInfo("Asia/Kuala_Lumpur")) - timedelta(days=1)).dat
 
 
 def fetch_pm25() -> pd.DataFrame:
-    ref = pd.read_csv(Path(__file__).resolve().parent / "state_ref.csv")
+    ref = pd.read_csv(RA / "state_ref.csv")
     resp = requests.get(PM25_URL, params={
         "latitude": ",".join(ref["lat"].astype(str)),
         "longitude": ",".join(ref["lon"].astype(str)),

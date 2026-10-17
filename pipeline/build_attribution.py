@@ -1,6 +1,6 @@
 """Transboundary haze source attribution, Sep 2019 haze -> data/out/attribution.json
 
-Run from the repo root:  .venv/bin/python web/src/tabs/Ledger/build_attribution.py
+Run from the repo root:  .venv/bin/python pipeline/build_attribution.py
 Re-runnable; every download is cached under data/raw/attribution/ (gitignored).
 
 Method (2-D kinematic back-trajectories x fire hotspots):
@@ -34,7 +34,7 @@ import numpy as np
 from shapely.geometry import Point, shape, box
 from shapely.strtree import STRtree
 
-ROOT = Path(__file__).resolve().parents[4]
+ROOT = Path(__file__).resolve().parents[1]
 RAW = ROOT / 'data' / 'raw' / 'attribution'
 OUT = ROOT / 'data' / 'out' / 'attribution.json'
 STATE_REF = ROOT / 'data' / 'resource_allocation' / 'state_ref.csv'

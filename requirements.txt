@@ -1,0 +1,12 @@
+# Everything the pipeline (pipeline/ and hazeguard/) needs to run, e.g. on the LinuxONE server:
+#   python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+# Minimum versions only (no exact pins), so pip can pick builds that exist for the platform (s390x included).
+numpy>=1.24
+pandas>=2.0
+pyarrow>=14.0        # parquet files in data/resource_allocation/raw/
+requests>=2.31
+certifi
+xgboost>=2.0         # haze forecaster (hazeguard/) and the state ranker (pipeline/03_equity.py)
+scikit-learn>=1.3
+statsmodels>=0.14    # ARIMA baseline (hazeguard/pipeline/physical/models/arima_baseline.py)
+shapely>=2.0         # smoke-source attribution (pipeline/build_attribution.py)

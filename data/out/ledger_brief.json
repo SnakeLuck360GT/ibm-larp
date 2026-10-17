@@ -1,0 +1,50 @@
+{
+ "generated_at": "2026-10-18T02:05:26+08:00",
+ "provider": "Groq",
+ "model": "openai/gpt-oss-120b",
+ "headline": "Current haze costs exceed RM 1.40 billion with rising health risks",
+ "summary": "The haze episode from 2026-08-15 to 2026-10-16 has caused an estimated damage of RM 1.40 billion, with daily losses estimated at RM 22.2 million. API readings show eight of sixteen states unhealthy, highest in Johor, Negeri Sembilan and Selangor. Smoke‑source shares are from the September 2019 haze: West Kalimantan 35%, Malaysia domestic 18%, Riau 16%, Central Kalimantan 16%.",
+ "actions": [
+  "Prioritise resource routing to Selangor, Johor and Sabah as health priority zones",
+  "Allocate emergency funds to mitigate estimated damage in Kuala Lumpur (RM 34.0 million), Selangor (RM 31.2 million) and Johor (RM 19.3 million) for the next 72 hours",
+  "Accelerate data collection to replace the 10 of 30 placeholder inputs in the damage model"
+ ],
+ "checked": "every number in this brief appears in the facts below",
+ "facts": {
+  "haze episode so far": "2026-08-15 to 2026-10-16, 63 days",
+  "estimated damage so far": "RM 1.40 billion (90% range RM 859.9 million to RM 2.00 billion)",
+  "estimated damage per day": "RM 22.2 million",
+  "published outside estimate per day": "RM 20 to 50 million",
+  "largest losses so far by sector": [
+   "tourism & hospitality: RM 837.0 million",
+   "sick days in other sectors: RM 231.6 million",
+   "construction & outdoor work: RM 230.2 million"
+  ],
+  "estimated damage next 72 hours": "best case RM 12.1 million, expected RM 97.5 million, worst case RM 202.7 million",
+  "states with the highest expected damage next 72 hours": [
+   "W.P. Kuala Lumpur: RM 34.0 million",
+   "Selangor: RM 31.2 million",
+   "Johor: RM 19.3 million"
+  ],
+  "damage model inputs that are still placeholders": "10 of 30",
+  "smoke sources, September 2019 haze (share of matched fire intensity)": [
+   "West Kalimantan: 35%",
+   "Malaysia (domestic): 18%",
+   "Riau: 16%",
+   "Central Kalimantan: 16%"
+  ],
+  "measured now (DOE Air Pollutant Index, highest station per state)": {
+   "states unhealthy (API 101 or more)": "8 of 16",
+   "highest": [
+    "Johor: API 191",
+    "Negeri Sembilan: API 176",
+    "Selangor: API 170"
+   ]
+  },
+  "haze health priority (Resource routing, 1 = help first)": [
+   "1. Selangor",
+   "2. Johor",
+   "3. Sabah"
+  ]
+ }
+}

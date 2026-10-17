@@ -5,7 +5,7 @@
      data/damage.json   pipeline/04_policy.py: damage to date, 72 h best/expected/worst, Monte Carlo,
                         sensitivity, backtest, every assumption with its source
      data/states.json   pipeline/03_equity.py: haze priority + allocation, to link cost to vulnerability (optional)
-     data/attribution.json  web/src/tabs/Ledger/build_attribution.py: Sep 2019 smoke source shares by province
+     data/attribution.json  pipeline/build_attribution.py: Sep 2019 smoke source shares by province
                         (ERA5 100 m back-trajectories x NASA FIRMS VIIRS hotspots) (optional)
      data/ledger_brief.json pipeline/ledger_brief.py: AI decision brief written by an LLM on Groq from the files above (optional)
    Props: { baseUrl, horizon: '24'|'48'|'72', setHorizon, stKey, select }

@@ -1,0 +1,968 @@
+{
+ "fetched_at": "2026-10-18T02:05:24+08:00",
+ "source": "Department of Environment Malaysia (DOE), Air Pollutant Index Management System (APIMS)",
+ "url": "https://eqms.doe.gov.my/APIMS/main",
+ "rule": "state value = highest station API this hour",
+ "states": {
+  "Johor": {
+   "api": 191,
+   "class": "Unhealthy",
+   "station": "Pasir Gudang",
+   "time": "2026-10-18T01:00:00+08:00",
+   "n_stations": 8,
+   "stations": [
+    {
+     "id": "CA34J",
+     "location": "Pasir Gudang",
+     "api": 191,
+     "class": "Unhealthy",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      1.470121,
+      103.89366
+     ]
+    },
+    {
+     "id": "CA33J",
+     "location": "Larkin",
+     "api": 179,
+     "class": "Unhealthy",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      1.494616,
+      103.735922
+     ]
+    },
+    {
+     "id": "CA35J",
+     "location": "Pengerang",
+     "api": 176,
+     "class": "Unhealthy",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      1.389999,
+      104.14956
+     ]
+    },
+    {
+     "id": "CA36J",
+     "location": "Kota Tinggi",
+     "api": 176,
+     "class": "Unhealthy",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      1.564027,
+      104.22533
+     ]
+    },
+    {
+     "id": "CA31J",
+     "location": "Batu Pahat",
+     "api": 171,
+     "class": "Unhealthy",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      1.919098,
+      102.86584
+     ]
+    },
+    {
+     "id": "CA32J",
+     "location": "Kluang",
+     "api": 163,
+     "class": "Unhealthy",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      2.036936,
+      103.312179
+     ]
+    },
+    {
+     "id": "CA66J",
+     "location": "Tangkak",
+     "api": 163,
+     "class": "Unhealthy",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      2.295748,
+      102.571313
+     ]
+    },
+    {
+     "id": "CA29J",
+     "location": "Segamat",
+     "api": 161,
+     "class": "Unhealthy",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      2.49401,
+      102.863487
+     ]
+    }
+   ]
+  },
+  "Kedah": {
+   "api": 72,
+   "class": "Moderate",
+   "station": "Sungai Petani",
+   "time": "2026-10-18T01:00:00+08:00",
+   "n_stations": 4,
+   "stations": [
+    {
+     "id": "CA04K",
+     "location": "Sungai Petani",
+     "api": 72,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      5.629709,
+      100.46771
+     ]
+    },
+    {
+     "id": "CA03K",
+     "location": "Alor Setar",
+     "api": 60,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      6.13713,
+      100.346857
+     ]
+    },
+    {
+     "id": "CA05K",
+     "location": "Kulim Hi-Tech",
+     "api": 60,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      5.401634,
+      100.589653
+     ]
+    },
+    {
+     "id": "CA02K",
+     "location": "Langkawi",
+     "api": 56,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      6.331608,
+      99.858461
+     ]
+    }
+   ]
+  },
+  "Kelantan": {
+   "api": 72,
+   "class": "Moderate",
+   "station": "Kota Bharu",
+   "time": "2026-10-18T01:00:00+08:00",
+   "n_stations": 2,
+   "stations": [
+    {
+     "id": "CA47D",
+     "location": "Kota Bharu",
+     "api": 72,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      6.147439,
+      102.249233
+     ]
+    },
+    {
+     "id": "CA46D",
+     "location": "Tanah Merah",
+     "api": 66,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      5.811251,
+      102.134517
+     ]
+    }
+   ]
+  },
+  "Melaka": {
+   "api": 164,
+   "class": "Unhealthy",
+   "station": "Bukit Rambai",
+   "time": "2026-10-18T01:00:00+08:00",
+   "n_stations": 3,
+   "stations": [
+    {
+     "id": "CA27M",
+     "location": "Bukit Rambai",
+     "api": 164,
+     "class": "Unhealthy",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      2.268461,
+      102.193636
+     ]
+    },
+    {
+     "id": "CA26M",
+     "location": "Alor Gajah",
+     "api": 163,
+     "class": "Unhealthy",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      2.37091,
+      102.223199
+     ]
+    },
+    {
+     "id": "CA28M",
+     "location": "Bandaraya Melaka",
+     "api": 155,
+     "class": "Unhealthy",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      2.190929,
+      102.257066
+     ]
+    }
+   ]
+  },
+  "Negeri Sembilan": {
+   "api": 176,
+   "class": "Unhealthy",
+   "station": "Nilai",
+   "time": "2026-10-18T01:00:00+08:00",
+   "n_stations": 3,
+   "stations": [
+    {
+     "id": "CA23N",
+     "location": "Nilai",
+     "api": 176,
+     "class": "Unhealthy",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      2.821676,
+      101.81153
+     ]
+    },
+    {
+     "id": "CA24N",
+     "location": "Seremban",
+     "api": 174,
+     "class": "Unhealthy",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      2.723441,
+      101.968395
+     ]
+    },
+    {
+     "id": "CA25N",
+     "location": "Port Dickson",
+     "api": 154,
+     "class": "Unhealthy",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      2.441332,
+      101.866829
+     ]
+    }
+   ]
+  },
+  "Pahang": {
+   "api": 78,
+   "class": "Moderate",
+   "station": "Rompin",
+   "time": "2026-10-18T01:00:00+08:00",
+   "n_stations": 5,
+   "stations": [
+    {
+     "id": "CA37C",
+     "location": "Rompin",
+     "api": 78,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      2.927699,
+      103.419193
+     ]
+    },
+    {
+     "id": "CA41C",
+     "location": "Balok Baru Kuantan",
+     "api": 72,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      3.960669,
+      103.382182
+     ]
+    },
+    {
+     "id": "CA38C",
+     "location": "Temerloh",
+     "api": 71,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      3.470806,
+      102.378663
+     ]
+    },
+    {
+     "id": "CA40C",
+     "location": "Indera Mahkota Kuantan",
+     "api": 71,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      3.819228,
+      103.296553
+     ]
+    },
+    {
+     "id": "CA39C",
+     "location": "Jerantut",
+     "api": 60,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      3.948312,
+      102.366683
+     ]
+    }
+   ]
+  },
+  "Perak": {
+   "api": 98,
+   "class": "Moderate",
+   "station": "Tanjung Malim",
+   "time": "2026-10-18T01:00:00+08:00",
+   "n_stations": 5,
+   "stations": [
+    {
+     "id": "CA14A",
+     "location": "Tanjung Malim",
+     "api": 98,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      3.687721,
+      101.524446
+     ]
+    },
+    {
+     "id": "CA13A",
+     "location": "Seri Manjung",
+     "api": 92,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      4.200385,
+      100.663346
+     ]
+    },
+    {
+     "id": "CA11A",
+     "location": "Tasek Ipoh",
+     "api": 88,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      4.629462,
+      101.116669
+     ]
+    },
+    {
+     "id": "CA12A",
+     "location": "Pegoh Ipoh",
+     "api": 87,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      4.553367,
+      101.080261
+     ]
+    },
+    {
+     "id": "CA10A",
+     "location": "Taiping",
+     "api": 67,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      4.898865,
+      100.679133
+     ]
+    }
+   ]
+  },
+  "Perlis": {
+   "api": 61,
+   "class": "Moderate",
+   "station": "Kangar",
+   "time": "2026-10-18T01:00:00+08:00",
+   "n_stations": 1,
+   "stations": [
+    {
+     "id": "CA01R",
+     "location": "Kangar",
+     "api": 61,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      6.429928,
+      100.210937
+     ]
+    }
+   ]
+  },
+  "Pulau Pinang": {
+   "api": 73,
+   "class": "Moderate",
+   "station": "Seberang Perai",
+   "time": "2026-10-18T01:00:00+08:00",
+   "n_stations": 4,
+   "stations": [
+    {
+     "id": "CA07P",
+     "location": "Seberang Perai",
+     "api": 73,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      5.329421,
+      100.443457
+     ]
+    },
+    {
+     "id": "CA06P",
+     "location": "Seberang Jaya",
+     "api": 67,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      5.398419,
+      100.403976
+     ]
+    },
+    {
+     "id": "CA08P",
+     "location": "Minden",
+     "api": 64,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      5.356226,
+      100.30794
+     ]
+    },
+    {
+     "id": "CA09P",
+     "location": "Balik Pulau",
+     "api": 43,
+     "class": "Good",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      5.337128,
+      100.216642
+     ]
+    }
+   ]
+  },
+  "Sabah": {
+   "api": 155,
+   "class": "Unhealthy",
+   "station": "Sandakan",
+   "time": "2026-10-18T01:00:00+08:00",
+   "n_stations": 6,
+   "stations": [
+    {
+     "id": "CA49S",
+     "location": "Sandakan",
+     "api": 155,
+     "class": "Unhealthy",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      5.864474,
+      118.091062
+     ]
+    },
+    {
+     "id": "CA48S",
+     "location": "Tawau",
+     "api": 123,
+     "class": "Unhealthy",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      4.249853,
+      117.935858
+     ]
+    },
+    {
+     "id": "CA52S",
+     "location": "Keningau",
+     "api": 72,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      5.339426,
+      116.163683
+     ]
+    },
+    {
+     "id": "MCAQM003",
+     "location": "Politeknik Kota Kinabalu",
+     "api": 67,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      6.097122,
+      116.166392
+     ]
+    },
+    {
+     "id": "CA51S",
+     "location": "Kimanis",
+     "api": 60,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      5.597719,
+      115.88833
+     ]
+    },
+    {
+     "id": "CA50S",
+     "location": "Kota Kinabalu",
+     "api": 51,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      5.879672,
+      116.056388
+     ]
+    }
+   ]
+  },
+  "Sarawak": {
+   "api": 114,
+   "class": "Unhealthy",
+   "station": "IPD Serian",
+   "time": "2026-10-18T01:00:00+08:00",
+   "n_stations": 13,
+   "stations": [
+    {
+     "id": "MCAQM002",
+     "location": "IPD Serian",
+     "api": 114,
+     "class": "Unhealthy",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      1.17247,
+      110.56807
+     ]
+    },
+    {
+     "id": "CA63Q",
+     "location": "Sri Aman",
+     "api": 92,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      1.219718,
+      111.464871
+     ]
+    },
+    {
+     "id": "CA64Q",
+     "location": "Samarahan",
+     "api": 86,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      1.454806,
+      110.491506
+     ]
+    },
+    {
+     "id": "CA65Q",
+     "location": "Kuching",
+     "api": 82,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      1.562167,
+      110.388916
+     ]
+    },
+    {
+     "id": "CA61Q",
+     "location": "Sibu",
+     "api": 73,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      2.314322,
+      111.831933
+     ]
+    },
+    {
+     "id": "CA62Q",
+     "location": "Sarikei",
+     "api": 73,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      2.132909,
+      111.522885
+     ]
+    },
+    {
+     "id": "CA57Q",
+     "location": "Samalaju",
+     "api": 67,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      3.532722,
+      113.325812
+     ]
+    },
+    {
+     "id": "CA58Q",
+     "location": "Bintulu",
+     "api": 65,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      3.177155,
+      113.041171
+     ]
+    },
+    {
+     "id": "CA59Q",
+     "location": "Mukah",
+     "api": 62,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      2.870617,
+      112.019994
+     ]
+    },
+    {
+     "id": "CA56Q",
+     "location": "Miri",
+     "api": 61,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      4.424563,
+      114.012368
+     ]
+    },
+    {
+     "id": "CA55Q",
+     "location": "ILP Miri",
+     "api": 58,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      4.49474,
+      114.043375
+     ]
+    },
+    {
+     "id": "CA60Q",
+     "location": "Kapit",
+     "api": 56,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      2.014548,
+      112.927323
+     ]
+    },
+    {
+     "id": "CA54Q",
+     "location": "Limbang",
+     "api": 43,
+     "class": "Good",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      4.758824,
+      115.01366
+     ]
+    }
+   ]
+  },
+  "Selangor": {
+   "api": 170,
+   "class": "Unhealthy",
+   "station": "Johan Setia",
+   "time": "2026-10-18T01:00:00+08:00",
+   "n_stations": 6,
+   "stations": [
+    {
+     "id": "MCAQM001",
+     "location": "Johan Setia",
+     "api": 170,
+     "class": "Unhealthy",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      2.978644,
+      101.490107
+     ]
+    },
+    {
+     "id": "CA20B",
+     "location": "Shah Alam",
+     "api": 167,
+     "class": "Unhealthy",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      3.10475,
+      101.556192
+     ]
+    },
+    {
+     "id": "CA21B",
+     "location": "Klang",
+     "api": 166,
+     "class": "Unhealthy",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      3.014899,
+      101.413136
+     ]
+    },
+    {
+     "id": "CA19B",
+     "location": "Petaling Jaya",
+     "api": 165,
+     "class": "Unhealthy",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      3.130875,
+      101.60868
+     ]
+    },
+    {
+     "id": "CA22B",
+     "location": "Banting",
+     "api": 162,
+     "class": "Unhealthy",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      2.816668,
+      101.623043
+     ]
+    },
+    {
+     "id": "CA18B",
+     "location": "Kuala Selangor",
+     "api": 97,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      3.321362,
+      101.256249
+     ]
+    }
+   ]
+  },
+  "Terengganu": {
+   "api": 70,
+   "class": "Moderate",
+   "station": "Paka",
+   "time": "2026-10-18T01:00:00+08:00",
+   "n_stations": 4,
+   "stations": [
+    {
+     "id": "CA43T",
+     "location": "Paka",
+     "api": 70,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      4.598131,
+      103.434793
+     ]
+    },
+    {
+     "id": "CA45T",
+     "location": "Besut",
+     "api": 70,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      5.743342,
+      102.513478
+     ]
+    },
+    {
+     "id": "CA42T",
+     "location": "Kemaman",
+     "api": 67,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      4.26215,
+      103.425839
+     ]
+    },
+    {
+     "id": "CA44T",
+     "location": "Kuala Terengganu",
+     "api": 66,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      5.308144,
+      103.120435
+     ]
+    }
+   ]
+  },
+  "W.P. Kuala Lumpur": {
+   "api": 162,
+   "class": "Unhealthy",
+   "station": "Cheras",
+   "time": "2026-10-18T01:00:00+08:00",
+   "n_stations": 2,
+   "stations": [
+    {
+     "id": "CA16W",
+     "location": "Cheras",
+     "api": 162,
+     "class": "Unhealthy",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      3.10626,
+      101.717931
+     ]
+    },
+    {
+     "id": "CA15W",
+     "location": "Batu Muda",
+     "api": 159,
+     "class": "Unhealthy",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      3.212429,
+      101.682218
+     ]
+    }
+   ]
+  },
+  "W.P. Labuan": {
+   "api": 60,
+   "class": "Moderate",
+   "station": "Labuan",
+   "time": "2026-10-18T01:00:00+08:00",
+   "n_stations": 1,
+   "stations": [
+    {
+     "id": "CA53L",
+     "location": "Labuan",
+     "api": 60,
+     "class": "Moderate",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      5.298106,
+      115.232276
+     ]
+    }
+   ]
+  },
+  "W.P. Putrajaya": {
+   "api": 164,
+   "class": "Unhealthy",
+   "station": "Putrajaya",
+   "time": "2026-10-18T01:00:00+08:00",
+   "n_stations": 1,
+   "stations": [
+    {
+     "id": "CA17W",
+     "location": "Putrajaya",
+     "api": 164,
+     "class": "Unhealthy",
+     "symbol": "**",
+     "time": "2026-10-18T01:00:00+08:00",
+     "geo": [
+      2.915793,
+      101.690946
+     ]
+    }
+   ]
+  }
+ }
+}

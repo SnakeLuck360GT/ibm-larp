@@ -1,6 +1,6 @@
 """Step 2: build features.csv (one row per state x year, 2017 to the current year) from raw/.
 
-Run from the repo root after fetch_raw.py:  .venv/bin/python data/resource_allocation/build_features.py
+Run from the repo root after fetch_raw.py:  .venv/bin/python pipeline/build_features.py
 
 Replaces the feature cell in notebooks/03_equity_eda.ipynb (the notebook stays as EDA). Surveys
 don't run every year, so each gap is filled and the *_source columns say how:
@@ -21,7 +21,7 @@ from zoneinfo import ZoneInfo
 import numpy as np
 import pandas as pd
 
-RA = Path(__file__).resolve().parent
+RA = Path(__file__).resolve().parents[1] / "data" / "resource_allocation"
 RAW = RA / "raw"
 
 FIRST_YEAR = 2017  # first year of the quarterly labour force survey

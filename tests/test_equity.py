@@ -1,6 +1,6 @@
 """Equity layer checks. Run from the repo root after the pipeline:
 
-    .venv/bin/python data/resource_allocation/build_features.py
+    .venv/bin/python pipeline/build_features.py
     .venv/bin/python pipeline/03_equity.py && .venv/bin/python -m pytest tests/test_equity.py
 """
 

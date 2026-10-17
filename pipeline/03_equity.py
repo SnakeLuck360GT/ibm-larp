@@ -5,7 +5,7 @@ Run from the repo root:
     .venv/bin/python pipeline/03_equity.py --refresh  # reuse ranker.json, re-rank on the latest forecast
 
 Reads data/resource_allocation/features.csv (one row per state x year, built by
-data/resource_allocation/build_features.py) and config/allocation.json. Ranking groups are each
+pipeline/build_features.py) and config/allocation.json. Ranking groups are each
 year plus every 3-day window of observed PM2.5 (see episode_groups). The ranker trains on every year
 before the current one; the current year is only ranked.
 There is no ground-truth priority list, so labels are a proxy harm grade (see config "label").
