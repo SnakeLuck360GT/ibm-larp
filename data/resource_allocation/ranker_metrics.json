@@ -1,0 +1,75 @@
+{
+  "ndcg@5": 0.9834,
+  "baseline_ndcg@5": 0.6345,
+  "per_year": {
+    "2017": {
+      "ranker": 0.9761,
+      "baseline": 0.5293
+    },
+    "2018": {
+      "ranker": 0.987,
+      "baseline": 0.537
+    },
+    "2019": {
+      "ranker": 0.9967,
+      "baseline": 0.5432
+    },
+    "2020": {
+      "ranker": 0.9631,
+      "baseline": 0.7456
+    },
+    "2021": {
+      "ranker": 0.9631,
+      "baseline": 0.7138
+    },
+    "2022": {
+      "ranker": 0.9866,
+      "baseline": 0.6937
+    },
+    "2023": {
+      "ranker": 0.9931,
+      "baseline": 0.6332
+    },
+    "2024": {
+      "ranker": 0.9924,
+      "baseline": 0.7214
+    },
+    "2025": {
+      "ranker": 0.9921,
+      "baseline": 0.5931
+    }
+  },
+  "validation": "leave-one-year-out over yearly + 3-day PM2.5 episode groups; gain = proxy grade (0-15), sklearn ndcg_score",
+  "groups": {
+    "yearly": 9,
+    "3_day_episodes": 415
+  },
+  "trained_years": [
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "label_method": "proxy_harm_quantiles",
+  "features": [
+    "z_income_median",
+    "z_income_mean",
+    "z_income_gap",
+    "z_poverty_rate",
+    "z_gini",
+    "z_u_rate",
+    "z_gdp_per_capita",
+    "z_beds_per_1000",
+    "z_pct_65plus",
+    "z_pct_under5",
+    "z_density",
+    "z_pm25_mean",
+    "z_unhealthy_days_per_yr",
+    "z_log_population"
+  ]
+}

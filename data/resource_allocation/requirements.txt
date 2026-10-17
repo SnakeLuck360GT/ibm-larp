@@ -1,0 +1,11 @@
+pandas
+pyarrow
+requests
+xgboost
+scikit-learn
+pytest
+matplotlib
+seaborn
+nbformat
+nbconvert
+ipykernel

@@ -1,0 +1,44 @@
+{
+  "stock": {
+    "mobile_clinics": 6,
+    "n95": 300000,
+    "source": "HazeGuard-MY brief default; placeholder, not real MOH stock"
+  },
+  "allocation": {
+    "clinic_rule": "one mobile clinic per state in priority order until clinics run out",
+    "n95_max_priority": 10,
+    "n95_per_vulnerable_person": 1,
+    "n95_rule": "states with priority <= n95_max_priority share the N95 stock in proportion to vulnerable people (label.vulnerable_weights), capped at n95_per_vulnerable_person each; rounding leftovers go to the most urgent state first",
+    "actions": [
+      {"max_priority": 5, "action": "Deploy mobile clinic + distribute N95s"},
+      {"max_priority": 10, "action": "Pre-position N95s, issue advisory"},
+      {"max_priority": 16, "action": "Monitor"}
+    ],
+    "source": "HazeGuard-MY brief (team decision)"
+  },
+  "label": {
+    "method": "proxy_harm_quantiles",
+    "grades": 16,
+    "grades_note": "16 = one grade per state, i.e. the full within-year order of the harm proxy. With 4 (quartiles) the top four states tie, so the ranker never learns their order and barely reacts to the forecast.",
+    "description": "PROXY, not ground truth. harm = exposure x vulnerable people, graded by within-year quantile of harm (highest grade = most harm).",
+    "exposure": "pm25_mean",
+    "exposure_note": "Mean daily PM2.5 rather than unhealthy-day count: CAMS reads ~40 ug/m3 over the Klang Valley, just above the 35 ug/m3 threshold, so day counts there are inflated ~10-300x vs other states.",
+    "vulnerable_weights": {"pct_65plus": 1, "pct_under5": 1, "poverty_rate": 2},
+    "source": "Team assumption: no official haze-priority list exists; poor households weighted 2x because exposure correlates with income (rho ~0.7)"
+  },
+  "baseline_weights": {
+    "income_median": -0.4,
+    "pct_65plus": 0.2,
+    "pct_under5": 0.2,
+    "beds_per_1000": -0.2,
+    "source": "HazeGuard-MY brief: weighted index (low median income 0.4, 65+ 0.2, under-5 0.2, low beds 0.2) on within-year z-scores"
+  },
+  "ranker": {
+    "objective": "rank:pairwise",
+    "max_depth": 2,
+    "n_estimators": 100,
+    "learning_rate": 0.1,
+    "random_state": 42
+  },
+  "eval": {"k": 5}
+}
