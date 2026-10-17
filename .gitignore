@@ -1,0 +1,5 @@
+data/raw/*
+!data/raw/.gitkeep
+.env
+node_modules/
+__pycache__/
