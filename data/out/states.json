@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T19:35:35+08:00",
+  "generated_at": "2026-10-17T23:35:20+08:00",
   "reference_year": 2026,
   "states": [
     {
@@ -14,9 +14,9 @@
       "u_rate": 2.05,
       "gini": 0.332,
       "pm25": {
-        "24": 37.0,
-        "48": 60.0,
-        "72": 55.4
+        "24": 36.3,
+        "48": 59.7,
+        "72": 56.3
       },
       "pm25_ytd": 46.2,
       "risk_score": 1.0,
@@ -44,9 +44,9 @@
       "u_rate": 2.35,
       "gini": 0.348,
       "pm25": {
-        "24": 57.9,
-        "48": 50.1,
-        "72": 51.8
+        "24": 54.7,
+        "48": 48.8,
+        "72": 51.9
       },
       "pm25_ytd": 26.0,
       "risk_score": 0.856,
@@ -74,12 +74,12 @@
       "u_rate": 5.55,
       "gini": 0.405,
       "pm25": {
-        "24": 9.8,
-        "48": 6.1,
+        "24": 9.5,
+        "48": 5.7,
         "72": 5.5
       },
       "pm25_ytd": 13.5,
-      "risk_score": 0.807,
+      "risk_score": 0.8,
       "priority": 3,
       "priority_by_horizon": {
         "24": 3,
@@ -104,9 +104,9 @@
       "u_rate": 3.35,
       "gini": 0.298,
       "pm25": {
-        "24": 28.8,
-        "48": 19.9,
-        "72": 24.0
+        "24": 23.9,
+        "48": 22.9,
+        "72": 23.0
       },
       "pm25_ytd": 21.2,
       "risk_score": 0.76,
@@ -134,9 +134,9 @@
       "u_rate": 3.45,
       "gini": 0.375,
       "pm25": {
-        "24": 37.0,
-        "48": 60.0,
-        "72": 55.4
+        "24": 36.3,
+        "48": 59.7,
+        "72": 56.3
       },
       "pm25_ytd": 46.2,
       "risk_score": 0.712,
@@ -153,36 +153,6 @@
       "action": "Deploy mobile clinic + distribute N95s"
     },
     {
-      "state": "Sarawak",
-      "lat": 1.5533,
-      "lon": 110.3592,
-      "population": 2539800,
-      "income_median": 5584.59,
-      "income_mean": 7048.72,
-      "poverty_rate": 8.4,
-      "beds_per_1000": 1.649,
-      "u_rate": 3.35,
-      "gini": 0.361,
-      "pm25": {
-        "24": 15.0,
-        "48": 10.5,
-        "72": 9.9
-      },
-      "pm25_ytd": 29.6,
-      "risk_score": 0.611,
-      "priority": 6,
-      "priority_by_horizon": {
-        "24": 6,
-        "48": 6,
-        "72": 7
-      },
-      "allocation": {
-        "mobile_clinic": true,
-        "n95": 30986
-      },
-      "action": "Pre-position N95s, issue advisory"
-    },
-    {
       "state": "Kedah",
       "lat": 6.1248,
       "lon": 100.3678,
@@ -194,21 +164,51 @@
       "u_rate": 2.45,
       "gini": 0.334,
       "pm25": {
-        "24": 9.6,
-        "48": 11.2,
-        "72": 17.5
+        "24": 9.0,
+        "48": 11.7,
+        "72": 18.5
       },
       "pm25_ytd": 17.4,
-      "risk_score": 0.609,
-      "priority": 7,
+      "risk_score": 0.617,
+      "priority": 6,
       "priority_by_horizon": {
         "24": 7,
         "48": 7,
         "72": 6
       },
       "allocation": {
-        "mobile_clinic": false,
+        "mobile_clinic": true,
         "n95": 28289
+      },
+      "action": "Deploy mobile clinic + distribute N95s"
+    },
+    {
+      "state": "Sarawak",
+      "lat": 1.5533,
+      "lon": 110.3592,
+      "population": 2539800,
+      "income_median": 5584.59,
+      "income_mean": 7048.72,
+      "poverty_rate": 8.4,
+      "beds_per_1000": 1.649,
+      "u_rate": 3.35,
+      "gini": 0.361,
+      "pm25": {
+        "24": 12.8,
+        "48": 10.0,
+        "72": 12.4
+      },
+      "pm25_ytd": 29.6,
+      "risk_score": 0.611,
+      "priority": 7,
+      "priority_by_horizon": {
+        "24": 6,
+        "48": 6,
+        "72": 7
+      },
+      "allocation": {
+        "mobile_clinic": false,
+        "n95": 30986
       },
       "action": "Pre-position N95s, issue advisory"
     },
@@ -224,9 +224,9 @@
       "u_rate": 4.1,
       "gini": 0.356,
       "pm25": {
-        "24": 6.9,
-        "48": 8.6,
-        "72": 10.2
+        "24": 6.6,
+        "48": 9.3,
+        "72": 9.8
       },
       "pm25_ytd": 13.4,
       "risk_score": 0.584,
@@ -254,9 +254,9 @@
       "u_rate": 2.4,
       "gini": 0.343,
       "pm25": {
-        "24": 24.9,
-        "48": 40.0,
-        "72": 32.0
+        "24": 28.0,
+        "48": 38.9,
+        "72": 30.0
       },
       "pm25_ytd": 24.5,
       "risk_score": 0.518,
@@ -264,7 +264,7 @@
       "priority_by_horizon": {
         "24": 9,
         "48": 9,
-        "72": 9
+        "72": 10
       },
       "allocation": {
         "mobile_clinic": false,
@@ -284,17 +284,17 @@
       "u_rate": 1.95,
       "gini": 0.319,
       "pm25": {
-        "24": 12.4,
-        "48": 16.7,
-        "72": 15.5
+        "24": 13.5,
+        "48": 16.1,
+        "72": 18.5
       },
       "pm25_ytd": 13.9,
-      "risk_score": 0.496,
+      "risk_score": 0.512,
       "priority": 10,
       "priority_by_horizon": {
         "24": 10,
         "48": 10,
-        "72": 11
+        "72": 9
       },
       "allocation": {
         "mobile_clinic": false,
@@ -314,17 +314,17 @@
       "u_rate": 2.65,
       "gini": 0.311,
       "pm25": {
-        "24": 15.4,
-        "48": 15.0,
-        "72": 22.1
+        "24": 14.5,
+        "48": 15.5,
+        "72": 23.8
       },
       "pm25_ytd": 22.0,
-      "risk_score": 0.462,
+      "risk_score": 0.465,
       "priority": 11,
       "priority_by_horizon": {
         "24": 11,
         "48": 11,
-        "72": 10
+        "72": 11
       },
       "allocation": {
         "mobile_clinic": false,
@@ -344,9 +344,9 @@
       "u_rate": 2.0,
       "gini": 0.337,
       "pm25": {
-        "24": 39.4,
-        "48": 25.5,
-        "72": 24.7
+        "24": 35.9,
+        "48": 24.8,
+        "72": 25.4
       },
       "pm25_ytd": 19.9,
       "risk_score": 0.433,
@@ -374,12 +374,12 @@
       "u_rate": 3.05,
       "gini": 0.263,
       "pm25": {
-        "24": 5.5,
-        "48": 7.1,
-        "72": 10.6
+        "24": 5.0,
+        "48": 8.4,
+        "72": 11.2
       },
       "pm25_ytd": 14.8,
-      "risk_score": 0.394,
+      "risk_score": 0.402,
       "priority": 13,
       "priority_by_horizon": {
         "24": 13,
@@ -404,9 +404,9 @@
       "u_rate": 3.1,
       "gini": 0.334,
       "pm25": {
-        "24": 3.9,
-        "48": 2.5,
-        "72": 5.1
+        "24": 3.0,
+        "48": 2.4,
+        "72": 5.7
       },
       "pm25_ytd": 10.3,
       "risk_score": 0.202,
@@ -434,9 +434,9 @@
       "u_rate": 1.3,
       "gini": 0.324,
       "pm25": {
-        "24": 46.9,
-        "48": 51.8,
-        "72": 48.9
+        "24": 40.7,
+        "48": 54.8,
+        "72": 46.4
       },
       "pm25_ytd": 39.2,
       "risk_score": 0.169,
@@ -464,9 +464,9 @@
       "u_rate": 4.95,
       "gini": 0.327,
       "pm25": {
-        "24": 8.4,
-        "48": 5.3,
-        "72": 3.8
+        "24": 7.5,
+        "48": 4.9,
+        "72": 3.7
       },
       "pm25_ytd": 13.0,
       "risk_score": 0.0,
@@ -596,7 +596,7 @@
     },
     {
       "name": "PM2.5 by horizon (24/48/72 h)",
-      "value": "CAMS forecast at state capital, mean of each 24 h window ahead, issued 2026-10-17T19:00:00 (fetched); priority_by_horizon ranks each window, the allocation ranks the whole 0-72 h; stand-in until forecast.json from the physical model lands",
+      "value": "CAMS forecast at state capital, mean of each 24 h window ahead, issued 2026-10-17T23:00:00 (fetched); priority_by_horizon ranks each window, the allocation ranks the whole 0-72 h; stand-in until forecast.json from the physical model lands",
       "unit": "ug/m3",
       "source": "Open-Meteo Air Quality API / Copernicus CAMS, CC BY 4.0"
     },
@@ -650,7 +650,7 @@
     },
     {
       "name": "Actions",
-      "value": "priority <= 5: Deploy mobile clinic + distribute N95s; priority <= 10: Pre-position N95s, issue advisory; priority <= 16: Monitor",
+      "value": "priority <= 6: Deploy mobile clinic + distribute N95s; priority <= 10: Pre-position N95s, issue advisory; priority <= 16: Monitor",
       "unit": "",
       "source": "HazeGuard-MY brief (team decision)"
     },

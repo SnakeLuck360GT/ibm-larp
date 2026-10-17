@@ -185,7 +185,8 @@ def test_clinics_go_to_top_priorities(out):
 def test_actions_follow_priority(out):
     for s in out["states"]:
         p = s["priority"]
-        want = ("Deploy mobile clinic + distribute N95s" if p <= 5 else
+        # Deploy covers exactly the states that get a clinic, so the action never contradicts the allocation.
+        want = ("Deploy mobile clinic + distribute N95s" if p <= out["stock"]["mobile_clinics"] else
                 "Pre-position N95s, issue advisory" if p <= 10 else "Monitor")
         assert s["action"] == want, s["state"]
         if want == "Monitor":

@@ -10,7 +10,7 @@
     "n95_per_vulnerable_person": 1,
     "n95_rule": "states with priority <= n95_max_priority share the N95 stock in proportion to vulnerable people (label.vulnerable_weights), capped at n95_per_vulnerable_person each; rounding leftovers go to the most urgent state first",
     "actions": [
-      {"max_priority": 5, "action": "Deploy mobile clinic + distribute N95s"},
+      {"max_priority": 6, "action": "Deploy mobile clinic + distribute N95s"},
       {"max_priority": 10, "action": "Pre-position N95s, issue advisory"},
       {"max_priority": 16, "action": "Monitor"}
     ],

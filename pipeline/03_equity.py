@@ -401,6 +401,72 @@ def export(ranked: pd.DataFrame, cfg: dict, metrics: dict, windows: dict[str, pd
     tmp = OUT.with_suffix(".json.tmp")
     tmp.write_text(json.dumps(out, indent=2, ensure_ascii=False) + "\n")
     tmp.replace(OUT)
+    export_web(ranked, cfg, windows, out["generated_at"])
+    export_forecast_live(pm25_note)
+    return out
+
+
+LIVE_OUT = OUT.parent / "forecast_live.json"
+
+
+def export_forecast_live(pm25_note: dict) -> dict | None:
+    """The 72 hourly CAMS PM2.5 values per state behind the 24/48/72 h windows, for the Command map's
+    live chart. Skipped when the ranking fell back to year-to-date exposure (no usable hourly forecast)."""
+    if not FORECAST_CSV.exists() or pm25_note["value"].startswith("Year-to-date"):
+        return None
+    fc = pd.read_csv(FORECAST_CSV)
+    if "hour" not in fc:
+        return None
+    issued = pd.Timestamp(fc["issued_at"].iat[0])
+    if issued.tzinfo is None:  # fetch_pm25_forecast stores naive Kuala Lumpur time
+        issued = issued.tz_localize(KL_TZ)
+    out = {
+        "issued_at": issued.isoformat(), "unit": "µg/m³",
+        "source": f"{CAMS}; hourly PM2.5 at each state capital, hour 0 = issue hour",
+        "states": {st: [round(float(v), 1) for v in g.sort_values("hour")["pm25"]] for st, g in fc.groupby("state")},
+    }
+    tmp = LIVE_OUT.with_suffix(".json.tmp")
+    tmp.write_text(json.dumps(out, separators=(",", ":"), ensure_ascii=False) + "\n")
+    tmp.replace(LIVE_OUT)
+    return out
+
+
+WEB_OUT = OUT.parent / "ranker_web.json"
+
+
+def export_web(ranked: pd.DataFrame, cfg: dict, windows: dict[str, pd.DataFrame], generated_at: str) -> dict:
+    """Everything the Routing tab needs to re-run rank_current in the browser: the trees, the current
+    year's raw rows (plan order) and each state's exposure per window (unrounded, so the browser
+    reproduces states.json exactly). Window "all" = ALLOC; its pm25_mean is the mean of the three 24 h
+    means, and unhealthy_days_per_yr = share of them above UNHEALTHY x 365."""
+    booster = json.loads((RA / "ranker.json").read_text())["learner"]
+    gb = booster["gradient_booster"]["model"]
+    assert booster["feature_names"] == FEATURES
+    trees = [[t["left_children"], t["right_children"], t["split_indices"], t["split_conditions"],
+              [int(d) for d in t["default_left"]]] for t in gb["trees"]]
+    raw = list(dict.fromkeys(["population", *BASE_FEATURES, *cfg["label"]["vulnerable_weights"]]))
+    raw = [c for c in raw if c not in EXPOSURE]
+    wins = {**{str(hz): str(hz) for hz in HORIZONS}, "all": ALLOC}
+    rows = [{"state": r["state"], **{c: float(r[c]) for c in raw},
+             "exposure": {w: [float(windows[src].at[r["state"], col]) for col in EXPOSURE] for w, src in wins.items()}}
+            for _, r in ranked.iterrows()]
+    alloc = cfg["allocation"]
+    out = {
+        "generated_at": generated_at, "reference_year": int(ranked["year"].iat[0]),
+        "features": FEATURES, "base_features": BASE_FEATURES, "exposure": EXPOSURE, "raw_columns": raw,
+        "unhealthy": UNHEALTHY,
+        "base_score": float(booster["learner_model_param"]["base_score"].strip("[]")),
+        "tree_format": ["left_children", "right_children", "split_indices", "split_conditions (leaf value at leaves)",
+                        "default_left"],
+        "trees": trees,
+        "stock": {"mobile_clinics": cfg["stock"]["mobile_clinics"], "n95": cfg["stock"]["n95"]},
+        "n95_max_priority": alloc["n95_max_priority"], "n95_per_vulnerable_person": alloc["n95_per_vulnerable_person"],
+        "vulnerable_weights": cfg["label"]["vulnerable_weights"], "label_exposure": cfg["label"]["exposure"],
+        "rows": rows,
+    }
+    tmp = WEB_OUT.with_suffix(".json.tmp")
+    tmp.write_text(json.dumps(out, separators=(",", ":"), ensure_ascii=False) + "\n")
+    tmp.replace(WEB_OUT)
     return out
 
 
