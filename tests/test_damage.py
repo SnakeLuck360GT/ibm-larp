@@ -23,14 +23,14 @@ HORIZONS = ("24", "48", "72")
 
 @pytest.fixture(scope="module")
 def inputs():
-    ref, haze, truth, _ = policy.load_inputs()
+    ref, haze, truth, _, _ = policy.load_inputs(fetch=False)
     return ref, haze, truth
 
 
 @pytest.fixture(scope="module")
 def result():
     # 50 draws keeps the test fast; the real run uses 1000.
-    return policy.run(n_sims=50, write=False)
+    return policy.run(n_sims=50, write=False, fetch=False)
 
 
 # ---------------------------------------------------------------- inputs
@@ -112,7 +112,7 @@ def test_model_scores_filled(result):
 def _one_day(ref, pm25, api):
     """One synthetic day for every state at a fixed PM2.5 / API."""
     return pd.DataFrame({
-        "date": "2026-01-01", "state": ref.state, "pm25_ugm3": pm25, "api_max": api,
+        "date": "2026-01-01", "state": ref.state, "pm25_ugm3": pm25, "api_max": api, "affected_share": 1.0,
         "school_closed": int(api > 200), "school_closed_share": 0.5 if api > 200 else 0.0,
         "flights_disrupted": 0, "cloud_seeding_ops": 0,
     })
@@ -132,8 +132,26 @@ def test_damage_rises_with_pm25(inputs):
 
 
 def test_mortality_excluded(result):
-    assert result["national"]["by_category_rm"]["mortality"] == 0
+    assert result["national"]["memo_not_in_total_rm"]["mortality"] == 0
     assert result["model"]["mortality_included"] is False
+
+
+def test_worked_example_from_brief():
+    """RM 10 m/day x 5% x 3 days = RM 1.5 m"""
+    assert policy.damage_cost(10e6, 0.05, 3) == pytest.approx(1.5e6)
+
+
+def test_memo_items_not_in_total(result):
+    for s in result["states"]:
+        assert not set(s["memo_not_in_total_rm"]) & set(s["by_category_rm"])
+
+
+def test_scenarios_ordered(result):
+    sc = result["forecast_72h"]["scenarios"]
+    assert sc["best"]["total_72h_rm"] <= sc["expected"]["total_72h_rm"] <= sc["worst"]["total_72h_rm"]
+    assert sc["worst"]["if_prolonged_rm"] >= sc["worst"]["total_72h_rm"]
+    for name, v in sc.items():
+        assert sum(v["by_sector_rm"].values()) == pytest.approx(v["total_72h_rm"], abs=10), name
 
 
 def test_daily_damage_near_benchmark(result):
@@ -150,5 +168,5 @@ def test_mock_is_reproducible():
 def test_writes_json(tmp_path, monkeypatch):
     out = tmp_path / "damage.json"
     monkeypatch.setattr(policy, "OUT_PATH", out)
-    policy.run(n_sims=5, write=True)
+    policy.run(n_sims=5, write=True, fetch=False)
     assert json.loads(out.read_text())["states"]
