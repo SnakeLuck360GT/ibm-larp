@@ -7,8 +7,9 @@ and manifest.json recording dataset IDs, URLs and years (feeds `assumptions`).
 """
 
 import json
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 import pandas as pd
 import requests
@@ -41,6 +42,27 @@ DATASETS = {
         "hospital_beds",
         "https://storage.data.gov.my/healthcare/hospital_beds.parquet",
         "Hospital beds by state, district and facility type",
+    ),
+    # Financial series fresher than HIES (2024), so 2026 isn't only carried forward.
+    "lfs_qtr_state.parquet": (
+        "lfs_qtr_state",
+        "https://storage.dosm.gov.my/labour/lfs_qtr_state.parquet",
+        "Quarterly labour force survey by state: unemployment rate (%)",
+    ),
+    "cpi_2d_state.parquet": (
+        "cpi_2d_state",
+        "https://storage.dosm.gov.my/cpi/cpi_2d_state.parquet",
+        "Monthly consumer price index by state and division (2010 = 100)",
+    ),
+    "hh_inequality_state.parquet": (
+        "hh_inequality_state",
+        "https://storage.dosm.gov.my/hies/hh_inequality_state.parquet",
+        "Household income Gini coefficient by state, all HIES years",
+    ),
+    "gdp_state_real_supply.parquet": (
+        "gdp_state_real_supply",
+        "https://storage.dosm.gov.my/gdp/gdp_state_real_supply.parquet",
+        "Annual real GDP by state and sector (RM million, constant 2015 prices)",
     ),
 }
 
@@ -100,7 +122,9 @@ def main() -> None:
 # No state-level PM2.5 history exists on data.gov.my (air_pollution is national-only),
 # and forecast.json from the physical model isn't on main yet.
 PM25_URL = "https://air-quality-api.open-meteo.com/v1/air-quality"
-PM25_START, PM25_END = "2022-08-01", "2026-09-30"
+PM25_START = "2022-08-01"
+# Up to yesterday (MYT), so the current year's exposure is year-to-date.
+PM25_END = (datetime.now(ZoneInfo("Asia/Kuala_Lumpur")) - timedelta(days=1)).date().isoformat()
 
 
 def fetch_pm25() -> pd.DataFrame:

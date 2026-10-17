@@ -1,5 +1,6 @@
 """Equity layer checks. Run from the repo root after the pipeline:
 
+    .venv/bin/python data/resource_allocation/build_features.py
     .venv/bin/python pipeline/03_equity.py && .venv/bin/python -m pytest tests/test_equity.py
 """
 
@@ -49,6 +50,16 @@ def test_features_have_no_nans(features):
     assert features[cols].notna().all().all()
 
 
+def test_current_year_is_flagged_as_estimated(features):
+    cur = features[features["year"] == features["year"].max()]
+    assert (cur["hies_source"] == "carried+cpi").all()  # no HIES for the current year yet
+    assert (cur["pm25_source"] == "ytd").all()
+    assert cur["u_rate_source"].isin({"ytd", "observed"}).all()
+    past = features[features["year"] < features["year"].max()]
+    assert past["pm25_source"].isin({"observed", "climatology"}).all()
+    assert (past.loc[past["year"] >= 2023, "pm25_source"] == "observed").all()
+
+
 def test_household_income_has_median_and_mean_for_every_state():
     inc = pd.read_csv(RA / "raw" / "household_income.csv")
     assert {"state", "year", "income_median", "income_mean"} <= set(inc.columns)
@@ -79,13 +90,40 @@ def test_allocate_n95_leftover_goes_to_most_urgent():
     assert got.sum() == 10 and got[0] == 4
 
 
+# --- forecast windows ----------------------------------------------------------------------------
+def test_exposure_windows_split_72h_into_three_days():
+    fc = pd.DataFrame({"state": ["A"] * 72 + ["B"] * 72, "hour": list(range(72)) * 2,
+                       "pm25": [10.0] * 24 + [40.0] * 24 + [60.0] * 24 + [5.0] * 72, "issued_at": "x"})
+    w = equity.exposure_windows(fc)
+    assert w["24"].at["A", "pm25_mean"] == 10 and w["48"].at["A", "pm25_mean"] == 40
+    assert w["72"].at["A", "pm25_mean"] == 60
+    assert w["24"].at["A", "unhealthy_days_per_yr"] == 0 and w["48"].at["A", "unhealthy_days_per_yr"] == 365
+    assert w[equity.ALLOC].at["A", "pm25_mean"] == pytest.approx(110 / 3)
+    assert w[equity.ALLOC].at["A", "unhealthy_days_per_yr"] == pytest.approx(365 * 2 / 3)
+    assert w[equity.ALLOC].at["B", "unhealthy_days_per_yr"] == 0
+
+
+def test_pm25_spike_raises_priority(features):
+    model, _ = equity.load_trained()
+    cfg = equity.load_config()
+    _, cur = equity.split_years(features)
+    ytd = cur.set_index("state")[equity.EXPOSURE]
+    before = equity.rank_scenario(cur, ytd, model, cfg).set_index("state")["priority"]
+    state = before[before == 8].index[0]
+    spiked = ytd.copy()
+    spiked.loc[state] = [ytd["pm25_mean"].max() * 3, 365.0]
+    after = equity.rank_scenario(cur, spiked, model, cfg).set_index("state")["priority"]
+    assert after[state] < before[state], state
+
+
 # --- states.json ------------------------------------------------------------------------------------
 STATE_KEYS = {"state", "lat", "lon", "population", "income_median", "income_mean", "poverty_rate",
-              "beds_per_1000", "pm25", "risk_score", "priority", "allocation", "action"}
+              "beds_per_1000", "u_rate", "gini", "pm25", "pm25_ytd", "risk_score", "priority",
+              "priority_by_horizon", "allocation", "action"}
 
 
 def test_output_format(out):
-    assert {"states", "stock", "model", "assumptions"} <= set(out)
+    assert {"generated_at", "reference_year", "states", "stock", "model", "assumptions"} <= set(out)
     assert len(out["states"]) == 16
     for s in out["states"]:
         assert STATE_KEYS <= set(s), s["state"]
@@ -110,6 +148,19 @@ def test_all_states_present(out):
 
 def test_priorities_unique_1_to_16(out):
     assert sorted(s["priority"] for s in out["states"]) == list(range(1, 17))
+
+
+def test_priority_by_horizon_unique_1_to_16(out):
+    for hz in ("24", "48", "72"):
+        assert sorted(s["priority_by_horizon"][hz] for s in out["states"]) == list(range(1, 17)), hz
+
+
+def test_current_year_ranked_but_not_trained(out, features):
+    assert out["reference_year"] == features["year"].max()
+    trained = out["model"]["trained_years"]
+    assert out["reference_year"] not in trained and max(trained) == out["reference_year"] - 1
+    metrics = json.loads((RA / "ranker_metrics.json").read_text())
+    assert str(out["reference_year"]) not in metrics["per_year"]
 
 
 def test_risk_score_follows_priority(out):

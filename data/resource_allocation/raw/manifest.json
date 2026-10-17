@@ -65,7 +65,7 @@
       2026
     ],
     "source": "DOSM / data.gov.my (OpenDOSM), CC BY 4.0",
-    "fetched_at": "2026-10-17T10:58:32+00:00"
+    "fetched_at": "2026-10-17T11:31:56+00:00"
   },
   {
     "file": "hies_state.parquet",
@@ -78,7 +78,7 @@
       2024
     ],
     "source": "DOSM / data.gov.my (OpenDOSM), CC BY 4.0",
-    "fetched_at": "2026-10-17T10:58:32+00:00"
+    "fetched_at": "2026-10-17T11:31:56+00:00"
   },
   {
     "file": "hh_income_state.parquet",
@@ -111,7 +111,7 @@
       2024
     ],
     "source": "DOSM / data.gov.my (OpenDOSM), CC BY 4.0",
-    "fetched_at": "2026-10-17T10:58:32+00:00"
+    "fetched_at": "2026-10-17T11:31:56+00:00"
   },
   {
     "file": "hh_poverty_state.parquet",
@@ -143,7 +143,7 @@
       2024
     ],
     "source": "DOSM / data.gov.my (OpenDOSM), CC BY 4.0",
-    "fetched_at": "2026-10-17T10:58:32+00:00"
+    "fetched_at": "2026-10-17T11:31:56+00:00"
   },
   {
     "file": "hospital_beds.parquet",
@@ -164,7 +164,109 @@
       2024
     ],
     "source": "DOSM / data.gov.my (OpenDOSM), CC BY 4.0",
-    "fetched_at": "2026-10-17T10:58:32+00:00"
+    "fetched_at": "2026-10-17T11:31:56+00:00"
+  },
+  {
+    "file": "lfs_qtr_state.parquet",
+    "id": "lfs_qtr_state",
+    "url": "https://storage.dosm.gov.my/labour/lfs_qtr_state.parquet",
+    "description": "Quarterly labour force survey by state: unemployment rate (%)",
+    "rows": 608,
+    "years": [
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "source": "DOSM / data.gov.my (OpenDOSM), CC BY 4.0",
+    "fetched_at": "2026-10-17T11:31:56+00:00"
+  },
+  {
+    "file": "cpi_2d_state.parquet",
+    "id": "cpi_2d_state",
+    "url": "https://storage.dosm.gov.my/cpi/cpi_2d_state.parquet",
+    "description": "Monthly consumer price index by state and division (2010 = 100)",
+    "rows": 44800,
+    "years": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "source": "DOSM / data.gov.my (OpenDOSM), CC BY 4.0",
+    "fetched_at": "2026-10-17T11:31:56+00:00"
+  },
+  {
+    "file": "hh_inequality_state.parquet",
+    "id": "hh_inequality_state",
+    "url": "https://storage.dosm.gov.my/hies/hh_inequality_state.parquet",
+    "description": "Household income Gini coefficient by state, all HIES years",
+    "rows": 289,
+    "years": [
+      1974,
+      1976,
+      1979,
+      1984,
+      1987,
+      1989,
+      1992,
+      1995,
+      1997,
+      1999,
+      2002,
+      2004,
+      2007,
+      2009,
+      2012,
+      2014,
+      2016,
+      2019,
+      2022,
+      2024
+    ],
+    "source": "DOSM / data.gov.my (OpenDOSM), CC BY 4.0",
+    "fetched_at": "2026-10-17T11:31:56+00:00"
+  },
+  {
+    "file": "gdp_state_real_supply.parquet",
+    "id": "gdp_state_real_supply",
+    "url": "https://storage.dosm.gov.my/gdp/gdp_state_real_supply.parquet",
+    "description": "Annual real GDP by state and sector (RM million, constant 2015 prices)",
+    "rows": 2163,
+    "years": [
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "source": "DOSM / data.gov.my (OpenDOSM), CC BY 4.0",
+    "fetched_at": "2026-10-17T11:31:56+00:00"
   },
   {
     "file": "household_income.csv",
@@ -196,14 +298,14 @@
       2024
     ],
     "source": "DOSM / data.gov.my (OpenDOSM), CC BY 4.0",
-    "fetched_at": "2026-10-17T10:58:32+00:00"
+    "fetched_at": "2026-10-17T11:31:56+00:00"
   },
   {
     "file": "pm25_daily_openmeteo.csv",
     "id": "open-meteo air-quality (CAMS global)",
     "url": "https://air-quality-api.open-meteo.com/v1/air-quality",
     "description": "Daily mean PM2.5 (ug/m3) at each state capital (state_ref.csv), from hourly CAMS global model output; history only exists from Aug 2022",
-    "rows": 24288,
+    "rows": 24544,
     "years": [
       2022,
       2023,
@@ -212,6 +314,6 @@
       2026
     ],
     "source": "Open-Meteo Air Quality API / Copernicus CAMS, CC BY 4.0",
-    "fetched_at": "2026-10-17T10:58:32+00:00"
+    "fetched_at": "2026-10-17T11:31:56+00:00"
   }
 ]

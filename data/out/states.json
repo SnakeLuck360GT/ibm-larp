@@ -1,46 +1,34 @@
 {
+  "generated_at": "2026-10-17T19:35:35+08:00",
+  "reference_year": 2026,
   "states": [
-    {
-      "state": "Sarawak",
-      "lat": 1.5533,
-      "lon": 110.3592,
-      "population": 2517500,
-      "income_median": 5504.0,
-      "income_mean": 6947.0,
-      "poverty_rate": 8.4,
-      "beds_per_1000": 1.664,
-      "pm25": {
-        "24": 15.0,
-        "48": 10.5,
-        "72": 9.9
-      },
-      "risk_score": 1.0,
-      "priority": 1,
-      "allocation": {
-        "mobile_clinic": true,
-        "n95": 30303
-      },
-      "action": "Deploy mobile clinic + distribute N95s"
-    },
     {
       "state": "Selangor",
       "lat": 3.0733,
       "lon": 101.5185,
-      "population": 7362700,
-      "income_median": 10726.0,
-      "income_mean": 13296.0,
+      "population": 7454200,
+      "income_median": 11073.38,
+      "income_mean": 13726.62,
       "poverty_rate": 0.9,
-      "beds_per_1000": 1.132,
+      "beds_per_1000": 1.118,
+      "u_rate": 2.05,
+      "gini": 0.332,
       "pm25": {
         "24": 37.0,
         "48": 60.0,
         "72": 55.4
       },
-      "risk_score": 0.993,
-      "priority": 2,
+      "pm25_ytd": 46.2,
+      "risk_score": 1.0,
+      "priority": 1,
+      "priority_by_horizon": {
+        "24": 1,
+        "48": 1,
+        "72": 1
+      },
       "allocation": {
         "mobile_clinic": true,
-        "n95": 46922
+        "n95": 46280
       },
       "action": "Deploy mobile clinic + distribute N95s"
     },
@@ -48,21 +36,29 @@
       "state": "Johor",
       "lat": 1.4927,
       "lon": 103.7414,
-      "population": 4184400,
-      "income_median": 7712.0,
-      "income_mean": 9484.0,
+      "population": 4224300,
+      "income_median": 8012.48,
+      "income_mean": 9853.53,
       "poverty_rate": 2.5,
-      "beds_per_1000": 1.302,
+      "beds_per_1000": 1.29,
+      "u_rate": 2.35,
+      "gini": 0.348,
       "pm25": {
         "24": 57.9,
         "48": 50.1,
         "72": 51.8
       },
-      "risk_score": 0.993,
-      "priority": 3,
+      "pm25_ytd": 26.0,
+      "risk_score": 0.856,
+      "priority": 2,
+      "priority_by_horizon": {
+        "24": 2,
+        "48": 2,
+        "72": 2
+      },
       "allocation": {
         "mobile_clinic": true,
-        "n95": 29582
+        "n95": 30127
       },
       "action": "Deploy mobile clinic + distribute N95s"
     },
@@ -70,21 +66,29 @@
       "state": "Sabah",
       "lat": 5.9804,
       "lon": 116.0735,
-      "population": 3742000,
-      "income_median": 4890.0,
-      "income_mean": 6498.0,
+      "population": 3767000,
+      "income_median": 5028.81,
+      "income_mean": 6682.46,
       "poverty_rate": 17.7,
-      "beds_per_1000": 1.362,
+      "beds_per_1000": 1.353,
+      "u_rate": 5.55,
+      "gini": 0.405,
       "pm25": {
         "24": 9.8,
         "48": 6.1,
         "72": 5.5
       },
-      "risk_score": 0.957,
-      "priority": 4,
+      "pm25_ytd": 13.5,
+      "risk_score": 0.807,
+      "priority": 3,
+      "priority_by_horizon": {
+        "24": 3,
+        "48": 3,
+        "72": 3
+      },
       "allocation": {
         "mobile_clinic": true,
-        "n95": 70388
+        "n95": 68602
       },
       "action": "Deploy mobile clinic + distribute N95s"
     },
@@ -92,21 +96,29 @@
       "state": "Perak",
       "lat": 4.5975,
       "lon": 101.0901,
-      "population": 2569400,
-      "income_median": 4687.0,
-      "income_mean": 6173.0,
+      "population": 2577900,
+      "income_median": 4776.59,
+      "income_mean": 6291.0,
       "poverty_rate": 6.9,
-      "beds_per_1000": 2.343,
+      "beds_per_1000": 2.336,
+      "u_rate": 3.35,
+      "gini": 0.298,
       "pm25": {
         "24": 28.8,
         "48": 19.9,
         "72": 24.0
       },
-      "risk_score": 0.738,
-      "priority": 5,
+      "pm25_ytd": 21.2,
+      "risk_score": 0.76,
+      "priority": 4,
+      "priority_by_horizon": {
+        "24": 4,
+        "48": 4,
+        "72": 4
+      },
       "allocation": {
         "mobile_clinic": true,
-        "n95": 28797
+        "n95": 29155
       },
       "action": "Deploy mobile clinic + distribute N95s"
     },
@@ -114,21 +126,59 @@
       "state": "W.P. Kuala Lumpur",
       "lat": 3.139,
       "lon": 101.6869,
-      "population": 2067500,
-      "income_median": 10802.0,
-      "income_mean": 13985.0,
+      "population": 2082300,
+      "income_median": 11136.13,
+      "income_mean": 14417.59,
       "poverty_rate": 1.0,
-      "beds_per_1000": 2.659,
+      "beds_per_1000": 2.64,
+      "u_rate": 3.45,
+      "gini": 0.375,
       "pm25": {
         "24": 37.0,
         "48": 60.0,
         "72": 55.4
       },
-      "risk_score": 0.732,
-      "priority": 6,
+      "pm25_ytd": 46.2,
+      "risk_score": 0.712,
+      "priority": 5,
+      "priority_by_horizon": {
+        "24": 5,
+        "48": 5,
+        "72": 5
+      },
       "allocation": {
         "mobile_clinic": true,
-        "n95": 11015
+        "n95": 11095
+      },
+      "action": "Deploy mobile clinic + distribute N95s"
+    },
+    {
+      "state": "Sarawak",
+      "lat": 1.5533,
+      "lon": 110.3592,
+      "population": 2539800,
+      "income_median": 5584.59,
+      "income_mean": 7048.72,
+      "poverty_rate": 8.4,
+      "beds_per_1000": 1.649,
+      "u_rate": 3.35,
+      "gini": 0.361,
+      "pm25": {
+        "24": 15.0,
+        "48": 10.5,
+        "72": 9.9
+      },
+      "pm25_ytd": 29.6,
+      "risk_score": 0.611,
+      "priority": 6,
+      "priority_by_horizon": {
+        "24": 6,
+        "48": 6,
+        "72": 7
+      },
+      "allocation": {
+        "mobile_clinic": true,
+        "n95": 30986
       },
       "action": "Pre-position N95s, issue advisory"
     },
@@ -136,21 +186,29 @@
       "state": "Kedah",
       "lat": 6.1248,
       "lon": 100.3678,
-      "population": 2217100,
-      "income_median": 4895.0,
-      "income_mean": 5793.0,
+      "population": 2237400,
+      "income_median": 5017.66,
+      "income_mean": 5938.17,
       "poverty_rate": 8.4,
-      "beds_per_1000": 1.317,
+      "beds_per_1000": 1.305,
+      "u_rate": 2.45,
+      "gini": 0.334,
       "pm25": {
         "24": 9.6,
         "48": 11.2,
         "72": 17.5
       },
-      "risk_score": 0.668,
+      "pm25_ytd": 17.4,
+      "risk_score": 0.609,
       "priority": 7,
+      "priority_by_horizon": {
+        "24": 7,
+        "48": 7,
+        "72": 6
+      },
       "allocation": {
         "mobile_clinic": false,
-        "n95": 28307
+        "n95": 28289
       },
       "action": "Pre-position N95s, issue advisory"
     },
@@ -158,21 +216,29 @@
       "state": "Kelantan",
       "lat": 6.1254,
       "lon": 102.2381,
-      "population": 1887900,
-      "income_median": 4083.0,
-      "income_mean": 5265.0,
+      "population": 1925300,
+      "income_median": 4125.5,
+      "income_mean": 5319.8,
       "poverty_rate": 11.5,
-      "beds_per_1000": 1.582,
+      "beds_per_1000": 1.551,
+      "u_rate": 4.1,
+      "gini": 0.356,
       "pm25": {
         "24": 6.9,
         "48": 8.6,
         "72": 10.2
       },
-      "risk_score": 0.622,
+      "pm25_ytd": 13.4,
+      "risk_score": 0.584,
       "priority": 8,
+      "priority_by_horizon": {
+        "24": 8,
+        "48": 8,
+        "72": 8
+      },
       "allocation": {
         "mobile_clinic": false,
-        "n95": 28103
+        "n95": 28433
       },
       "action": "Pre-position N95s, issue advisory"
     },
@@ -180,21 +246,29 @@
       "state": "Negeri Sembilan",
       "lat": 2.7297,
       "lon": 101.9381,
-      "population": 1239500,
-      "income_median": 5591.0,
-      "income_mean": 7305.0,
+      "population": 1248500,
+      "income_median": 5798.25,
+      "income_mean": 7575.78,
       "poverty_rate": 4.0,
-      "beds_per_1000": 1.595,
+      "beds_per_1000": 1.583,
+      "u_rate": 2.4,
+      "gini": 0.343,
       "pm25": {
         "24": 24.9,
         "48": 40.0,
         "72": 32.0
       },
-      "risk_score": 0.364,
+      "pm25_ytd": 24.5,
+      "risk_score": 0.518,
       "priority": 9,
+      "priority_by_horizon": {
+        "24": 9,
+        "48": 9,
+        "72": 9
+      },
       "allocation": {
         "mobile_clinic": false,
-        "n95": 10270
+        "n95": 10664
       },
       "action": "Pre-position N95s, issue advisory"
     },
@@ -202,84 +276,56 @@
       "state": "Pahang",
       "lat": 3.8077,
       "lon": 103.326,
-      "population": 1667700,
-      "income_median": 4975.0,
-      "income_mean": 6066.0,
+      "population": 1686200,
+      "income_median": 5139.09,
+      "income_mean": 6266.08,
       "poverty_rate": 5.9,
-      "beds_per_1000": 1.587,
+      "beds_per_1000": 1.569,
+      "u_rate": 1.95,
+      "gini": 0.319,
       "pm25": {
         "24": 12.4,
         "48": 16.7,
         "72": 15.5
       },
-      "risk_score": 0.364,
+      "pm25_ytd": 13.9,
+      "risk_score": 0.496,
       "priority": 10,
+      "priority_by_horizon": {
+        "24": 10,
+        "48": 10,
+        "72": 11
+      },
       "allocation": {
         "mobile_clinic": false,
-        "n95": 16313
+        "n95": 16369
       },
       "action": "Pre-position N95s, issue advisory"
-    },
-    {
-      "state": "Terengganu",
-      "lat": 5.3302,
-      "lon": 103.1408,
-      "population": 1231500,
-      "income_median": 6627.0,
-      "income_mean": 7627.0,
-      "poverty_rate": 5.8,
-      "beds_per_1000": 1.601,
-      "pm25": {
-        "24": 5.5,
-        "48": 7.1,
-        "72": 10.6
-      },
-      "risk_score": 0.364,
-      "priority": 11,
-      "allocation": {
-        "mobile_clinic": false,
-        "n95": 0
-      },
-      "action": "Monitor"
     },
     {
       "state": "Pulau Pinang",
       "lat": 5.4141,
       "lon": 100.3288,
-      "population": 1800500,
-      "income_median": 7386.0,
-      "income_mean": 9152.0,
+      "population": 1808300,
+      "income_median": 7581.44,
+      "income_mean": 9394.17,
       "poverty_rate": 1.9,
-      "beds_per_1000": 1.182,
+      "beds_per_1000": 1.177,
+      "u_rate": 2.65,
+      "gini": 0.311,
       "pm25": {
         "24": 15.4,
         "48": 15.0,
         "72": 22.1
       },
-      "risk_score": 0.364,
-      "priority": 12,
-      "allocation": {
-        "mobile_clinic": false,
-        "n95": 0
+      "pm25_ytd": 22.0,
+      "risk_score": 0.462,
+      "priority": 11,
+      "priority_by_horizon": {
+        "24": 11,
+        "48": 11,
+        "72": 10
       },
-      "action": "Monitor"
-    },
-    {
-      "state": "W.P. Labuan",
-      "lat": 5.2831,
-      "lon": 115.2308,
-      "population": 100800,
-      "income_median": 7383.0,
-      "income_mean": 8555.0,
-      "poverty_rate": 2.0,
-      "beds_per_1000": 1.21,
-      "pm25": {
-        "24": 8.4,
-        "48": 5.3,
-        "72": 3.8
-      },
-      "risk_score": 0.007,
-      "priority": 13,
       "allocation": {
         "mobile_clinic": false,
         "n95": 0
@@ -290,18 +336,56 @@
       "state": "Melaka",
       "lat": 2.1896,
       "lon": 102.2501,
-      "population": 1046700,
-      "income_median": 6891.0,
-      "income_mean": 8686.0,
+      "population": 1057400,
+      "income_median": 7101.12,
+      "income_mean": 8950.85,
       "poverty_rate": 3.0,
-      "beds_per_1000": 1.289,
+      "beds_per_1000": 1.276,
+      "u_rate": 2.0,
+      "gini": 0.337,
       "pm25": {
         "24": 39.4,
         "48": 25.5,
         "72": 24.7
       },
-      "risk_score": 0.006,
-      "priority": 14,
+      "pm25_ytd": 19.9,
+      "risk_score": 0.433,
+      "priority": 12,
+      "priority_by_horizon": {
+        "24": 12,
+        "48": 12,
+        "72": 13
+      },
+      "allocation": {
+        "mobile_clinic": false,
+        "n95": 0
+      },
+      "action": "Monitor"
+    },
+    {
+      "state": "Terengganu",
+      "lat": 5.3302,
+      "lon": 103.1408,
+      "population": 1260900,
+      "income_median": 6809.03,
+      "income_mean": 7836.5,
+      "poverty_rate": 5.8,
+      "beds_per_1000": 1.563,
+      "u_rate": 3.05,
+      "gini": 0.263,
+      "pm25": {
+        "24": 5.5,
+        "48": 7.1,
+        "72": 10.6
+      },
+      "pm25_ytd": 14.8,
+      "risk_score": 0.394,
+      "priority": 13,
+      "priority_by_horizon": {
+        "24": 13,
+        "48": 13,
+        "72": 12
+      },
       "allocation": {
         "mobile_clinic": false,
         "n95": 0
@@ -312,18 +396,26 @@
       "state": "Perlis",
       "lat": 6.4414,
       "lon": 100.1986,
-      "population": 296800,
-      "income_median": 4950.0,
-      "income_mean": 5996.0,
+      "population": 297300,
+      "income_median": 5051.58,
+      "income_mean": 6119.04,
       "poverty_rate": 3.6,
-      "beds_per_1000": 1.742,
+      "beds_per_1000": 1.739,
+      "u_rate": 3.1,
+      "gini": 0.334,
       "pm25": {
         "24": 3.9,
         "48": 2.5,
         "72": 5.1
       },
-      "risk_score": 0.006,
-      "priority": 15,
+      "pm25_ytd": 10.3,
+      "risk_score": 0.202,
+      "priority": 14,
+      "priority_by_horizon": {
+        "24": 14,
+        "48": 14,
+        "72": 14
+      },
       "allocation": {
         "mobile_clinic": false,
         "n95": 0
@@ -334,18 +426,56 @@
       "state": "W.P. Putrajaya",
       "lat": 2.9264,
       "lon": 101.6964,
-      "population": 120300,
-      "income_median": 10769.0,
-      "income_mean": 13846.0,
+      "population": 121400,
+      "income_median": 11021.08,
+      "income_mean": 14170.1,
       "poverty_rate": 0.2,
-      "beds_per_1000": 7.016,
+      "beds_per_1000": 6.952,
+      "u_rate": 1.3,
+      "gini": 0.324,
       "pm25": {
         "24": 46.9,
         "48": 51.8,
         "72": 48.9
       },
+      "pm25_ytd": 39.2,
+      "risk_score": 0.169,
+      "priority": 15,
+      "priority_by_horizon": {
+        "24": 15,
+        "48": 15,
+        "72": 15
+      },
+      "allocation": {
+        "mobile_clinic": false,
+        "n95": 0
+      },
+      "action": "Monitor"
+    },
+    {
+      "state": "W.P. Labuan",
+      "lat": 5.2831,
+      "lon": 115.2308,
+      "population": 101100,
+      "income_median": 7587.1,
+      "income_mean": 8791.5,
+      "poverty_rate": 2.0,
+      "beds_per_1000": 1.207,
+      "u_rate": 4.95,
+      "gini": 0.327,
+      "pm25": {
+        "24": 8.4,
+        "48": 5.3,
+        "72": 3.8
+      },
+      "pm25_ytd": 13.0,
       "risk_score": 0.0,
       "priority": 16,
+      "priority_by_horizon": {
+        "24": 16,
+        "48": 16,
+        "72": 16
+      },
       "allocation": {
         "mobile_clinic": false,
         "n95": 0
@@ -359,8 +489,19 @@
   },
   "model": {
     "type": "XGBRanker",
-    "ndcg@5": 0.9832,
-    "baseline_ndcg@5": 0.6079
+    "ndcg@5": 0.9834,
+    "baseline_ndcg@5": 0.6345,
+    "trained_years": [
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ]
   },
   "assumptions": [
     {
@@ -394,6 +535,30 @@
       "source": "DOSM / data.gov.my (OpenDOSM), CC BY 4.0; https://storage.data.gov.my/healthcare/hospital_beds.parquet"
     },
     {
+      "name": "Dataset: lfs_qtr_state",
+      "value": "Quarterly labour force survey by state: unemployment rate (%) (years 2017-2026)",
+      "unit": "",
+      "source": "DOSM / data.gov.my (OpenDOSM), CC BY 4.0; https://storage.dosm.gov.my/labour/lfs_qtr_state.parquet"
+    },
+    {
+      "name": "Dataset: cpi_2d_state",
+      "value": "Monthly consumer price index by state and division (2010 = 100) (years 2010-2026)",
+      "unit": "",
+      "source": "DOSM / data.gov.my (OpenDOSM), CC BY 4.0; https://storage.dosm.gov.my/cpi/cpi_2d_state.parquet"
+    },
+    {
+      "name": "Dataset: hh_inequality_state",
+      "value": "Household income Gini coefficient by state, all HIES years (years 1974-2024)",
+      "unit": "",
+      "source": "DOSM / data.gov.my (OpenDOSM), CC BY 4.0; https://storage.dosm.gov.my/hies/hh_inequality_state.parquet"
+    },
+    {
+      "name": "Dataset: gdp_state_real_supply",
+      "value": "Annual real GDP by state and sector (RM million, constant 2015 prices) (years 2015-2025)",
+      "unit": "",
+      "source": "DOSM / data.gov.my (OpenDOSM), CC BY 4.0; https://storage.dosm.gov.my/gdp/gdp_state_real_supply.parquet"
+    },
+    {
       "name": "Dataset: hh_income_state",
       "value": "state, year, income_median, income_mean (RM/month); rows missing either value dropped (years 1974-2024)",
       "unit": "",
@@ -407,32 +572,38 @@
     },
     {
       "name": "Reference year",
-      "value": "2024",
+      "value": "2026 (ranked, not trained on; ranker trained on 2017-2025)",
       "unit": "year",
-      "source": "Latest year present in population, income, poverty and beds tables"
+      "source": "Current year in Malaysia time"
     },
     {
-      "name": "PM2.5 exposure (ranking)",
-      "value": "Mean daily PM2.5 at state capital, Aug 2022 - Sep 2026, same value for every year; Selangor and KL share one CAMS grid cell",
+      "name": "2026 data vintage",
+      "value": "Income, poverty, gini (HIES): carried+cpi; Unemployment (LFS): ytd; Hospital beds: carried; GDP per capita: carried; PM2.5 (yearly): ytd. Surveys are filled by build_features.py: linear between survey years, carried forward after the last one (income scaled by state CPI); 'ytd' = year to date",
+      "unit": "",
+      "source": "DOSM / data.gov.my (OpenDOSM), CC BY 4.0"
+    },
+    {
+      "name": "PM2.5 exposure (training)",
+      "value": "Yearly mean daily PM2.5 at state capital; CAMS history starts Aug 2022, so 2023+ are observed and earlier years use the 2023+ mean (climatology); Selangor and KL share one CAMS grid cell",
       "unit": "ug/m3",
       "source": "Open-Meteo Air Quality API / Copernicus CAMS, CC BY 4.0"
     },
     {
       "name": "Unhealthy-air day",
-      "value": "35",
+      "value": "35.0",
       "unit": "ug/m3 (24 h mean PM2.5)",
       "source": "Malaysia Ambient Air Quality Standard 2020"
     },
     {
       "name": "PM2.5 by horizon (24/48/72 h)",
-      "value": "CAMS forecast at state capital, mean of each 24 h window ahead, issued 2026-10-17T19:00:00 (fetched); stand-in until forecast.json from the physical model lands",
+      "value": "CAMS forecast at state capital, mean of each 24 h window ahead, issued 2026-10-17T19:00:00 (fetched); priority_by_horizon ranks each window, the allocation ranks the whole 0-72 h; stand-in until forecast.json from the physical model lands",
       "unit": "ug/m3",
       "source": "Open-Meteo Air Quality API / Copernicus CAMS, CC BY 4.0"
     },
     {
       "name": "Priority label (PROXY)",
-      "value": "PROXY, not ground truth. harm = exposure x vulnerable people, graded 0-3 by within-year quartile (3 = most harm). Exposure = pm25_mean. Mean daily PM2.5 rather than unhealthy-day count: CAMS reads ~40 ug/m3 over the Klang Valley, just above the 35 ug/m3 threshold, so day counts there are inflated ~10-300x vs other states.",
-      "unit": "grade 0-3",
+      "value": "PROXY, not ground truth. harm = exposure x vulnerable people, graded by within-year quantile of harm (highest grade = most harm). Exposure = pm25_mean. Mean daily PM2.5 rather than unhealthy-day count: CAMS reads ~40 ug/m3 over the Klang Valley, just above the 35 ug/m3 threshold, so day counts there are inflated ~10-300x vs other states. 16 = one grade per state, i.e. the full within-year order of the harm proxy. With 4 (quartiles) the top four states tie, so the ranker never learns their order and barely reacts to the forecast.",
+      "unit": "grade 0-15",
       "source": "Team assumption: no official haze-priority list exists; poor households weighted 2x because exposure correlates with income (rho ~0.7)"
     },
     {
@@ -449,7 +620,7 @@
     },
     {
       "name": "Ranker",
-      "value": "XGBRanker (objective=rank:pairwise, max_depth=2, n_estimators=100, learning_rate=0.1, random_state=42); leave-one-year-out; gain = proxy grade (0-3), sklearn ndcg_score; NDCG@5 0.9832 vs baseline 0.6079",
+      "value": "XGBRanker (objective=rank:pairwise, max_depth=2, n_estimators=100, learning_rate=0.1, random_state=42); leave-one-year-out over yearly + 3-day PM2.5 episode groups; gain = proxy grade (0-15), sklearn ndcg_score; NDCG@5 0.9834 vs baseline 0.6345",
       "unit": "",
       "source": "This pipeline (pipeline/03_equity.py)"
     },
@@ -485,8 +656,14 @@
     },
     {
       "name": "Poverty line",
-      "value": "DOSM revised the poverty line in 2019, so 2016 rates use the old, lower line; features are z-scored within year so only the ordering of states is compared",
+      "value": "DOSM revised the poverty line in 2019, so 2016 rates (and 2017-2018, interpolated from them) use the old, lower line; features are z-scored within year so only the ordering of states is compared",
       "unit": "% of households",
+      "source": "DOSM / data.gov.my (OpenDOSM), CC BY 4.0"
+    },
+    {
+      "name": "Putrajaya GDP",
+      "value": "Published separately only from 2023; earlier years back-filled at its 2023 GDP per head (KL's earlier figures include Putrajaya)",
+      "unit": "RM per person",
       "source": "DOSM / data.gov.my (OpenDOSM), CC BY 4.0"
     },
     {

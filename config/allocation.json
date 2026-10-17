@@ -18,7 +18,9 @@
   },
   "label": {
     "method": "proxy_harm_quantiles",
-    "description": "PROXY, not ground truth. harm = exposure x vulnerable people, graded 0-3 by within-year quartile (3 = most harm).",
+    "grades": 16,
+    "grades_note": "16 = one grade per state, i.e. the full within-year order of the harm proxy. With 4 (quartiles) the top four states tie, so the ranker never learns their order and barely reacts to the forecast.",
+    "description": "PROXY, not ground truth. harm = exposure x vulnerable people, graded by within-year quantile of harm (highest grade = most harm).",
     "exposure": "pm25_mean",
     "exposure_note": "Mean daily PM2.5 rather than unhealthy-day count: CAMS reads ~40 ug/m3 over the Klang Valley, just above the 35 ug/m3 threshold, so day counts there are inflated ~10-300x vs other states.",
     "vulnerable_weights": {"pct_65plus": 1, "pct_under5": 1, "poverty_rate": 2},
