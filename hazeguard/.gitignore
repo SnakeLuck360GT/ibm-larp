@@ -22,4 +22,4 @@ Thumbs.db
 
 # Frontend (for later)
 node_modules/
-web/dist/
+web/dist/data/processed/api_states.csv
