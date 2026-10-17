@@ -4,8 +4,8 @@ import ForecastChart from './ForecastChart.jsx'
 import LiveChart from './LiveChart.jsx'
 import Matrix from './Matrix.jsx'
 import {
-  API_SCALE, PM_SCALE, NAME2KEY, NAMES, REDUCE,
-  addDays, arrivalFor, fmtDay, fmtMYT, fmtShort, fmtV,
+  API_SCALE, LIVE_API_SCALE, PM_SCALE, NAME2KEY, NAMES, REDUCE,
+  addDays, arrivalFor, fmtDay, fmtMYT, fmtShort, fmtV, pmToApi,
 } from './scales.js'
 import './map.css'
 
@@ -25,7 +25,8 @@ function useData(baseUrl) {
       opt(getJSON(`${baseUrl}data/states.json`)),
       opt(getJSON(`${baseUrl}data/forecast_live.json`)),
       opt(getJSON(`${baseUrl}data/waqi_now.json`)),
-    ]).then(([timeline, replay, metrics, states, hourly, waqi]) => live && setD({ status: 'ok', timeline, replay, metrics, states, hourly, waqi }))
+      opt(getJSON(`${baseUrl}data/apims_now.json`)),
+    ]).then(([timeline, replay, metrics, states, hourly, waqi, apims]) => live && setD({ status: 'ok', timeline, replay, metrics, states, hourly, waqi, apims }))
       .catch(e => live && setD({ status: 'error', error: String(e.message || e) }))
     return () => { live = false }
   }, [baseUrl])
@@ -43,9 +44,9 @@ function replayDay(days, timeline, replay) {
   return days[0]
 }
 
-// Live arrival: end hour of the first 24-h window whose mean is above 35 µg/m³ (24 = the next 24 h).
-function arrivalLive(pm) {
-  for (const h of HS) if (pm[h] != null && PM_SCALE.bad(pm[h])) return +h
+// Live arrival: end hour of the first 24-h window whose CAMS mean converts to API 101+ (24 = the next 24 h).
+function arrivalLive(api) {
+  for (const h of HS) if (LIVE_API_SCALE.bad(api[h])) return +h
   return null
 }
 
@@ -58,6 +59,14 @@ function waqiFor(waqi, key) {
   const m = name && st[name]
   if (!m || m.error || num(m.pm25_ugm3) == null) return null
   return { ...m, pm: num(m.pm25_ugm3), aqi: num(m.aqi), pmAqi: num(m.pm25_aqi) }
+}
+// DOE APIMS reading for a state: highest station API this hour (null when the file or the state is missing).
+function apimsFor(apims, key) {
+  const st = apims && apims.states
+  if (!st) return null
+  const name = Object.keys(st).find(n => NAME2KEY[n] === key)
+  const d = name && st[name]
+  return d && num(d.api) != null ? d : null
 }
 function ago(iso) {
   const t = Date.parse(iso)
@@ -79,7 +88,7 @@ export default function MapTab({ baseUrl = './', horizon = '24', setHorizon, stK
   const [dayIdx, setDayIdx] = useState(null)
   const [playing, setPlaying] = useState(false)
   const [sort, setSort] = useState('worst')
-  const [layer, setLayer] = useState('fc') // live map colour: 'fc' = CAMS window, 'now' = WAQI measured
+  const [layer, setLayer] = useState('fc') // live map colour: 'fc' = CAMS window, 'now' = DOE measured API
   useEffect(() => { setLayer('fc') }, [horizon])
   const sel = stKey || 'sl'
   const detailRef = useRef(null)
@@ -104,15 +113,17 @@ export default function MapTab({ baseUrl = './', horizon = '24', setHorizon, stK
 
   // Live needs states.json; without it the tab falls back to the replay.
   const live = mode === 'live' && !!data.states
-  const scale = live ? PM_SCALE : API_SCALE
+  const scale = live ? LIVE_API_SCALE : API_SCALE
 
   const rows = useMemo(() => {
     if (data.status !== 'ok') return []
     if (live) {
       return data.states.states.map(s => {
         const key = NAME2KEY[s.state]
-        const m = waqiFor(data.waqi, key)
-        return { key, name: NAMES[key] || s.state, today: null, v: { ...s.pm25, now: m ? m.pm : null }, meas: m, arrival: arrivalLive(s.pm25) }
+        const doe = apimsFor(data.apims, key)
+        const api = Object.fromEntries(HS.map(h => [h, pmToApi(s.pm25[h])]))
+        return { key, name: NAMES[key] || s.state, today: null, v: { ...api, now: doe ? doe.api : null }, pm: s.pm25, doe,
+          meas: waqiFor(data.waqi, key), arrival: arrivalLive(api) }
       }).filter(r => r.key)
     }
     return (data.timeline[day] || []).map(r => {
@@ -145,14 +156,14 @@ export default function MapTab({ baseUrl = './', horizon = '24', setHorizon, stK
       detailRef.current.scrollIntoView({ behavior: REDUCE ? 'auto' : 'smooth', block: 'start' })
     }
   }
-  const hasMeas = live && rows.some(r => r.meas)
+  const hasMeas = live && rows.some(r => r.doe)
   const showNow = hasMeas && layer === 'now'
   const mapH = showNow ? 'now' : horizon
   const pickH = h => { setLayer('fc'); setHorizon && setHorizon(h) }
   const klangRow = byKey.sl // Klang, the demo's port town, is in Selangor
   const klangArr = klangRow ? klangRow.arrival : null
   const klangText = klangArr == null ? 'Clear for 72 h'
-    : live ? `Above 35: ${arrivalFor(klangArr, scale).replace('Next 24 h', 'next 24 h')}`
+    : live ? `Unhealthy: ${arrivalFor(klangArr, scale).replace('Next 24 h', 'next 24 h')}`
       : klangArr === 0 ? 'Unhealthy now' : `Unhealthy ${arrivalFor(klangArr, scale)}`
 
   return (
@@ -161,10 +172,10 @@ export default function MapTab({ baseUrl = './', horizon = '24', setHorizon, stK
         <div className="map-bar">
           <div className="seg map-seg" role="group" aria-label="Data source">
             <button type="button" aria-pressed={live} disabled={!data.states} onClick={() => { setMode('live'); setPlaying(false) }}>
-              <span className="map-seg-t"><i className="map-live" aria-hidden="true" />Live now</span><span className="map-seg-s">CAMS PM2.5 · µg/m³</span>
+              <span className="map-seg-t"><i className="map-live" aria-hidden="true" />Live now</span>
             </button>
             <button type="button" aria-pressed={!live} onClick={() => setMode('replay')}>
-              <span className="map-seg-t">Sep 2019 replay</span><span className="map-seg-s">XGBoost haze model · API</span>
+              <span className="map-seg-t">Sep 2019 replay</span>
             </button>
           </div>
           <div className="seg map-seg map-zoom" role="group" aria-label="Zoom">
@@ -176,13 +187,12 @@ export default function MapTab({ baseUrl = './', horizon = '24', setHorizon, stK
           <div className="map-when">
             <b className="num">{showNow ? 'Now' : `+${horizon} h`}</b>
             <span>
-              {showNow ? <><strong>Measured PM2.5 ≈ · station readings</strong><br />WAQI · fetched {fmtMYT(data.waqi.fetched_at)}</> : <>
-              <strong>{live ? `${+horizon - 24}–${horizon} h ahead · to ${shortDate(+horizon)}` : targetLabel(horizon)}</strong><br />
-              {live ? `CAMS · fetched ${fmtMYT(t0)}` : `XGBoost · made ${fmtDay(day, { year: 'numeric' })}`}</>}
+              {showNow ? <><strong>Measured API · DOE stations, highest per state</strong><br />DOE APIMS · fetched {fmtMYT(data.apims.fetched_at)}</> : <>
+              <strong>{live ? `${+horizon - 24}–${horizon} h ahead · to ${shortDate(+horizon)}` : targetLabel(horizon)}</strong></>}
             </span>
           </div>
           {klangRow && (
-            <button type="button" className="map-klang" onClick={() => { setView('klang'); choose('sl') }} aria-label="Zoom to Klang, Selangor">
+            <button type="button" className="map-klang" onClick={() => { setView('pen'); choose('sl') }} aria-label="Show Klang, Selangor">
               <span className="label">Klang, Selangor</span>
               <b>{klangText}</b>
             </button>
@@ -200,8 +210,8 @@ export default function MapTab({ baseUrl = './', horizon = '24', setHorizon, stK
             onDay={i => { setPlaying(false); setDayIdx(i) }} />
         )}
 
-        <Legend scale={scale} measured={showNow} credit={live && !!data.waqi} />
-        <About live={live} metrics={data.metrics} t0={t0} waqi={live ? data.waqi : null} />
+        <Legend scale={scale} live={live} credit={live && !!data.apims} />
+        <About live={live} metrics={data.metrics} t0={t0} apims={live ? data.apims : null} waqi={live ? data.waqi : null} />
       </section>
 
       <Matrix rows={rows} scale={scale} horizon={mapH} setHorizon={pickH} sel={sel} onSelect={choose}
@@ -209,7 +219,7 @@ export default function MapTab({ baseUrl = './', horizon = '24', setHorizon, stK
 
       <div ref={detailRef} className="map-detailwrap">
         <Detail r={byKey[sel]} rkey={sel} scale={scale} horizon={horizon} setHorizon={setHorizon} live={live} day={day} days={days}
-          timeline={data.timeline} metrics={data.metrics} t0={t0} hourly={hourly && hourly[sel]} waqiOk={!!data.waqi}
+          timeline={data.timeline} metrics={data.metrics} t0={t0} hourly={hourly && hourly[sel]} apimsOk={!!data.apims}
           dateOf={h => (live ? fmtLiveDay(t0, h) : fmtDay(addDays(day, h / 24)))} />
         {!live && <ModelStrip metrics={data.metrics} horizon={horizon} />}
       </div>
@@ -239,18 +249,18 @@ function Trajectory({ rows, scale, horizon, setHorizon, live, dateOf, meas, onNo
   return (
     <div className="map-traj" role="group" aria-label="Forecast trajectory">
       <div className="map-traj-h">
-        <span className="label">{live ? <>States above the 35 µg/m³ standard</> : <>States unhealthy (API 101+)</>}</span>
+        <span className="label">States unhealthy (API 101+)</span>
         <span className={'map-traj-tr ' + trend}>{word} over 72 h</span>
       </div>
       <div className={'map-traj-cells' + (nowCol ? ' has-now' : '')}>
         {nowCol && (
           <button type="button" className={'map-traj-c meas' + (horizon === 'now' ? ' on' : '')} aria-pressed={horizon === 'now'} onClick={onNow}
-            title="Measured at stations (WAQI), converted from US AQI"
-            aria-label={`Measured now: ${nowCol.n} of ${nowCol.vs.length} states above 35 µg/m³; highest ${nowCol.top ? `${fmtV(nowCol.top.v, scale)} µg/m³ in ${nowCol.top.r.name}` : 'n/a'}. Show on map.`}>
+            title="Measured API from DOE stations (highest station per state)"
+            aria-label={`Measured now: ${nowCol.n} of ${nowCol.vs.length} states unhealthy; highest API ${nowCol.top ? `${fmtV(nowCol.top.v, scale)} in ${nowCol.top.r.name}` : 'n/a'}. Show on map.`}>
             <span className="map-traj-k"><span><b>Now</b> <small>measured</small></span></span>
             <span className="map-traj-m">
               <span className="map-traj-n num">{nowCol.n}<small>/{nowCol.vs.length}</small></span>
-              <span className="map-traj-pk"><span>Peak <b className="num">≈{nowCol.top ? fmtV(nowCol.top.v, scale) : '–'}</b></span><span>{nowCol.top && (SHORT[nowCol.top.r.key] || nowCol.top.r.name)}</span></span>
+              <span className="map-traj-pk"><span>Peak <b className="num">{nowCol.top ? fmtV(nowCol.top.v, scale) : '–'}</b></span><span>{nowCol.top && (SHORT[nowCol.top.r.key] || nowCol.top.r.name)}</span></span>
             </span>
             <span className="map-traj-strip" aria-hidden="true">
               {nowCol.vs.map(({ r, v }) => <i key={r.key} style={{ background: (scale.bands[scale.band(v)] || {}).c }} />)}
@@ -262,7 +272,7 @@ function Trajectory({ rows, scale, horizon, setHorizon, live, dateOf, meas, onNo
           return (
             <button key={o.h} type="button" className={'map-traj-c' + (o.h === horizon ? ' on' : '')} aria-pressed={o.h === horizon}
               onClick={() => setHorizon && setHorizon(o.h)}
-              aria-label={`+${o.h} hours: ${o.n} of ${rows.length} states ${live ? 'above 35 µg/m³' : 'unhealthy'}; peak ${o.top ? `${fmtV(o.top.v, scale)} ${scale.unit} in ${o.top.r.name}` : 'n/a'}`}>
+              aria-label={`+${o.h} hours: ${o.n} of ${rows.length} states unhealthy; peak ${o.top ? `${scale.unit} ${fmtV(o.top.v, scale)} in ${o.top.r.name}` : 'n/a'}`}>
               <span className="map-traj-k"><span><b>+{o.h} h</b> <small>{dateOf(+o.h)}</small></span>
                 {d != null && <em className={d > 0 ? 'up' : d < 0 ? 'dn' : ''} title="Change from the previous window">{d > 0 ? `+${d}` : d < 0 ? `−${-d}` : '±0'}</em>}
               </span>
@@ -282,34 +292,24 @@ function Trajectory({ rows, scale, horizon, setHorizon, live, dateOf, meas, onNo
 }
 
 /* Every method note and caveat lives here, collapsed by default. */
-function About({ live, metrics, t0, waqi }) {
-  const credits = []
-  if (waqi && waqi.states) {
-    const seen = new Set()
-    Object.values(waqi.states).forEach(m => (m.attributions || []).forEach(a => {
-      if (a && a.name && !seen.has(a.name)) { seen.add(a.name); credits.push(a) }
-    }))
-  }
-  const stations = waqi && waqi.states ? Object.entries(waqi.states).filter(([, m]) => m && m.station) : []
+function About({ live, metrics, t0, apims, waqi }) {
   const st = (metrics && metrics.mae_by_state_all_horizons) || {}
   const wins = Object.values(st).filter(s => s.xgb_with_fire < s.arima).length
   const total = Object.keys(st).length
   return (
     <details className="map-about">
-      <summary><span>About this forecast</span><span className="map-tag">{live ? <><i className="map-live" aria-hidden="true" />Copernicus CAMS · not our model</> : 'Our XGBoost model · 2019 replay'}</span></summary>
+      <summary><span>About this forecast</span><span className="map-tag">{live ? <><i className="map-live" aria-hidden="true" />DOE API + Copernicus CAMS · not our model</> : 'Our XGBoost model · 2019 replay'}</span></summary>
       <ul>
         {live ? <>
-          <li>Live numbers are the Copernicus CAMS PM2.5 forecast (about 45 km grid) at each state capital, via Open-Meteo, fetched {fmtMYT(t0)} and re-pulled hourly by the pipeline. Hour 0 is the fetch hour.</li>
-          <li>Map and table values are the mean of each 24-h window (0–24, 24–48, 48–72 h). The chart shows the hourly values behind them.</li>
-          <li>Unit is µg/m³ of PM2.5, not the Air Pollutant Index, so the colours use their own bands: WHO 2021 guideline 15, Malaysian standard (MAAQS 2020) 35, 2015 interim limit 75. The standard is a 24-h mean, so a single hour above 35 is not a breach.</li>
-          <li>Arrives = the first 24-h window whose mean is above 35 µg/m³.</li>
+          <li>All live values are the Malaysian Air Pollutant Index (API), on DOE's bands: Good 0–50, Moderate 51–100, Unhealthy 101–200, Very unhealthy 201–300, Hazardous 300+.</li>
+          <li>Now = the official API measured by DOE Malaysia's stations (<a href="https://eqms.doe.gov.my/APIMS/main" target="_blank" rel="noopener noreferrer">APIMS</a>){apims && apims.fetched_at ? `, fetched ${fmtMYT(apims.fetched_at)}` : ''}. Each state shows its highest station this hour, as DOE's own rankings do; the state panel lists every station.</li>
+          {!apims && <li>Measured API is unavailable right now (apims_now.json not loaded).</li>}
+          <li>+24/48/72 h = the Copernicus CAMS PM2.5 forecast (about 45 km grid) at each state capital, via Open-Meteo, fetched {fmtMYT(t0)} and re-pulled hourly. Each 24-h window mean (0–24, 24–48, 48–72 h) is converted to API with DOE's PM2.5 sub-index formula (DOE API Calculation, 24-h mean): 12 µg/m³ = 50, 50.4 = 100, 55.4 = 150, 150.4 = 200.</li>
+          <li>The forecast API counts PM2.5 only; DOE's API takes the highest of six pollutants, though during haze that is almost always PM2.5.</li>
+          <li>CAMS often reads lower than the stations in local haze (one ~45 km grid cell vs a single station), so the forecast API can sit well below today's measured API. Compare the Now column with +24 h.</li>
+          <li>Arrives = the first 24-h window whose forecast converts to API 101 or above. The state chart shows the hourly CAMS PM2.5 (µg/m³) behind each window.</li>
           <li>Our own XGBoost haze model forecasts the API index and is scored in the Sep 2019 replay.</li>
-          <li>Measured = live station readings from the World Air Quality Index Project (aqicn.org), DOE Malaysia stations, one station nearest each state capital{waqi && waqi.fetched_at ? `, fetched ${fmtMYT(waqi.fetched_at)}` : ''}. These are observations, not a forecast; CAMS values are forecasts.</li>
-          <li>WAQI reports PM2.5 as a US AQI sub-index. The µg/m³ shown (≈) is converted back with US EPA breakpoints, so it is approximate. The raw US AQI is shown beside it in the state panel.</li>
-          <li>A station reading is one point at one hour; CAMS is a ~45 km grid cell, so the two can differ.</li>
-          {!waqi && <li>Measured readings are unavailable right now (waqi_now.json not loaded).</li>}
-          {credits.length > 0 && <li>Data sources: {credits.map((a, i) => <span key={a.name}>{i ? ' · ' : ''}{a.url ? <a href={a.url} target="_blank" rel="noopener noreferrer">{a.name}</a> : a.name}</span>)}</li>}
-          {stations.length > 0 && <li>Stations: {stations.map(([n, m], i) => <span key={n}>{i ? ' · ' : ''}{n}: {m.station_url ? <a href={m.station_url} target="_blank" rel="noopener noreferrer">{m.station}</a> : m.station}</span>)}</li>}
+          {waqi && <li>The dot on the state chart is the nearest station's latest PM2.5 from the World Air Quality Index Project (aqicn.org), converted from its US AQI sub-index, so it is approximate.</li>}
         </> : <>
           <li>XGBoost haze model, 17 inputs: past API, wind, rain, season and NASA FIRMS fire hotspots. Trained on 2013 to 28 Aug 2019, so the Sep 2019 haze was never in its training data.</li>
           <li>Baseline: ARIMA on each state's API history.{total > 0 && <> Average error over {metrics.rows_per_model?.toLocaleString('en-MY')} state-days, 1 Sep to 6 Oct 2019; XGBoost beat ARIMA in {wins} of {total} states.</>}</li>
@@ -358,15 +358,15 @@ function Scrubber({ days, timeline, di, horizon, defaultDay, playing, onPlay, on
   )
 }
 
-function Legend({ scale, measured, credit }) {
+function Legend({ scale, live, credit }) {
   return (
     <div className="map-legend" role="note" aria-label={`Colour key: ${scale.unitLong}`}>
-      <span className="map-legend-t">{scale.id === 'api' ? 'Air Pollutant Index (API)' : measured ? 'PM2.5, µg/m³, measured ≈' : 'PM2.5, µg/m³, 24-h mean'}</span>
+      <span className="map-legend-t">Air Pollutant Index (API)</span>
       {scale.bands.map(b => (
         <span key={b.label} className="map-key"><i style={{ background: b.c }} /><b title={b.label}>{b.short || b.label}</b><span className="num">{b.range}</span></span>
       ))}
       {credit && (
-        <span className="map-credit">Measured: <a href="https://aqicn.org/" target="_blank" rel="noopener noreferrer">World Air Quality Index Project (aqicn.org)</a> · DOE Malaysia stations</span>
+        <span className="map-credit">Measured: <a href="https://eqms.doe.gov.my/APIMS/main" target="_blank" rel="noopener noreferrer">DOE Malaysia (APIMS)</a> · Forecast: Copernicus CAMS PM2.5, converted to API</span>
       )}
     </div>
   )
@@ -402,12 +402,12 @@ function ModelStrip({ metrics, horizon }) {
 }
 
 /* Selected state: forecast, arrival, chart, and (replay) how the model did there. */
-function Detail({ r, rkey, scale, horizon, setHorizon, live, day, days, timeline, metrics, t0, hourly, dateOf, waqiOk }) {
+function Detail({ r, rkey, scale, horizon, setHorizon, live, day, days, timeline, metrics, t0, hourly, dateOf, apimsOk }) {
   if (!r) return <section className="card map-detail"><div className="map-d-sec hint">No forecast for {NAMES[rkey] || 'this state'}.</div></section>
   const v = r.v[horizon], bi = scale.band(v), b = scale.bands[bi]
   const arrH = r.arrival
   const steps = live
-    ? [...(hourly ? [{ k: 'now', lbl: 'Now (hourly)', v: hourly[0] }] : []), ...HS.map(h => ({ k: h, lbl: `${+h - 24}–${h} h`, v: r.v[h] }))]
+    ? [{ k: 'now', lbl: 'Now (DOE)', v: r.v.now }, ...HS.map(h => ({ k: h, lbl: `${+h - 24}–${h} h`, v: r.v[h] }))]
     : [{ k: 'now', lbl: 'Today', v: r.today }, ...HS.map(h => ({ k: h, lbl: `+${h} h`, v: r.v[h] }))]
 
   let chart = null
@@ -417,8 +417,8 @@ function Detail({ r, rkey, scale, horizon, setHorizon, live, day, days, timeline
     const slots = HS.map(h => ({ label: `+${h} h`, tip: `+${h} h · ${dateOf(h)}`, strong: h === horizon }))
     chart = {
       slots, marker: null,
-      series: [{ id: 'cams', label: 'CAMS PM2.5, 24-h window mean', cls: 'xgb', dots: 'solid', pts: HS.map((h, i) => ({ i, v: r.v[h] })) }],
-      aria: `${r.name} PM2.5 forecast: ${HS.map(h => `+${h} h ${fmtV(r.v[h], scale)} µg/m³`).join(', ')}.`,
+      series: [{ id: 'cams', label: 'CAMS PM2.5 → API, 24-h window', cls: 'xgb', dots: 'solid', pts: HS.map((h, i) => ({ i, v: r.v[h] })) }],
+      aria: `${r.name} API forecast from CAMS PM2.5: ${HS.map(h => `+${h} h ${fmtV(r.v[h], scale)}`).join(', ')}.`,
     }
   } else {
     const di = days.indexOf(day)
@@ -452,54 +452,52 @@ function Detail({ r, rkey, scale, horizon, setHorizon, live, day, days, timeline
     }
   }
 
-  // Measured now (WAQI) and the CAMS hourly forecast for the same hour.
+  // Measured now: DOE's official API (highest station). The WAQI station PM2.5 is drawn on the hourly µg/m³ chart.
+  const doe = live ? r.doe : null
+  const db = doe && scale.bands[scale.band(doe.api)]
   const m = live ? r.meas : null
-  let mH = null, camsAt = null
+  let mH = null
   if (m && hourly) {
     const h = (Date.parse(m.time) - Date.parse(t0)) / 3600e3
-    if (Number.isFinite(h) && h > -3 && h <= hourly.length - 1) {
-      mH = Math.max(0, h)
-      camsAt = num(hourly[Math.round(mH)])
-    }
+    if (Number.isFinite(h) && h > -3 && h <= hourly.length - 1) mH = Math.max(0, h)
   }
-  const mb = m && scale.bands[scale.band(m.pm)]
   const ms = !live && metrics && metrics.mae_by_state_all_horizons && metrics.mae_by_state_all_horizons[r.zone]
   const peakV = Math.max(...HS.map(h => r.v[h] ?? 0))
   return (
     <section className="card map-detail" aria-label={`${r.name} forecast`}>
       <div className="map-d-head">
         <div className="map-d-name">
-          <span className="label">{live ? 'Live PM2.5 forecast · CAMS' : 'Haze forecast · Sep 2019 replay'}</span>
+          <span className="label">{live ? 'Live API · DOE now, CAMS forecast' : 'Haze forecast · Sep 2019 replay'}</span>
           <h3>{r.name}</h3>
         </div>
         <div className="map-d-big">
           <b className="num">{fmtV(v, scale)}</b>
-          <span><span className="map-unit">{scale.unit}</span><br />{live ? `${+horizon - 24}–${horizon} h avg` : `at +${horizon} h`}</span>
+          <span><span className="map-unit">{scale.unit}</span><br />{live ? `${+horizon - 24}–${horizon} h · ${fmtV(r.pm[horizon], PM_SCALE)} µg/m³` : `at +${horizon} h`}</span>
           {b && <span className="map-pill" style={{ background: b.c, color: b.ink }}>{b.label}</span>}
         </div>
       </div>
       <div className={'map-arr' + ((live ? arrH === 24 : arrH === 0) ? ' now' : arrH == null ? ' none' : '')}>
-        <span className="label">{live ? 'Above 35 µg/m³' : 'Unhealthy air arrives'}</span>
+        <span className="label">{live ? 'Unhealthy (API 101+) forecast' : 'Unhealthy air arrives'}</span>
         <b>{live ? arrivalFor(arrH, scale, true) : arrH === 0 ? 'Already unhealthy today' : arrH == null ? 'Not within 72 h' : `In ${arrH} hours`}</b>
         <span className="hint">{arrH == null
-          ? `Peak window: ${fmtV(peakV, scale)} ${scale.unit}`
+          ? `Peak window: ${scale.unit} ${fmtV(peakV, scale)}`
           : live ? `to ${dateOf(arrH)}` : arrH === 0 ? `Today's API ${r.today}` : dateOf(arrH)}</span>
       </div>
       {live && (
         <div className="map-meas" aria-label="Measured now">
-          <span className="label">Measured now</span>
-          {m ? <>
-            <b className="num" title="Converted from the US AQI PM2.5 sub-index; approximate">
-              <i style={{ background: mb && mb.c }} />≈{fmtV(m.pm, scale)}<small> µg/m³</small>
-            </b>
-            <span className="map-meas-aqi num" title="US AQI as reported by WAQI">US AQI {m.aqi ?? '–'}{m.pmAqi != null && m.pmAqi !== m.aqi ? ` · PM2.5 ${m.pmAqi}` : ''}</span>
+          <span className="label">Measured now · DOE</span>
+          {doe ? <>
+            <b className="num"><i style={{ background: db && db.c }} /><small>API </small>{doe.api}</b>
+            {db && <span className="map-meas-aqi">{db.label}</span>}
             <span className="map-meas-st">
-              {m.station_url ? <a href={m.station_url} target="_blank" rel="noopener noreferrer">{m.station}</a> : m.station}
-              <span className="hint"> · {fmtTimeMYT(m.time)} · {ago(m.time)}</span>
+              {doe.station}{doe.n_stations > 1 ? `, highest of ${doe.n_stations} stations` : ''}
+              <span className="hint"> · {fmtTimeMYT(doe.time)} · {ago(doe.time)}</span>
             </span>
-            {camsAt != null && <span className="map-meas-gap hint">CAMS forecast <b className="num">{fmtV(camsAt, scale)}</b> · measured <b className="num">≈{fmtV(m.pm, scale)}</b></span>}
+            {doe.stations && doe.stations.length > 1 && (
+              <span className="map-meas-gap hint">{doe.stations.map(st => `${st.location} ${st.api}`).join(' · ')}</span>
+            )}
           </> : <b className="num">–</b>}
-          {!m && <span className="hint">{waqiOk ? 'No station reading' : 'Unavailable'}</span>}
+          {!doe && <span className="hint">{apimsOk ? 'No station reading' : 'Unavailable'}</span>}
         </div>
       )}
       <div className="map-steps" role="list" aria-label="Forecast by window">
@@ -515,12 +513,12 @@ function Detail({ r, rkey, scale, horizon, setHorizon, live, day, days, timeline
       </div>
       <div className="map-d-sec">
         {live && hourly ? <>
-          <LiveChart hourly={hourly} means={r.v} scale={scale} horizon={horizon} setHorizon={setHorizon} issuedAt={t0} name={r.name} height={176}
+          <LiveChart hourly={hourly} means={r.pm} scale={PM_SCALE} horizon={horizon} setHorizon={setHorizon} issuedAt={t0} name={r.name} height={176}
             measured={m && mH != null ? { h: mH, v: m.pm } : null} />
           <div className="map-ch-key">
             <span><i className="sw map-s-cams" />CAMS hourly PM2.5</span>
-            {m && mH != null && <span><i className="sw map-s-meas" />Measured ≈ (WAQI)</span>}
-            <span><i className="sw map-s-mean" />24-h window mean (map colour)</span>
+            {m && mH != null && <span><i className="sw map-s-meas" />Station PM2.5 ≈ (WAQI)</span>}
+            <span><i className="sw map-s-mean" />24-h window mean, µg/m³ (→ API on map)</span>
             <span><i className="sw map-s-std" />35 µg/m³ standard</span>
           </div>
         </> : <>

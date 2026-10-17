@@ -4,10 +4,14 @@
    Every control change calls engine.simulate(); the headline, figures and grid re-sort live. */
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { loadEngine } from './engine/index.js'
+import { pmToApi } from '../Map/scales.js'
 import './briefing.css'
 
 const REDUCE = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)
-const MAAQS = 35 // µg/m³, Malaysia Ambient Air Quality Standard 2020, 24 h mean PM2.5
+// Shown as DOE's Air Pollutant Index, as on the Command map: each window's CAMS PM2.5 mean (µg/m³) through DOE's
+// PM2.5 sub-index formula. The ranking model itself still takes PM2.5 in µg/m³.
+const UNHEALTHY = 101 // API, DOE "Unhealthy" band
+const bad = a => a != null && a >= UNHEALTHY
 const WINS = ['24', '48', '72']
 const WIN_TEXT = { all: 'the whole 0–72 h', 24: 'the first day (0–24 h)', 48: 'the second day (24–48 h)', 72: 'the third day (48–72 h)' }
 const WIN_SHORT = { all: '0–72 h', 24: '0–24 h', 48: '24–48 h', 72: '48–72 h' }
@@ -64,7 +68,7 @@ function toScenario(sc, states) {
 const sameSc = (a, b) => a.haze === b.haze && a.clinics === b.clinics && a.n95 === b.n95 && a.window === b.window && (a.haze === 1 || a.where === b.where)
 const presetsFor = D => [
   { id: 'plan', label: 'Published plan', sub: 'as ranked by the pipeline', sc: D },
-  { id: 'sumatra', label: 'Sumatra fires', sub: 'west coast PM2.5 ×2', sc: { ...D, haze: 2, where: 'west' } },
+  { id: 'sumatra', label: 'Sumatra fires', sub: 'west coast haze ×2', sc: { ...D, haze: 2, where: 'west' } },
   { id: 'borneo', label: 'Borneo fires', sub: 'Sarawak and Sabah ×3', sc: { ...D, haze: 3, where: 'borneo' } },
   { id: 'clear', label: 'Haze eases', sub: 'everywhere ×0.5', sc: { ...D, haze: 0.5, where: 'all' } },
   { id: 'short', label: 'Short on stock', sub: '3 clinics, 150,000 N95s', sc: { ...D, clinics: 3, n95: 150000 } },
@@ -74,7 +78,7 @@ const presetsFor = D => [
 /* ---------- reasons: the inputs where a state is most extreme among the 16 ---------- */
 function reasonsFor(row, all, win) {
   const feats = [
-    { k: 'pm', get: r => r.pmWin, high: true },
+    { k: 'pm', get: r => r.apiWin, high: true },
     { k: 'pop', get: r => r.population, high: true },
     { k: 'pov', get: r => r.poverty_rate, high: true },
     { k: 'inc', get: r => r.income_median, high: false },
@@ -92,14 +96,14 @@ function reasonsFor(row, all, win) {
   const say = ({ k, v, worse, n }) => {
     const top = worse === 1, bottom = worse === n
     if (up) return {
-      pm: v > MAAQS ? `PM2.5 ${nf(v, 0)}, over the limit` : `PM2.5 ${nf(v, 0)}${top ? ', the highest' : ''}`,
+      pm: bad(v) ? `API ${nf(v, 0)}, unhealthy` : `API ${nf(v, 0)}${top ? ', the highest' : ''}`,
       pop: `${people(v)} people${top ? ', the most' : ''}`,
       pov: `${nf(v, 1)}% of homes poor${top ? ', the most' : ''}`,
       inc: `median income RM ${nf(v)}${top ? ', the lowest' : ''}`,
       beds: `${nf(v, 2)} beds per 1,000${top ? ', the fewest' : ''}`,
     }[k]
     return {
-      pm: `PM2.5 ${nf(v, 0)}${bottom ? ', the cleanest' : ''}`,
+      pm: `API ${nf(v, 0)}${bottom ? ', the cleanest' : ''}`,
       pop: `${people(v)} people${bottom ? ', the fewest' : ''}`,
       pov: `${nf(v, 1)}% of homes poor`,
       inc: `median income RM ${nf(v)}`,
@@ -260,19 +264,19 @@ function Scenario({ sc, set, D, states, result, ms, changes, onReset, isPlan }) 
   )
 }
 
-function MiniChart({ pm, yMax, win }) {
+function MiniChart({ api, yMax, win }) {
   return (
     <div className="briefing-mc" aria-hidden="true">
       <div className="briefing-mc-plot">
-        <span className="briefing-mc-std" style={{ bottom: MAAQS / yMax * 100 + '%' }} />
+        <span className="briefing-mc-std" style={{ bottom: UNHEALTHY / yMax * 100 + '%' }} />
         {WINS.map(w => (
           <span key={w} className={cx('briefing-mc-col', win !== 'all' && win !== w && 'dim')}>
-            <i className={pm[w] > MAAQS ? 'over' : ''} style={{ height: Math.max(2, Math.min(1, pm[w] / yMax) * 100) + '%' }} />
+            <i className={bad(api[w]) ? 'over' : ''} style={{ height: Math.max(2, Math.min(1, api[w] / yMax) * 100) + '%' }} />
           </span>
         ))}
       </div>
       <div className="briefing-mc-v">
-        {WINS.map(w => <span key={w} className={cx('num', pm[w] > MAAQS && 'over', win !== 'all' && win !== w && 'dim')}>{nf(pm[w], 0)}</span>)}
+        {WINS.map(w => <span key={w} className={cx('num', bad(api[w]) && 'over', win !== 'all' && win !== w && 'dim')}>{nf(api[w], 0)}</span>)}
       </div>
     </div>
   )
@@ -285,7 +289,7 @@ function Panel({ r, yMax, win, sel, onPick, isPlan }) {
   const changed = !isPlan && (r.mobile_clinic !== r.plan.mobile_clinic || r.n95 !== r.plan.n95)
   const tone = r.mobile_clinic ? 'clinic' : r.n95 ? 'mask' : 'none'
   const label = `Priority ${r.priority}: ${r.short}. Risk ${nf(r.risk_score, 2)}. Gets ${getsText(r.mobile_clinic, r.n95).toLowerCase()}. ` +
-    `PM2.5 forecast ${WINS.map(w => `${WIN_SHORT[w]} ${nf(r.pm[w], 0)}`).join(', ')} µg/m³. ${r.why.text}.`
+    `Forecast API ${WINS.map(w => `${WIN_SHORT[w]} ${nf(r.api[w], 0)}`).join(', ')}. ${r.why.text}.`
   return (
     <li data-flip={r.key} className="briefing-cell">
       <button type="button" className={cx('briefing-panel', tone, sel && 'sel')} aria-pressed={sel} aria-label={label} onClick={() => onPick(r.key)}>
@@ -294,7 +298,7 @@ function Panel({ r, yMax, win, sel, onPick, isPlan }) {
           <Move d={isPlan ? 0 : r.delta} was={r.planPriority} />
         </span>
         <span className="briefing-p-name">{r.short}</span>
-        <MiniChart pm={r.pm} yMax={yMax} win={win} />
+        <MiniChart api={r.api} yMax={yMax} win={win} />
         <span className="briefing-p-risk">
           <span className="briefing-p-k">Risk</span>
           <span className="briefing-track" aria-hidden="true"><i style={{ width: Math.max(0, Math.min(1, r.risk_score)) * 100 + '%' }} /></span>
@@ -315,7 +319,7 @@ const COLS = [
   { k: 'priority', label: 'Priority', get: r => r.priority, first: 'asc', num: true },
   { k: 'state', label: 'State', get: r => r.short, first: 'asc' },
   { k: 'risk', label: 'Risk score', get: r => r.risk_score, first: 'desc', num: true },
-  { k: 'pm', label: 'PM2.5', unit: 'µg/m³', get: r => r.pmWin, first: 'desc', num: true },
+  { k: 'pm', label: 'Forecast API', unit: 'from PM2.5', get: r => r.apiWin, first: 'desc', num: true },
   { k: 'income', label: 'Median income', unit: 'RM/month', get: r => r.income_median, first: 'asc', num: true },
   { k: 'poverty', label: 'Poverty', unit: '% homes', get: r => r.poverty_rate, first: 'desc', num: true },
   { k: 'beds', label: 'Beds', unit: 'per 1,000', get: r => r.beds_per_1000, first: 'asc', num: true },
@@ -334,7 +338,7 @@ function Table({ rows, win, isPlan }) {
   return (
     <div className="briefing-tablewrap" tabIndex={0} role="region" aria-label="All figures by state, scrolls sideways on small screens">
       <table className="briefing-table">
-        <caption className="briefing-sr">All 16 states. PM2.5 is the {WIN_SHORT[win]} forecast mean. Select a column heading to sort.</caption>
+        <caption className="briefing-sr">All 16 states. Forecast API is the {WIN_SHORT[win]} CAMS PM2.5 mean converted to DOE's Air Pollutant Index. Select a column heading to sort.</caption>
         <thead>
           <tr>
             {COLS.map(col => {
@@ -356,7 +360,7 @@ function Table({ rows, win, isPlan }) {
               <td className="n"><b className="num">{r.priority}</b>{!isPlan && <Move d={r.delta} was={r.planPriority} />}</td>
               <th scope="row">{r.short}</th>
               <td className="n num">{nf(r.risk_score, 2)}</td>
-              <td className={cx('n num', r.pmWin > MAAQS && 'briefing-over')}>{nf(r.pmWin, 1)}</td>
+              <td className={cx('n num', bad(r.apiWin) && 'briefing-over')}>{nf(r.apiWin, 0)}</td>
               <td className="n num">{nf(r.income_median)}</td>
               <td className="n num">{nf(r.poverty_rate, 1)}</td>
               <td className="n num">{nf(r.beds_per_1000, 2)}</td>
@@ -437,18 +441,20 @@ export default function Briefing({ baseUrl = './', stKey, select }) {
       const s = byKey[r.key] || {}
       const f = factorOf(sc, r.key)
       const pm = Object.fromEntries(WINS.map(w => [w, s.pm25 ? s.pm25[w] * f : null]))
-      return { ...s, ...r, short: s.short || short(r.state), pm, pmWin: sc.window === 'all' ? meanPm(pm) : pm[sc.window], plan: planBy[r.key] || r }
+      const api = Object.fromEntries(WINS.map(w => [w, pmToApi(pm[w])]))
+      const pmWin = sc.window === 'all' ? meanPm(pm) : pm[sc.window]
+      return { ...s, ...r, short: s.short || short(r.state), pm, api, pmWin, apiWin: pmToApi(pmWin), plan: planBy[r.key] || r }
     })
     rows.forEach(r => { r.why = reasonsFor(r, rows, sc.window) })
-    const yMax = Math.max(70, Math.ceil(Math.max(...rows.flatMap(r => WINS.map(w => r.pm[w] || 0))) / 10) * 10)
-    // Peak forecast, by window, with ties (Selangor and KL share one CAMS grid cell).
+    const yMax = Math.max(150, Math.ceil(Math.max(...rows.flatMap(r => WINS.map(w => r.api[w] || 0))) / 50) * 50)
+    // Peak forecast API, by window, with ties (Selangor and KL share one CAMS grid cell).
     let peak = { v: -1, names: [], w: null }
     rows.forEach(r => WINS.forEach(w => {
-      const v = Math.round(r.pm[w] * 10) / 10
+      const v = r.api[w] ?? -1
       if (v > peak.v) peak = { v, names: [r.short], w }
       else if (v === peak.v && !peak.names.includes(r.short)) peak.names.push(r.short)
     }))
-    const over = rows.filter(r => WINS.some(w => r.pm[w] > MAAQS)).length
+    const over = rows.filter(r => WINS.some(w => bad(r.api[w]))).length
     const clinicRows = rows.filter(r => r.mobile_clinic)
     const n95Rows = rows.filter(r => r.n95 > 0)
     const moved = rows.filter(r => r.delta).length
@@ -527,8 +533,8 @@ export default function Briefing({ baseUrl = './', stKey, select }) {
             <dd className="briefing-fsub">of {nf(stock.n95)}, to {v.n95Rows.length} states</dd>
           </div>
           <div>
-            <dt>Peak PM2.5 forecast</dt>
-            <dd className="num"><b className={v.peak.v > MAAQS ? 'briefing-over' : ''}>{nf(tPeak, 1)}</b><span className="briefing-of"> µg/m³</span></dd>
+            <dt>Peak forecast API</dt>
+            <dd className="num"><b className={bad(v.peak.v) ? 'briefing-over' : ''}>{nf(tPeak, 0)}</b><span className="briefing-of"> {bad(v.peak.v) ? 'unhealthy' : 'API'}</span></dd>
             <dd className="briefing-fsub">{v.peak.names[0]}{v.peak.names.length > 1 ? ` +${v.peak.names.length - 1}` : ''}, {WIN_SHORT[v.peak.w]}</dd>
           </div>
           <div>
@@ -543,9 +549,9 @@ export default function Briefing({ baseUrl = './', stKey, select }) {
         <div className="briefing-gridh">
           <h2 id="briefing-grid-h">All {v.rows.length} states, most urgent first{winNote}</h2>
           <p className="briefing-legend">
-            <span className="briefing-lg"><i className="bar" />PM2.5 µg/m³ · 24 / 48 / 72 h</span>
-            <span className="briefing-lg"><i className="std" />35 limit</span>
-            <span className="briefing-lg"><i className="bar over" />over limit</span>
+            <span className="briefing-lg"><i className="bar" />Forecast API · 24 / 48 / 72 h</span>
+            <span className="briefing-lg"><i className="std" />101 unhealthy</span>
+            <span className="briefing-lg"><i className="bar over" />unhealthy</span>
             <span className="briefing-lg"><i className="sq clinic" />clinic</span>
             <span className="briefing-lg"><i className="sq mask" />N95s only</span>
           </p>
@@ -561,7 +567,7 @@ export default function Briefing({ baseUrl = './', stKey, select }) {
             <li><b>Model:</b> {model.type || 'XGBRanker'}{meta.trees ? `, ${meta.trees} trees` : ''}, trained {model.trained_years ? `${model.trained_years[0]}–${model.trained_years[model.trained_years.length - 1]}` : 'on past years'}.</li>
             <li><b>Label:</b> proxy, PM2.5 × vulnerable people (65+, under-5, poor ×2). No official list exists.</li>
             <li><b>NDCG@5:</b> {ndcg != null ? ndcg.toFixed(3) : '–'} vs {base != null ? base.toFixed(3) : '–'} baseline, leave-one-year-out, against that proxy.</li>
-            <li><b>Forecast:</b> Copernicus CAMS PM2.5 at each state capital. Limit 35 µg/m³ (MAAQS 2020).</li>
+            <li><b>Forecast:</b> Copernicus CAMS PM2.5 at each state capital. Each 24-h window mean is shown as DOE's Air Pollutant Index (DOE's PM2.5 sub-index formula, as on the Command map); unhealthy = API 101+. The ranking model itself takes the PM2.5 values in µg/m³.</li>
             <li><b>Allocation:</b> one clinic per state down the ranking; N95s to the top 10 by vulnerable people. Stock is a placeholder.</li>
             <li><b>Scenarios:</b> re-run the same model in your browser. Nothing is saved.</li>
           </ul>
@@ -582,7 +588,7 @@ export default function Briefing({ baseUrl = './', stKey, select }) {
           </dl>
         </Expander>
         <p className="briefing-credit">
-          Data: <a href="https://open.dosm.gov.my" target="_blank" rel="noopener noreferrer">OpenDOSM</a> / <a href="https://data.gov.my" target="_blank" rel="noopener noreferrer">data.gov.my</a> (CC BY 4.0) · PM2.5: Copernicus CAMS via Open-Meteo (CC BY 4.0)
+          Data: <a href="https://open.dosm.gov.my" target="_blank" rel="noopener noreferrer">OpenDOSM</a> / <a href="https://data.gov.my" target="_blank" rel="noopener noreferrer">data.gov.my</a> (CC BY 4.0) · PM2.5: Copernicus CAMS via Open-Meteo (CC BY 4.0), shown as API with DOE's formula
         </p>
       </footer>
     </article>

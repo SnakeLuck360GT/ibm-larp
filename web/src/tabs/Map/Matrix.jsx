@@ -27,7 +27,6 @@ export default function Matrix({ rows, scale, horizon, setHorizon, sel, onSelect
     }
     prev.current = now
   })
-  const hi = HS.indexOf(horizon)
   const count = h => rows.filter(r => scale.bad(r.v[h])).length
 
   return (
@@ -42,22 +41,21 @@ export default function Matrix({ rows, scale, horizon, setHorizon, sel, onSelect
         </div>
       </div>
       <p className="map-mx-sub hint">{live
-        ? <>µg/m³ · Now: measured · +h: CAMS 24-h mean</>
+        ? <>API · Now: DOE measured · +h: from CAMS PM2.5</>
         : <>API · Arrives: first day at 101+</>}</p>
-      <div className={'map-mx-grid' + (live ? ' has-now' : '')} style={{ '--i': hi }}>
-        <div className="map-mx-hl" aria-hidden="true" />
+      <div className={'map-mx-grid' + (live ? ' has-now' : '')}>
         <div className="map-mx-row map-mx-head">
           <span className="map-mx-sn">State</span>
           {live && (
             <button type="button" className={'map-mx-ch meas' + (horizon === 'now' ? ' on' : '')} aria-pressed={horizon === 'now'} disabled={!onNow}
-              onClick={() => onNow && onNow()} title="Measured now at stations (WAQI). ≈ converted from US AQI."
-              aria-label={`Show measured PM2.5 now on the map: ${count('now')} states above 35 µg/m³`}>
-              <b>Now</b><small>≈ meas.</small>
+              onClick={() => onNow && onNow()} title="Measured now by DOE stations (highest station per state)"
+              aria-label={`Show measured API now on the map: ${count('now')} states unhealthy`}>
+              <b>Now</b>
             </button>
           )}
           {HS.map(h => (
             <button key={h} type="button" className={'map-mx-ch' + (h === horizon ? ' on' : '')} aria-pressed={h === horizon}
-              onClick={() => setHorizon && setHorizon(h)} aria-label={`Show +${h} hours on the map: ${count(h)} states ${live ? 'above 35 µg/m³' : 'unhealthy'}`}>
+              onClick={() => setHorizon && setHorizon(h)} aria-label={`Show +${h} hours on the map: ${count(h)} states unhealthy`}>
               <b>+{h} h</b><small>{dateOf(+h)}</small>
             </button>
           ))}
@@ -67,11 +65,11 @@ export default function Matrix({ rows, scale, horizon, setHorizon, sel, onSelect
           {sorted.map(r => (
             <li key={r.key} data-k={r.key}>
               <button type="button" className={'map-mx-row map-mx-r' + (r.key === sel ? ' on' : '')} aria-pressed={r.key === sel} onClick={() => onSelect(r.key)}
-                aria-label={`${r.name}: ${live ? `measured now ${r.meas ? `about ${fmtV(r.v.now, scale)}` : 'unavailable'}, ` : ''}${HS.map(h => `+${h} h ${fmtV(r.v[h], scale)}`).join(', ')} ${scale.unit}. ${live ? 'Above 35' : 'Unhealthy'}: ${arrivalFor(r.arrival, scale, true)}.`}>
+                aria-label={`${r.name}, ${scale.unit}: ${live ? `measured now ${r.doe ? fmtV(r.v.now, scale) : 'unavailable'}, ` : ''}${HS.map(h => `+${h} h ${fmtV(r.v[h], scale)}`).join(', ')}. Unhealthy: ${arrivalFor(r.arrival, scale, true)}.`}>
                 <span className="map-mx-sn"><b title={r.name}>{SHORT[r.key] || r.name}</b></span>
                 {live && (() => {
                   const v = r.v.now, b = scale.bands[scale.band(v)]
-                  return <span className="map-mx-c meas num" title={r.meas ? `≈ converted from US AQI ${r.meas.pmAqi ?? r.meas.aqi} · ${r.meas.station}` : 'No station reading'}
+                  return <span className="map-mx-c meas num" title={r.doe ? `DOE API ${r.doe.api} · ${r.doe.station}${r.doe.n_stations > 1 ? ` (highest of ${r.doe.n_stations})` : ''}` : 'No station reading'}
                     style={{ background: b ? b.c : '#eee', color: b ? b.ink : '#111' }}>{fmtV(v, scale)}</span>
                 })()}
                 {HS.map(h => {

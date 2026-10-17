@@ -5,10 +5,9 @@ import { DRAW_ORDER, NAMES, SMALL, arrivalFor, fmtV, REDUCE } from './scales.js'
 export const VIEWS = [
   { k: 'my', label: 'Malaysia', vb: MY_VB },
   { k: 'pen', label: 'Peninsula', vb: [-12, 58, 488, 562] },
-  { k: 'klang', label: 'Klang Valley', vb: [108, 344, 214, 162] },
+  { k: 'borneo', label: 'Borneo', vb: [574, -10, 960, 645] }, // Sabah, Sarawak, Labuan
 ]
 // Nudge a few value labels off their centroid so they don't sit on the tiny territories.
-const NUDGE = { sl: [-16, -22], ns: [8, 6], la: [16, -10], pg: [-14, 0], me: [4, 4] }
 
 // Animate the viewBox between zoom presets.
 function useTween(target) {
@@ -31,6 +30,23 @@ function useTween(target) {
   return vb
 }
 
+// Grow a preset viewBox to the canvas's aspect ratio, keeping it inside the map's extent where it fits,
+// so a tall preset (Borneo) on a wide canvas fills the spare width with map rather than empty sea.
+function fitView(vb, w, h) {
+  if (!w || !h) return vb
+  let [x, y, vw, vh] = vb
+  const [X, Y, W, H] = MY_VB
+  const clamp = (v, lo, span, size) => (size <= span ? Math.min(Math.max(v, lo), lo + span - size) : lo + (span - size) / 2)
+  if (vw / vh < w / h) {
+    const nw = vh * (w / h)
+    x = clamp(x - (nw - vw) / 2, X, W, nw); vw = nw
+  } else {
+    const nh = vw / (w / h)
+    y = clamp(y - (nh - vh) / 2, Y, H, nh); vh = nh
+  }
+  return [x, y, vw, vh]
+}
+
 function useSize(ref) {
   const [s, setS] = useState({ w: 0, h: 0 })
   useLayoutEffect(() => {
@@ -46,32 +62,22 @@ function useSize(ref) {
 export default function StateMap({ rows, scale, horizon, sel, onSelect, view, dateLabel }) {
   const wrap = useRef(null)
   const { w, h } = useSize(wrap)
-  const vb = useTween(VIEWS.find(v => v.k === view).vb)
-  const [hover, setHover] = useState(null)
+  const vb = fitView(useTween(VIEWS.find(v => v.k === view).vb), w, h)
   // pixels per viewBox unit (preserveAspectRatio meet)
   const k = w && h ? Math.min(w / vb[2], h / vb[3]) : 1
   const px = n => n / k
   const byKey = Object.fromEntries(rows.map(r => [r.key, r]))
 
-  const tipFor = key => {
-    const r = byKey[key]
-    if (!r) return null
-    const g = MY_GEO[key]
-    const ox = (w - vb[2] * k) / 2, oy = (h - vb[3] * k) / 2
-    return { r, x: ox + (g.c[0] - vb[0]) * k, y: oy + (g.b[1] - vb[1]) * k }
-  }
-  const tip = hover && tipFor(hover)
-
   const now = horizon === 'now'
   const when = now ? 'measured now' : `at +${horizon} h`
   const label = r => {
     const v = r.v[horizon], b = scale.bands[scale.band(v)]
-    return `${r.name}: ${now && v != null ? 'about ' : ''}${fmtV(v, scale)} ${scale.unit} ${when}, ${b ? b.label.toLowerCase() : 'no data'}. Haze ${scale.id === 'api' ? 'unhealthy' : 'above standard'}: ${arrivalFor(r.arrival, scale, true).toLowerCase()}.`
+    return `${r.name}: ${scale.id === 'pm' ? `${fmtV(v, scale)} ${scale.unit}` : `${scale.unit} ${fmtV(v, scale)}`} ${when}, ${b ? b.label.toLowerCase() : 'no data'}. Haze ${scale.id === 'pm' ? 'above standard' : 'unhealthy'}: ${arrivalFor(r.arrival, scale, true).toLowerCase()}.`
   }
 
   return (
-    <div className="map-canvas" ref={wrap} onMouseLeave={() => setHover(null)}>
-      <svg viewBox={vb.join(' ')} preserveAspectRatio="xMidYMid meet" role="group" aria-label={`Map of Malaysia coloured by ${now ? 'measured PM2.5 now' : `forecast ${scale.unitLong} at +${horizon} hours, ${dateLabel}`}. Select a state for its forecast.`}>
+    <div className="map-canvas" ref={wrap}>
+      <svg viewBox={vb.join(' ')} preserveAspectRatio="xMidYMid meet" role="group" aria-label={`Map of Malaysia coloured by ${now ? 'measured Air Pollutant Index now' : `forecast ${scale.unitLong} at +${horizon} hours, ${dateLabel}`}. Select a state for its forecast.`}>
         {DRAW_ORDER.map(key => {
           const g = MY_GEO[key], r = byKey[key]
           const v = r && r.v[horizon], b = scale.band(v)
@@ -80,10 +86,10 @@ export default function StateMap({ rows, scale, horizon, sel, onSelect, view, da
             <g key={key}>
               <path d={g.d} className={'map-st' + (sel === key ? ' on' : '')} fill={fill} tabIndex={0} role="button"
                 aria-pressed={sel === key} aria-label={r ? label(r) : NAMES[key]}
-                onClick={() => onSelect(key)} onMouseEnter={() => setHover(key)} onFocus={() => setHover(key)} onBlur={() => setHover(null)}
+                onClick={() => onSelect(key)}
                 onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onSelect(key) } }} />
               {SMALL.has(key) && g.r * k < 8 && (
-                <circle cx={g.c[0]} cy={g.c[1]} r={px(5.5)} fill={fill} stroke={sel === key ? '#111' : '#fff'} strokeWidth={px(sel === key ? 2.5 : 1.5)} pointerEvents="none" />
+                <circle cx={g.c[0]} cy={g.c[1]} r={px(5.5)} fill={fill} stroke={sel === key ? '#111' : '#fff'} strokeWidth={px(sel === key ? 1 : 1.5)} pointerEvents="none" />
               )}
             </g>
           )
@@ -97,14 +103,14 @@ export default function StateMap({ rows, scale, horizon, sel, onSelect, view, da
           const rp = g.r * k
           if (!small && rp < 9) return null
           if (small && key !== 'la' && rp < 5) return null // KL/Putrajaya: labelled only when zoomed in
-          const [nx, ny] = small ? [0, 0] : (rp > 60 ? [0, 0] : NUDGE[key] || [0, 0])
-          let x = g.c[0] + nx, y = g.c[1] + ny
+          let x = g.c[0], y = g.c[1]
           let ink = b == null ? '#111' : scale.bands[b].ink
           let anchor = 'middle'
           let halo = false
           if (key === 'la' && rp < 14) { x = g.c[0] + px(10); y = g.c[1] - px(10); ink = '#111'; anchor = 'start'; halo = true }
           if (small && key !== 'la') { x = g.c[0] + g.r + px(8); y = g.c[1] - px(6); ink = '#111'; anchor = 'start'; halo = true }
-          const showName = rp > 34 || view === 'klang'
+          const showName = rp > 34
+          if (showName && !halo) y -= px(6.5) // centre the number + name pair on the state
           return (
             <g key={'l' + key} pointerEvents="none" className={'map-lbl' + (halo ? ' halo' : '')}>
               <text x={x} y={y} textAnchor={anchor} dominantBaseline="central" fill={ink}
@@ -115,14 +121,6 @@ export default function StateMap({ rows, scale, horizon, sel, onSelect, view, da
           )
         })}
       </svg>
-      {tip && w > 0 && (
-        <div className="map-tip" style={{ left: Math.max(90, Math.min(w - 90, tip.x)), top: Math.max(56, tip.y) }} role="presentation">
-          <b>{tip.r.name}</b>
-          <span><i style={{ background: (scale.bands[scale.band(tip.r.v[horizon])] || {}).c }} />{now && tip.r.v[horizon] != null ? '≈' : ''}{fmtV(tip.r.v[horizon], scale)} {scale.unit} {when} · {(scale.bands[scale.band(tip.r.v[horizon])] || {}).label || 'no reading'}</span>
-          {now && tip.r.meas && <span>US AQI {tip.r.meas.aqi ?? '–'} · {tip.r.meas.station}</span>}
-          <span>{scale.id === 'api' ? 'Unhealthy' : 'Above standard'}: {arrivalFor(tip.r.arrival, scale, true).replace('Already unhealthy today', 'already, today')}</span>
-        </div>
-      )}
     </div>
   )
 }

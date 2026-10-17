@@ -44,7 +44,7 @@ export default function LiveChart({ hourly, means, scale, horizon, issuedAt, set
   const peak = vals.length ? Math.max(...vals) : null
   const peakI = hourly.indexOf(peak)
   const aria = `${name}: hourly PM2.5 forecast for the next 72 hours, from ${fmtV(hourly[0], scale)} now to ${fmtV(hourly[n - 1], scale)} µg/m³; peak ${fmtV(peak, scale)} at +${peakI} h. ` +
-    HS.map(h => `${+h - 24} to ${h} h mean ${fmtV(means[h], scale)}`).join(', ') + '.' + (measured ? ` Measured now about ${fmtV(measured.v, scale)} µg/m³.` : '')
+    HS.map(h => `${+h - 24} to ${h} h mean ${fmtV(means[h], scale)}`).join(', ') + '.' + (measured ? ` Nearest station now about ${fmtV(measured.v, scale)} µg/m³.` : '')
 
   return (
     <div className="map-chart map-lc" ref={ref} onMouseMove={onMove} onMouseLeave={() => setHi(null)}>
@@ -83,7 +83,7 @@ export default function LiveChart({ hourly, means, scale, horizon, issuedAt, set
         </g>}
         {measured && <g pointerEvents="none" className="map-lc-meas">
           <circle cx={x(measured.h)} cy={y(measured.v)} r={5} />
-          <text x={x(measured.h) + 8} y={y(measured.v)} dominantBaseline="central" textAnchor="start">Measured ≈{fmtV(measured.v, scale)}</text>
+          <text x={x(measured.h) + 8} y={y(measured.v)} dominantBaseline="central" textAnchor="start">Station ≈{fmtV(measured.v, scale)}</text>
         </g>}
         {hi != null && hourly[hi] != null && <g pointerEvents="none">
           <line x1={x(hi)} x2={x(hi)} y1={T} y2={H - B} className="map-ch-cross" />

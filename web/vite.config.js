@@ -8,7 +8,7 @@ import react from '@vitejs/plugin-react'
 // `npm run dev` serves that folder live at /data/; a build copies the files into dist/data/ so the
 // site can be hosted as plain static files (`npm run preview` serves that copy).
 const DATA_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../data/out')
-const DATA_FILES = ['states.json', 'ranker_web.json', 'damage.json', 'ledger.json', 'forecast.json', 'forecast_timeline.json', 'forecast_metrics.json', 'forecast_live.json', 'attribution.json', 'waqi_now.json']
+const DATA_FILES = ['states.json', 'ranker_web.json', 'damage.json', 'ledger.json', 'forecast.json', 'forecast_timeline.json', 'forecast_metrics.json', 'forecast_live.json', 'attribution.json', 'waqi_now.json', 'apims_now.json', 'ledger_brief.json']
 
 function pipelineData() {
   const serve = (req, res, next) => {

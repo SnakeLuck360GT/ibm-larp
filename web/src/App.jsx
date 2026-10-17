@@ -9,23 +9,12 @@ const LedgerTab = lazy(() => import('./tabs/Ledger/index.jsx'))
 const TABS = [
   { k: 'map', label: 'Command map', head: ['Command map', 'When does the haze arrive? Forecast air quality by state for the next 72 hours.'] },
   // Routing writes its own headline from the live ranking.
-  { k: 'routing', label: 'Resource routing', head: null, ownWindow: true },
+  { k: 'routing', label: 'Resource routing', head: null },
   { k: 'ledger', label: 'Cross-border ledger', head: ['Cross-border ledger', 'Where the smoke comes from and what it costs.'] },
 ]
 
-// The plan's shared forecast window: one control in the top bar drives the Map and Ledger tabs.
+// The forecast window (horizon) is shared state: the Map and Ledger tabs each have their own control for it.
 // Routing ranks on the full 0–72 h plan or a chosen window inside its own scenario controls.
-const HORIZONS = ['24', '48', '72']
-function HorizonControl({ value, onChange }) {
-  return (
-    <div className="seg hz" role="group" aria-label="Forecast window">
-      {HORIZONS.map(h => (
-        <button key={h} type="button" aria-pressed={value === h} onClick={() => onChange(h)}
-          style={value === h ? { background: 'var(--card)', color: 'var(--ink)', boxShadow: '0 1px 3px rgba(11,16,51,.12)' } : undefined}>+{h}h</button>
-      ))}
-    </div>
-  )
-}
 
 function useHash(valid, def) {
   const read = () => { const h = (location.hash || '').slice(1); return valid.includes(h) ? h : def }
@@ -75,9 +64,6 @@ export default function App() {
         <div className="top-in">
           <div className="brand"><img className="logo" src={`${import.meta.env.BASE_URL}logo.svg`} alt="HazeGuard" width="113" height="34" /></div>
           <Tabs tab={tab} go={go} />
-          {!cur.ownWindow && (
-            <div className="meta"><span className="hint" style={{ marginRight: 2 }}>Forecast</span><HorizonControl value={horizon} onChange={setHorizon} /></div>
-          )}
         </div>
       </header>
       <div className="shell one" key={tab}>

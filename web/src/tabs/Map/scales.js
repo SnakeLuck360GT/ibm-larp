@@ -37,6 +37,26 @@ export const API_SCALE = {
   bad(v) { return v != null && v >= 101 },
 }
 
+// Live: DOE's API on the same bands. "Now" is DOE's measured API; the +h windows are CAMS PM2.5 converted with pmToApi.
+export const LIVE_API_SCALE = {
+  ...API_SCALE, id: 'live',
+  arrivalWord: 'unhealthy', arrivalRule: 'first 24-h window whose CAMS PM2.5 mean converts to API 101+',
+}
+
+// DOE Malaysia PM2.5 sub-index (24-h mean, µg/m³ -> API), from DOE's "API Calculation" sheet (eqms.doe.gov.my).
+// [conc lo, conc hi, API lo, API hi]; a value between two rows (e.g. 12.05) belongs to the lower row, as in DOE's IFS formula.
+const PM25_API = [[0, 12.0, 0, 50], [12.1, 50.4, 51, 100], [50.5, 55.4, 101, 150], [55.5, 150.4, 151, 200],
+  [150.5, 250.4, 201, 300], [250.5, 350.4, 301, 400], [350.5, 500.4, 401, 500]]
+export function pmToApi(x) {
+  if (x == null || !Number.isFinite(x)) return null
+  for (let i = 0; i < PM25_API.length; i++) {
+    const [cl, ch, il, ih] = PM25_API[i]
+    const next = PM25_API[i + 1] ? PM25_API[i + 1][0] : Infinity
+    // the top row extends past 500 (DOE's "Emergency" level) rather than capping
+    if (x < next) return Math.round(il + ((ih - il) / (ch - cl)) * (Math.max(x, cl) - cl))
+  }
+}
+
 // PM2.5 24-h mean, µg/m³: WHO 2021 guideline 15; Malaysian standard (MAAQS 2020) 35; MAAQS 2015 interim target 75.
 export const PM_SCALE = {
   id: 'pm', unit: 'µg/m³', unitLong: 'PM2.5, 24-hour mean', dp: 1, line: 35, lineLabel: 'Malaysian standard (35)',
@@ -74,7 +94,7 @@ export const ARR_RANK = h => (h == null ? 999 : h)
 export const REDUCE = typeof window !== 'undefined' && !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)
 
 // Arrival in the current mode's terms. Replay (API): first forecast day at 101+, 0 = today.
-// Live (PM2.5): h = end of the first 24-h window whose mean is above 35 µg/m³ (24 = the next 24 h).
+// Live: h = end of the first 24-h window at API 101+ (24 = the next 24 h).
 export function arrivalFor(h, scale, long) {
   if (scale.id === 'api') return arrivalText(h, long)
   if (h == null) return long ? 'Not forecast within 72 h' : 'Not in 72 h'
